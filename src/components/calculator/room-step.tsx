@@ -18,7 +18,7 @@ function RoomIcon({ id }: { id: string }) {
     strokeLinecap: 'round' as const,
     strokeLinejoin: 'round' as const,
     'aria-hidden': true,
-    className: 'h-7 w-7',
+    className: 'h-6 w-6',
   }
   switch (id) {
     case 'zal':
@@ -100,7 +100,7 @@ export function RoomStep({ selectedId, onSelect }: Props) {
               }}
               aria-pressed={active}
               className={cn(
-                'group relative flex h-full w-full flex-col items-start gap-2 overflow-hidden rounded-2xl border p-3.5 text-left transition-all duration-200',
+                'group relative flex h-full min-h-[112px] w-full flex-col items-start gap-1.5 overflow-hidden rounded-2xl border p-3 text-left transition-all duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
                 active
                   ? 'border-brand-accent-glow bg-brand-accent-soft shadow-[0_0_24px_-4px_rgba(91,155,255,0.45)]'
@@ -116,7 +116,7 @@ export function RoomStep({ selectedId, onSelect }: Props) {
               />
               <span
                 className={cn(
-                  'relative flex h-10 w-10 items-center justify-center rounded-xl ring-1 transition-colors',
+                  'relative flex h-9 w-9 items-center justify-center rounded-xl ring-1 transition-colors',
                   active
                     ? 'bg-brand-accent-soft text-brand-accent-glow ring-brand-accent/40'
                     : 'bg-white/[0.05] text-ink-secondary ring-white/10',
@@ -124,10 +124,10 @@ export function RoomStep({ selectedId, onSelect }: Props) {
               >
                 <RoomIcon id={room.id} />
               </span>
-              <span className="text-[14px] font-bold leading-tight text-ink-primary">
+              <span className="text-[13.5px] font-bold leading-tight text-ink-primary">
                 {room.label}
               </span>
-              <span className="text-[11px] leading-snug text-ink-secondary">
+              <span className="text-[10.5px] leading-snug text-ink-secondary">
                 {room.hint}
               </span>
               {active ? (

@@ -59,11 +59,14 @@ export function ServicesGrid({ items }: Props) {
         <div>
           <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-glass-strong px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary backdrop-blur-md">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-accent-glow shadow-[0_0_8px_rgba(91,155,255,0.9)]" />
-            5 yo‘nalish
+            5 yechim
           </div>
           <h2 id="services-title" className="mt-2 text-[20px] font-bold leading-tight text-ink-primary">
-            Nimani qilamiz
+            Xonangiz uchun yechimlar
           </h2>
+          <p className="mt-1 text-[12px] text-ink-muted">
+            Material, yorug‘lik va montaj bir joyda.
+          </p>
         </div>
       </div>
 
@@ -87,7 +90,7 @@ export function ServicesGrid({ items }: Props) {
                 <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-accent-glow/30 to-brand-accent/10 text-brand-accent-glow ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-[1.05]">
                   <ServiceIconSVG name={s.icon} />
                 </span>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="truncate text-[14px] font-semibold leading-tight text-ink-primary">
                     {s.title}
                   </p>
@@ -97,6 +100,15 @@ export function ServicesGrid({ items }: Props) {
                     </p>
                   ) : null}
                 </div>
+                <span
+                  aria-hidden
+                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-ink-muted transition-colors group-hover:bg-brand-accent-soft group-hover:text-brand-accent-glow"
+                >
+                  <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden>
+                    <path d="M12 5v14" />
+                    <path d="M5 12h14" />
+                  </svg>
+                </span>
               </div>
             </li>
           )

@@ -15,6 +15,8 @@ type Props = {
   external?: boolean
   ariaLabel?: string
   className?: string
+  /** Compact pill: smaller height, no sublabel, no arrow, centered label. */
+  compact?: boolean
 }
 
 const variantClasses: Record<Variant, string> = {
@@ -45,7 +47,9 @@ export function CtaButton({
   external = true,
   ariaLabel,
   className,
+  compact = false,
 }: Props) {
+  const isCompact = compact || !sublabel
   return (
     <a
       href={href}
@@ -55,8 +59,11 @@ export function CtaButton({
         ? { target: '_blank', rel: 'noopener noreferrer' }
         : {})}
       className={cn(
-        'group relative isolate flex min-h-[64px] items-center gap-3 overflow-hidden rounded-2xl border px-4 py-3 transition-transform duration-200 ease-out',
+        'group relative isolate flex items-center overflow-hidden rounded-2xl border transition-transform duration-200 ease-out',
         'active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
+        isCompact
+          ? 'min-h-[52px] justify-center gap-2 px-3 py-2'
+          : 'min-h-[64px] gap-3 px-4 py-3',
         variantClasses[variant],
         className,
       )}
@@ -64,36 +71,45 @@ export function CtaButton({
       <span
         aria-hidden
         className={cn(
-          'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl',
+          'flex shrink-0 items-center justify-center rounded-xl',
+          isCompact ? 'h-9 w-9' : 'h-11 w-11',
           iconWrapClasses[variant],
         )}
       >
         {icon}
       </span>
 
-      <span className="flex min-w-0 flex-1 flex-col text-left">
-        <span className="truncate text-[15px] font-semibold leading-tight">
+      {isCompact ? (
+        <span className="truncate text-[14px] font-semibold leading-tight">
           {label}
         </span>
-        {sublabel ? (
-          <span className="truncate text-[12px] font-medium leading-tight opacity-80">
-            {sublabel}
+      ) : (
+        <>
+          <span className="flex min-w-0 flex-1 flex-col text-left">
+            <span className="truncate text-[15px] font-semibold leading-tight">
+              {label}
+            </span>
+            {sublabel ? (
+              <span className="truncate text-[12px] font-medium leading-tight opacity-80">
+                {sublabel}
+              </span>
+            ) : null}
           </span>
-        ) : null}
-      </span>
 
-      <svg
-        aria-hidden
-        viewBox="0 0 24 24"
-        className="h-5 w-5 shrink-0 opacity-70 transition-transform duration-200 group-hover:translate-x-0.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M9 6l6 6-6 6" />
-      </svg>
+          <svg
+            aria-hidden
+            viewBox="0 0 24 24"
+            className="h-5 w-5 shrink-0 opacity-70 transition-transform duration-200 group-hover:translate-x-0.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </>
+      )}
 
       <span
         aria-hidden

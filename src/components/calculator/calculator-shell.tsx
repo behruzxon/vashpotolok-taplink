@@ -20,7 +20,7 @@ export function CalculatorShell({ step, title, subtitle, children, back, next }:
   const stepIndex = isResult ? TOTAL_STEPS : (step as number)
 
   return (
-    <GlassCard glow className="overflow-hidden p-5">
+    <GlassCard glow className="overflow-hidden p-4 sm:p-5">
       <span
         aria-hidden
         className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-brand-accent-glow/70 to-transparent"
@@ -72,26 +72,26 @@ export function CalculatorShell({ step, title, subtitle, children, back, next }:
           })}
         </div>
 
-        <div className="mt-4">
-          <h2 className="text-[18px] font-bold leading-tight text-ink-primary">
+        <div className="mt-3.5">
+          <h2 className="text-[17px] font-bold leading-tight text-ink-primary">
             {title}
           </h2>
           {subtitle ? (
-            <p className="mt-1 text-[12.5px] leading-snug text-ink-secondary">
+            <p className="mt-1 text-[12px] leading-snug text-ink-secondary">
               {subtitle}
             </p>
           ) : null}
         </div>
       </div>
 
-      <div className="mt-4 min-h-[260px]">
+      <div className="mt-3.5 min-h-[220px]">
         <div key={String(step)} className="animate-step-in motion-reduce:animate-none">
           {children}
         </div>
       </div>
 
       {back || next ? (
-        <div className="mt-5 flex items-center gap-2">
+        <div className="mt-4 flex items-center gap-2">
           {back ? (
             <button
               type="button"
@@ -99,7 +99,7 @@ export function CalculatorShell({ step, title, subtitle, children, back, next }:
               disabled={back.disabled}
               aria-label="Orqaga"
               className={cn(
-                'flex min-h-[48px] items-center justify-center rounded-xl border px-4 text-[13px] font-semibold transition-colors',
+                'flex min-h-[46px] items-center justify-center rounded-xl border px-3.5 text-[13px] font-semibold transition-colors',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
                 back.disabled
                   ? 'cursor-not-allowed border-line-soft bg-white/[0.02] text-ink-muted opacity-50'
@@ -117,7 +117,7 @@ export function CalculatorShell({ step, title, subtitle, children, back, next }:
               onClick={next.onClick}
               disabled={next.disabled}
               className={cn(
-                'flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-xl px-4 text-[14px] font-semibold transition-transform active:scale-[0.98]',
+                'flex min-h-[46px] flex-1 items-center justify-center gap-2 rounded-xl px-4 text-[14px] font-semibold transition-transform active:scale-[0.98]',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
                 next.disabled
                   ? 'cursor-not-allowed bg-white/[0.05] text-ink-muted'

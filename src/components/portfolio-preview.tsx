@@ -34,9 +34,15 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track('click_instagram', { source: 'portfolio' })}
-            className="shrink-0 rounded-full border border-line-soft bg-bg-glass-strong px-3 py-1.5 text-[11px] font-semibold text-ink-primary backdrop-blur-md transition-colors hover:bg-white/[0.10]"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-line-strong bg-bg-glass-strong px-3.5 py-2 text-[12px] font-semibold text-ink-primary backdrop-blur-md transition-colors hover:bg-white/[0.10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
           >
-            Instagram →
+            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
+            Instagram
+            <span aria-hidden className="text-brand-accent-glow">→</span>
           </a>
         ) : null}
       </div>
@@ -63,6 +69,82 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
         Shunday yechim sizga ham — botda hisoblating
       </a>
     </section>
+  )
+}
+
+function RenderPlaceholder({ gradient }: { gradient: string }) {
+  return (
+    <>
+      <div className="absolute inset-0" style={{ background: gradient }} aria-hidden />
+      {/* darker base — interior depth */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(180deg, transparent 0%, transparent 45%, rgba(8,11,22,0.55) 80%, rgba(8,11,22,0.85) 100%)',
+        }}
+      />
+      {/* ceiling panel — top zone */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-[42%]"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 60%, transparent 100%)',
+        }}
+      />
+      {/* ceiling grid lines */}
+      <div
+        aria-hidden
+        className="absolute inset-x-3 top-2 h-[36%] opacity-[0.28]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px)',
+          backgroundSize: '100% 12px',
+        }}
+      />
+      {/* main LED strip — center */}
+      <div
+        aria-hidden
+        className="absolute inset-x-6 top-[40%] h-px"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.95) 50%, transparent 100%)',
+          boxShadow: '0 0 20px rgba(91,155,255,0.85)',
+        }}
+      />
+      {/* perimeter LED — lower */}
+      <div
+        aria-hidden
+        className="absolute inset-x-12 top-[46%] h-px opacity-70"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(91,155,255,0.7) 50%, transparent 100%)',
+          boxShadow: '0 0 12px rgba(91,155,255,0.6)',
+        }}
+      />
+      {/* horizon line — wall ↔ floor */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-[70%] h-px opacity-50"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%)',
+        }}
+      />
+      {/* wall vignette — corners */}
+      <div
+        aria-hidden
+        className="absolute -left-8 top-[20%] h-32 w-32 rounded-full blur-3xl"
+        style={{ background: 'rgba(91,155,255,0.18)' }}
+      />
+      <div
+        aria-hidden
+        className="absolute -right-8 top-[20%] h-32 w-32 rounded-full blur-3xl"
+        style={{ background: 'rgba(91,155,255,0.18)' }}
+      />
+    </>
   )
 }
 
@@ -94,33 +176,7 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
               className="absolute inset-0 h-full w-full object-cover"
             />
           ) : (
-            <>
-              <div className="absolute inset-0" style={{ background: item.gradient }} aria-hidden />
-              {/* abstract ceiling panel — LED line pattern */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 opacity-[0.22]"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(rgba(255,255,255,0.95) 1px, transparent 1px)',
-                  backgroundSize: '100% 28px',
-                  maskImage:
-                    'linear-gradient(180deg, #000 0%, #000 50%, transparent 100%)',
-                  WebkitMaskImage:
-                    'linear-gradient(180deg, #000 0%, #000 50%, transparent 100%)',
-                }}
-              />
-              {/* central LED strip */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-x-8 top-[18%] h-px"
-                style={{
-                  background:
-                    'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.85) 50%, transparent 100%)',
-                  boxShadow: '0 0 16px rgba(91,155,255,0.7)',
-                }}
-              />
-            </>
+            <RenderPlaceholder gradient={item.gradient} />
           )}
 
           <span

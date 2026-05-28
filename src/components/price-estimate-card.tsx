@@ -28,28 +28,28 @@ const STEP_ORDER: Step[] = [1, 2, 3, 4, 5, 6, 'result']
 
 const STEP_COPY: Record<Exclude<Step, 'result'>, { title: string; subtitle: string }> = {
   1: {
-    title: 'Qaysi xona uchun ҳисоблаймиз?',
-    subtitle: 'Xona turiga qarab dizayn va narx taxmini moslashadi.',
+    title: 'Qaysi xona uchun?',
+    subtitle: 'Xona turiga qarab narx taxmini moslashadi.',
   },
   2: {
-    title: 'Xona o‘lchamini kiriting',
-    subtitle: 'Uzunlik va en yozilsa, maydon avtomatik hisoblanadi.',
+    title: 'Xona o‘lchami',
+    subtitle: 'Uzunlik va eni yozilsa, maydon avtomatik hisoblanadi.',
   },
   3: {
     title: 'Qaysi ko‘rinish yoqadi?',
     subtitle: 'Material va dizayn turiga qarab narx farq qiladi.',
   },
   4: {
-    title: 'Qo‘shimcha ishlar bormi?',
-    subtitle: 'Qo‘shimcha ishlarni bilmasangiz, 0 qoldiring — operator maslahat beradi.',
+    title: 'Qo‘shimcha ishlar',
+    subtitle: 'Bilmasangiz 0 qoldiring — operator maslahat beradi.',
   },
   5: {
-    title: 'Qaysi hududda montaj kerak?',
-    subtitle: 'Hudud yo‘l xarajati va usta chiqish vaqtiga ta’sir qilishi mumkin.',
+    title: 'Montaj hududi',
+    subtitle: 'Hudud yo‘l xarajatiga ta’sir qilishi mumkin.',
   },
   6: {
-    title: 'Tanlovingizni tasdiqlang',
-    subtitle: 'Hammasi to‘g‘ri bo‘lsa, hisobni ko‘rsataman.',
+    title: 'Tanlovni tasdiqlang',
+    subtitle: 'Hammasi to‘g‘ri bo‘lsa — hisobni ko‘rsataman.',
   },
 }
 

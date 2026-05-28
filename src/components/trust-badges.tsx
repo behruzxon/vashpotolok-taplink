@@ -1,4 +1,5 @@
 import type { TrustIcon, TrustItem } from '@/data/trust'
+import { cn } from '@/lib/cn'
 
 type Props = {
   items: TrustItem[]
@@ -68,42 +69,41 @@ export function TrustBadges({ items }: Props) {
         </p>
       </div>
 
-      <ul className="flex flex-col gap-2">
-        {items.map((t) => (
-          <li
-            key={t.id}
-            className="group relative isolate flex items-start gap-3 overflow-hidden rounded-2xl border border-line-soft bg-bg-glass-strong p-3.5 backdrop-blur-md transition-colors duration-300 hover:border-line-strong"
-          >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-brand-accent-soft opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100 motion-reduce:hidden"
-            />
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
-            />
-
-            <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-accent-glow/30 to-brand-accent/10 text-brand-accent-glow ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-[1.04] group-hover:ring-white/20">
-              <Icon name={t.icon} />
+      <ul className="grid grid-cols-2 gap-2">
+        {items.map((t, i) => {
+          const isLastOdd = i === items.length - 1 && items.length % 2 === 1
+          return (
+            <li
+              key={t.id}
+              className={cn(
+                'group relative isolate flex h-full flex-col gap-2 overflow-hidden rounded-2xl border border-line-soft bg-bg-glass-strong p-3 backdrop-blur-md transition-colors duration-300 hover:border-line-strong',
+                isLastOdd && 'col-span-2 flex-row items-center',
+              )}
+            >
               <span
                 aria-hidden
-                className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 motion-reduce:hidden"
-                style={{
-                  boxShadow: '0 0 18px rgba(91, 155, 255, 0.55)',
-                }}
+                className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand-accent-soft opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100 motion-reduce:hidden"
               />
-            </span>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+              />
 
-            <div className="min-w-0 flex-1">
-              <p className="text-[13.5px] font-bold leading-tight text-ink-primary">
-                {t.title}
-              </p>
-              <p className="mt-0.5 text-[11.5px] leading-snug text-ink-secondary">
-                {t.description}
-              </p>
-            </div>
-          </li>
-        ))}
+              <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-accent-glow/30 to-brand-accent/10 text-brand-accent-glow ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-[1.05] group-hover:ring-white/20">
+                <Icon name={t.icon} />
+              </span>
+
+              <div className="min-w-0 flex-1">
+                <p className="text-[13px] font-bold leading-tight text-ink-primary">
+                  {t.title}
+                </p>
+                <p className="mt-0.5 text-[11px] leading-snug text-ink-secondary">
+                  {t.description}
+                </p>
+              </div>
+            </li>
+          )
+        })}
       </ul>
     </section>
   )

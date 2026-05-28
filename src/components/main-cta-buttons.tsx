@@ -29,12 +29,12 @@ export function MainCTAButtons({ links }: Props) {
         <CtaButton
           href={links.phone}
           variant="secondary"
+          compact
           external={false}
           label="Qo‘ng‘iroq"
-          sublabel="Tezkor maslahat"
           ariaLabel={`Qo'ng'iroq qilish ${links.phoneDisplay}`}
           icon={
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden>
               <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1l-2.2 1.9Z"/>
             </svg>
           }
@@ -44,11 +44,11 @@ export function MainCTAButtons({ links }: Props) {
         <CtaButton
           href={links.telegramProfile}
           variant="tertiary"
-          label="Telegram"
-          sublabel="Operator bilan yozish"
-          ariaLabel="Telegramda yozish"
+          compact
+          label="Operator"
+          ariaLabel="Telegramda operatorga yozish"
           icon={
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden>
               <path d="M21.5 4.2 2.8 11.4c-1 .4-.9 1.8.1 2l4.8 1.4 1.8 5.5c.2.6 1 .8 1.4.3l2.7-3 5 3.7c.8.6 2 .2 2.2-.8l3.4-14.6c.3-1.1-.8-2-1.8-1.6Z"/>
             </svg>
           }
@@ -59,11 +59,11 @@ export function MainCTAButtons({ links }: Props) {
       <CtaButton
         href={links.instagram}
         variant="ghost"
-        label="Instagram profil"
-        sublabel="Real ishlarimiz"
+        compact
+        label="Instagram · Real ishlar"
         ariaLabel="Instagram profil"
         icon={
-          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+          <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
             <rect x="3" y="3" width="18" height="18" rx="5" />
             <circle cx="12" cy="12" r="4" />
             <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
