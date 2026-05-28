@@ -37,21 +37,23 @@ data/
 ├── trust.ts            (5 trust badges — Phase UI-1)
 ├── videos.ts           (Phase Trust-1 — VideoItem array)
 ├── testimonials.ts     (Phase Trust-1 — TestimonialItem array)
-└── price-options.ts    (Phase 3.5 — RoomType / CeilingType / ProAddonOption / DistrictOption)
+└── price-options.ts    (Phase Calc-3 — RoomType / CeilingType, district olib tashlangan)
 
 lib/
 ├── analytics.ts        (track() typed + trackEvent() adhoc)
 ├── pro-price-estimate.ts (Phase 3.5 — calculateProEstimate, parseDecimal, buildProTelegramPayload)
 └── cn.ts               (className merger)
 
-components/calculator/   (Phase Calc-2 — 5-step Pro calculator)
-├── calculator-shell.tsx       (header + 5-segment progress + body + nav)
+components/calculator/   (Phase Calc-3 — 4-step Pro calculator)
+├── calculator-shell.tsx       (header + 4-segment progress + body + nav)
 ├── room-step.tsx              (Step 1 — custom SVG room icons)
 ├── size-step.tsx              (Step 2 — dimensions/area toggle)
 ├── ceiling-step.tsx           (Step 3 — 5 ceiling types with SVG pattern preview)
-├── district-step.tsx          (Step 4 — 16 Qashqadaryo districts, 2-col grid, narx bir xil)
-├── result-step.tsx            (Step 5 — premium invoice + CTA)
+├── result-step.tsx            (Step 4 — premium invoice + CTA)
 └── estimate-breakdown.tsx     (invoice line items)
+
+Phase Calc-3 da olib tashlangan:
+- district-step.tsx (tuman tanlash step yo'q — Qashqadaryo bo'yicha umumiy narx)
 
 Phase Calc-2 da olib tashlangan:
 - addons-step.tsx, quantity-control.tsx (Qo'shimcha ishlar step yo'q)

@@ -11,9 +11,9 @@
  *     qo'llanma" — qaysi qiymatni qachon o'zgartirish, qaysi qiymatlarga
  *     tegmaslik kerak, sanity-check qanday qilinadi.
  *
- * PHASE CALC-2 ESLATMA: addon stepi (LED liniya/karniz/lyustra/...) olib
- * tashlandi. District travel fee 0 — barcha Qashqadaryo tumanlari uchun
- * narx bir xil, tuman faqat lead context uchun saqlanadi.
+ * PHASE CALC-3 ESLATMA: tuman/district tanlash stepi olib tashlandi.
+ * Narx Qashqadaryo bo'yicha umumiy hisoblanadi (faqat xona/o'lcham/potolok).
+ * Addons step Phase Calc-2'da olib tashlangan edi.
  */
 
 // ---------------------------------------------------------------------------
@@ -45,11 +45,6 @@ export type CeilingType = {
   pricePerM2Min: number
   pricePerM2Max: number
   premiumLevel: PremiumLevel
-}
-
-export type DistrictOption = {
-  id: string
-  label: string
 }
 
 export type RoomShapeMode = 'dimensions' | 'area'
@@ -117,26 +112,3 @@ export const ceilingTypes: CeilingType[] = [
   },
 ]
 
-// ---------------------------------------------------------------------------
-// TUMANLAR / SHAHARLAR (Qashqadaryo bo'ylab)
-// ---------------------------------------------------------------------------
-// Phase Calc-2: tuman tanlash faqat lead/context uchun. Narxga ta'sir
-// qilmaydi — barcha tumanlar uchun narx bir xil.
-export const districtOptions: DistrictOption[] = [
-  { id: 'qarshi-shahar',     label: 'Qarshi shahri' },
-  { id: 'qarshi-tumani',     label: 'Qarshi tumani' },
-  { id: 'shahrisabz-shahar', label: 'Shahrisabz shahri' },
-  { id: 'shahrisabz-tumani', label: 'Shahrisabz tumani' },
-  { id: 'kitob',             label: 'Kitob' },
-  { id: 'yakkabog',          label: 'Yakkabog‘' },
-  { id: 'chiroqchi',         label: 'Chiroqchi' },
-  { id: 'qamashi',           label: 'Qamashi' },
-  { id: 'guzor',             label: 'G‘uzor' },
-  { id: 'kasbi',             label: 'Kasbi' },
-  { id: 'koson',             label: 'Koson' },
-  { id: 'nishon',            label: 'Nishon' },
-  { id: 'muborak',           label: 'Muborak' },
-  { id: 'mirishkor',         label: 'Mirishkor' },
-  { id: 'dehqonobod',        label: 'Dehqonobod' },
-  { id: 'kokdala',           label: 'Ko‘kdala' },
-]

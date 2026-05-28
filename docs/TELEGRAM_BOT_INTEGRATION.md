@@ -4,7 +4,7 @@ Bu hujjat **taplink frontend ↔ Telegram bot** o'rtasidagi rasmiy kontrakt.
 
 > Hozircha bot kodi **bu repository ichida emas**. Bu hujjat — boshqa repoda yoki shu monorepo'da bot yaratuvchi (yoki integratsiyalovchi) uchun yagona haqiqat manbai.
 >
-> **Joriy versiya:** `pro_*` payload format (Phase Calc-2 — addonsiz qisqa forma). Eski Phase 3.5 `pro_..._<N>a` va Phase 3 `price_*` formatlari ishlatilmaydi va bu hujjatda **§10 Versioning** bo'limida tarixiy referans sifatida saqlanadi.
+> **Joriy versiya:** `pro_*` payload format (Phase Calc-3 — addonsiz, districtsiz qisqa forma). Eski Phase Calc-2 `pro_..._<district>`, Phase 3.5 `pro_..._<N>a` va Phase 3 `price_*` formatlari ishlatilmaydi va bu hujjatda **§10 Versioning** bo'limida tarixiy referans sifatida saqlanadi.
 
 ---
 
@@ -62,12 +62,12 @@ https://t.me/vashpotolokbot?start=portfolio
 
 > Yangi source qo'shilsa: `src/data/links.ts` ichidagi `TelegramSource` type'iga qo'shing **va** bu doc'ni yangilang.
 
-### 2.4 Pro calculator payload (Phase Calc-2)
+### 2.4 Pro calculator payload (Phase Calc-3)
 
 Format:
 
 ```
-pro_<roomTypeId>_<areaM2>_<ceilingTypeId>_<districtId>
+pro_<roomTypeId>_<areaM2>_<ceilingTypeId>
 ```
 
 Komponentlar:
@@ -78,24 +78,22 @@ Komponentlar:
 | 1 | `roomTypeId` | `data/price-options.ts` → `roomTypes` | `zal` |
 | 2 | `areaM2` | integer, ≥ 6 va ≤ 80 (`AREA_MIN_M2`–`AREA_MAX_M2`) | `24` |
 | 3 | `ceilingTypeId` | `data/price-options.ts` → `ceilingTypes` | `gulli` |
-| 4 | `districtId` | `data/price-options.ts` → `districtOptions` | `kitob` |
 
 Misollar:
 ```
-pro_zal_24_gulli_kitob
-pro_yotoqxona_18_odnotonniy_qarshi-shahar
-pro_oshxona_14_mramor_kasbi
-pro_koridor_10_uv-pechat_yakkabog
+pro_zal_24_gulli
+pro_yotoqxona_18_odnotonniy
+pro_oshxona_14_mramor
+pro_koridor_10_uv-pechat
 ```
 
-Hammasi `≤ 60 belgi` (eng uzun kombinatsiya ~46 belgi). Frontend `payload.length <= 60 ? payload : slice(0, 60)` qoidasini qo'llaydi — amaliyotda hech qachon kesilmaydi.
+Hammasi `≤ 60 belgi` (eng uzun kombinatsiya ~26 belgi). Frontend `payload.length <= 60 ? payload : slice(0, 60)` qoidasini qo'llaydi — amaliyotda hech qachon kesilmaydi.
 
-### 2.5 Phase Calc-2 da nima o'zgardi
+### 2.5 Phase Calc-3 da nima o'zgardi
 
-- **`<N>a` (addon count) segmenti olib tashlandi** — Pro Calculator'dan addons step butunlay olib tashlandi.
-- **Ceiling type'lar yangi:** `odnotonniy / gulli / naqsh / mramor / uv-pechat` (eski `matoviy/glyans/satin/led/premium` o'rniga).
-- **District ro'yxati Qashqadaryo bo'ylab 16 ta**: tuman/shahar. Travel fee 0 — narxga ta'sir yo'q, faqat lead context.
-- Eski Phase 3.5 format (`pro_..._<N>a`) deprecated. Eski Phase 3 format (`price_*`) ham deprecated. Faqat yangi 5-segment format generate qilinadi.
+- **`<districtId>` segmenti olib tashlandi** — Pro Calculator'dan tuman tanlash step butunlay olib tashlandi. Narx Qashqadaryo bo'yicha umumiy hisoblanadi.
+- **Ceiling type'lar saqlandi:** `odnotonniy / gulli / naqsh / mramor / uv-pechat`.
+- Eski Phase Calc-2 format (`pro_..._<district>`) deprecated. Eski Phase 3.5 format (`pro_..._<N>a`) deprecated. Eski Phase 3 format (`price_*`) ham deprecated. Faqat yangi 4-segment format generate qilinadi.
 
 ### 2.6 Char sanitatsiya (frontend tomonida)
 
@@ -130,28 +128,9 @@ Quyidagi ID'lar — **rasmiy kontrakt qismi**. Ularning **har qanday o'zgarishi 
 
 Phase Calc-2 da addons step va ID ro'yxati olib tashlandi. Payloadda mavjud emas.
 
-### 3.4 `districtId` (16 ta — Phase Calc-2)
+### 3.4 `districtId` — OLIB TASHLANGAN (Phase Calc-3)
 
-Hammasi uchun travel fee `0` — narxga ta'sir yo'q.
-
-| ID | UI label |
-|---|---|
-| `qarshi-shahar` | Qarshi shahri |
-| `qarshi-tumani` | Qarshi tumani |
-| `shahrisabz-shahar` | Shahrisabz shahri |
-| `shahrisabz-tumani` | Shahrisabz tumani |
-| `kitob` | Kitob |
-| `yakkabog` | Yakkabog‘ |
-| `chiroqchi` | Chiroqchi |
-| `qamashi` | Qamashi |
-| `guzor` | G‘uzor |
-| `kasbi` | Kasbi |
-| `koson` | Koson |
-| `nishon` | Nishon |
-| `muborak` | Muborak |
-| `mirishkor` | Mirishkor |
-| `dehqonobod` | Dehqonobod |
-| `kokdala` | Ko‘kdala |
+Phase Calc-3'da tuman tanlash stepi olib tashlandi. Payloadda mavjud emas. Tuman ma'lumotini bot mijozdan welcome flow ichida to'g'ridan-to'g'ri so'raydi.
 
 ### 3.5 Source identifikatorlari
 
@@ -177,7 +156,7 @@ Hammasi uchun travel fee `0` — narxga ta'sir yo'q.
 type ParsedPayload =
   | { kind: 'pro';     source: 'pro';
       room_type_id: RoomId; area_m2: number;
-      ceiling_type_id: CeilingId; district_id: DistrictId;
+      ceiling_type_id: CeilingId;
       raw: string }
   | { kind: 'source';  source: 'hero'|'sticky'|'footer'|'portfolio'|'price'|'services'|'trust';
       raw: string }
@@ -189,11 +168,6 @@ type ParsedPayload =
 ```ts
 const ROOM_IDS = ['zal', 'yotoqxona', 'oshxona', 'koridor'] as const
 const CEILING_IDS = ['odnotonniy', 'gulli', 'naqsh', 'mramor', 'uv-pechat'] as const
-const DISTRICT_IDS = [
-  'qarshi-shahar', 'qarshi-tumani', 'shahrisabz-shahar', 'shahrisabz-tumani',
-  'kitob', 'yakkabog', 'chiroqchi', 'qamashi', 'guzor', 'kasbi',
-  'koson', 'nishon', 'muborak', 'mirishkor', 'dehqonobod', 'kokdala',
-] as const
 const SOURCE_IDS = ['hero', 'sticky', 'footer', 'portfolio', 'price', 'services', 'trust'] as const
 
 const VALID_CHARS = /^[A-Za-z0-9_-]+$/
@@ -210,20 +184,17 @@ export function parseStartPayload(raw: string): ParsedPayload {
     return { kind: 'source', source: raw as typeof SOURCE_IDS[number], raw }
   }
 
-  // Pro calculator (Phase Calc-2: 5 segments, no addon count)
+  // Pro calculator (Phase Calc-3: 4 segments, no district, no addon count)
   if (raw.startsWith('pro_')) {
     const segments = raw.split('_')
-    // ['pro', room, area, ceiling, district]
-    if (segments.length !== 5) return { kind: 'unknown', source: 'unknown', raw }
+    // ['pro', room, area, ceiling]
+    if (segments.length !== 4) return { kind: 'unknown', source: 'unknown', raw }
 
-    const [, room, areaStr, ceiling, district] = segments
+    const [, room, areaStr, ceiling] = segments
     if (!(ROOM_IDS as readonly string[]).includes(room ?? '')) {
       return { kind: 'unknown', source: 'unknown', raw }
     }
     if (!(CEILING_IDS as readonly string[]).includes(ceiling ?? '')) {
-      return { kind: 'unknown', source: 'unknown', raw }
-    }
-    if (!(DISTRICT_IDS as readonly string[]).includes(district ?? '')) {
       return { kind: 'unknown', source: 'unknown', raw }
     }
 
@@ -237,7 +208,6 @@ export function parseStartPayload(raw: string): ParsedPayload {
       room_type_id: room as typeof ROOM_IDS[number],
       area_m2: Math.round(area),
       ceiling_type_id: ceiling as typeof CEILING_IDS[number],
-      district_id: district as typeof DISTRICT_IDS[number],
       raw,
     }
   }
@@ -261,10 +231,9 @@ Fayl o'zining `__main__` blokida 15+ ta test case bilan keladi. Bot'da to'g'rida
 | Bo'sh / `None` / `""` | `unknown` |
 | Uzunlik > 64 | `unknown` |
 | Allowlist'dan tashqari belgi | `unknown` |
-| `pro_` prefiks lekin segmentlar ≠ 5 | `unknown` |
+| `pro_` prefiks lekin segmentlar ≠ 4 | `unknown` |
 | `roomTypeId` ro'yxatda yo'q | `unknown` |
 | `ceilingTypeId` ro'yxatda yo'q | `unknown` |
-| `districtId` ro'yxatda yo'q | `unknown` |
 | `areaM2` raqam emas yoki < 6 yoki > 80 | `unknown` |
 | Hech qaysi tur — boshqa string | `unknown` |
 
@@ -283,15 +252,16 @@ Fayl o'zining `__main__` blokida 15+ ta test case bilan keladi. Bot'da to'g'rida
 
 Template matnlari: [`TELEGRAM_BOT_MESSAGES.md`](./TELEGRAM_BOT_MESSAGES.md)
 
-### Pro calculator welcome flow (Template C, Phase Calc-2)
+### Pro calculator welcome flow (Template C, Phase Calc-3)
 
-Mijoz Pro Calculator natijasidan keyin botga keladi. Bot 3 qadamda welcome qiladi:
+Mijoz Pro Calculator natijasidan keyin botga keladi. Bot 4 qadamda welcome qiladi:
 
-1. **Summary chiqaradi:** xona / maydon / potolok / tuman.
-2. **Rasm so'raydi:** “Iltimos xonangiz rasmini yuboring (ixtiyoriy).”
-3. **Aloqa ma'lumotlari:** telefon raqami — operator chiqishi uchun.
+1. **Summary chiqaradi:** xona / maydon / potolok (payloaddan).
+2. **Tuman so'raydi:** “Qaysi tumandansiz?” — payloadda yo'q, bot mijozdan to'g'ridan-to'g'ri oladi.
+3. **Rasm so'raydi:** “Iltimos xonangiz rasmini yuboring (ixtiyoriy).”
+4. **Aloqa ma'lumotlari:** telefon raqami — operator chiqishi uchun.
 
-Addons step yo'q — barcha taqdimot bevosita o'lchov bilan operator tomonidan tushuntiriladi. Keyin operatorga lead notify yuboriladi.
+Addons va district stepi frontendda yo'q — barcha taqdimot bevosita o'lchov bilan operator tomonidan tushuntiriladi. Keyin operatorga lead notify yuboriladi.
 
 ---
 
@@ -299,13 +269,13 @@ Addons step yo'q — barcha taqdimot bevosita o'lchov bilan operator tomonidan t
 
 Bot ham frontend bilan **bir xil formula** bo'yicha taxminiy range hisoblashi mumkin. Bu Template C'da `Taxminiy range: 1 050 000 — 1 720 000 so'm` matnini chiqarish uchun kerak.
 
-Formula (frontend `src/lib/pro-price-estimate.ts` bilan birxil — Phase Calc-2):
+Formula (frontend `src/lib/pro-price-estimate.ts` bilan birxil — Phase Calc-3):
 
 ```
 base_min = ceiling.pricePerM2Min × area × room.baseMultiplier
 base_max = ceiling.pricePerM2Max × area × room.baseMultiplier
 
-# Addons yo'q, district narxga ta'sir qilmaydi (travel fee = 0).
+# Addons va district kalkulyatorda yo'q — narx Qashqadaryo bo'yicha umumiy.
 
 total_min = round_to_thousand(base_min)
 total_max = round_to_thousand(base_max)
@@ -331,7 +301,7 @@ Narx tablitsalari — `docs/examples/telegram_payload_parser.py` ichida ham takr
 | `room_type` | string? | Parser (pro uchun) |
 | `area_m2` | int? | Parser |
 | `ceiling_type` | string? | Parser |
-| `district` | string? | Parser |
+| `district` | string? | Bot welcome flow ichida mijozdan olinadi |
 | `estimated_min` | int? | Bot calc |
 | `estimated_max` | int? | Bot calc |
 | `created_at` | timestamp | Bot |
@@ -420,8 +390,9 @@ Operator har holatda bot ichida `/lead 123 status measured` kabi komandadan foyd
 | Versiya | Format | Sana | Status |
 |---|---|---|---|
 | `v1` (legacy) | `price_<room>_<area>_<ceiling>[_<addons>]` | 2026-05 (Phase 3) | **Deprecated** — frontend ishlatmaydi |
-| `v2` (legacy) | `pro_<room>_<area>_<ceiling>_<district>_<N>a` | 2026-05 (Phase 3.5) | **Deprecated** — Phase Calc-2'da `<N>a` olib tashlangan |
-| `v3` (current) | `pro_<room>_<area>_<ceiling>_<district>` | 2026-05 (Phase Calc-2) | **Aktiv** |
+| `v2` (legacy) | `pro_<room>_<area>_<ceiling>_<district>_<N>a` | 2026-05 (Phase 3.5) | **Deprecated** — `<N>a` olib tashlangan |
+| `v3` (legacy) | `pro_<room>_<area>_<ceiling>_<district>` | 2026-05 (Phase Calc-2) | **Deprecated** — `<district>` olib tashlangan |
+| `v4` (current) | `pro_<room>_<area>_<ceiling>` | 2026-05 (Phase Calc-3) | **Aktiv** |
 
 ### Legacy `price_*` format (faqat tarixiy referans)
 

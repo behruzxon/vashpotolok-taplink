@@ -1,6 +1,6 @@
 'use client'
 
-import { ceilingTypes, districtOptions, roomTypes } from '@/data/price-options'
+import { ceilingTypes, roomTypes } from '@/data/price-options'
 import { formatPriceRange, type ProEstimateResult } from '@/lib/pro-price-estimate'
 import { createTelegramBotLink } from '@/data/links'
 import { track } from '@/lib/analytics'
@@ -10,7 +10,6 @@ type Props = {
   result: ProEstimateResult
   roomTypeId: string
   ceilingTypeId: string
-  districtId: string
   onRestart: () => void
 }
 
@@ -18,12 +17,10 @@ export function ResultStep({
   result,
   roomTypeId,
   ceilingTypeId,
-  districtId,
   onRestart,
 }: Props) {
   const room = roomTypes.find((r) => r.id === roomTypeId)
   const ceiling = ceilingTypes.find((c) => c.id === ceilingTypeId)
-  const district = districtOptions.find((d) => d.id === districtId)
 
   const botLink = createTelegramBotLink(result.payload)
   const isValid = result.valid && result.totalMax > 0
@@ -59,7 +56,6 @@ export function ResultStep({
         <SummaryRow label="Xona" value={room?.label ?? '—'} />
         <SummaryRow label="Maydon" value={`${result.areaM2} m²`} />
         <SummaryRow label="Potolok" value={ceiling?.label ?? '—'} full />
-        <SummaryRow label="Tuman" value={district?.label ?? '—'} full />
       </dl>
 
       <EstimateBreakdown items={result.breakdown} />

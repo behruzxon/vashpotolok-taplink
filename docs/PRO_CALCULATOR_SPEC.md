@@ -1,23 +1,23 @@
-# Pro Calculator — Spec (Phase Calc-2)
+# Pro Calculator — Spec (Phase Calc-3)
 
-VashPotolok taplink ichidagi **5 qadamli professional kalkulyator** (`PriceEstimateCard`) — Phase Calc-2 deliverable.
+VashPotolok taplink ichidagi **4 qadamli professional kalkulyator** (`PriceEstimateCard`) — Phase Calc-3 deliverable.
 
 Bog'liq hujjatlar:
 - [`COMPONENT_ARCHITECTURE.md`](./COMPONENT_ARCHITECTURE.md) — komponent daraxti
-- [`TELEGRAM_BOT_INTEGRATION.md`](./TELEGRAM_BOT_INTEGRATION.md) — payload kontrakt (`pro_<room>_<area>_<ceiling>_<district>`)
+- [`TELEGRAM_BOT_INTEGRATION.md`](./TELEGRAM_BOT_INTEGRATION.md) — payload kontrakt (`pro_<room>_<area>_<ceiling>`)
 - [`SEO_AND_ANALYTICS.md`](./SEO_AND_ANALYTICS.md) — eventlar
 
 ---
 
 ## 1. Maqsad
 
-Phase Calc-2 da kalkulyator biznes yo'nalishiga moslandi:
-- **Addons step olib tashlandi** — mijoz uchun ixcham oqim
-- **Yangi ceiling type'lar** real xizmatga mos: `odnotonniy`, `gulli`, `naqsh`, `mramor`, `uv-pechat`
-- **Qashqadaryo bo'yicha bitta narx siyosati** — district travel fee 0, tuman faqat lead context uchun
-- **16 tumandan tanlash** — viloyat bo'ylab to'liq qoplama
+Phase Calc-3 da kalkulyator yana soddalashtirildi:
+- **Tuman step olib tashlandi** — narx Qashqadaryo bo'yicha umumiy hisoblanadi
+- **Yagona ceiling type'lar** real xizmatga mos: `odnotonniy`, `gulli`, `naqsh`, `mramor`, `uv-pechat`
+- **3 input step + result** — mijoz uchun eng ixcham oqim
+- Addons step Phase Calc-2'da olib tashlangan edi
 
-Mijoz **botga borgunicha** to'liq kontekstga ega bo'ladi, bot ortiqcha so'roq qilmaydi.
+Mijoz **botga borgunicha** kontekstga ega bo'ladi (xona, maydon, potolok). Tuman ma'lumotini operator botda to'g'ridan-to'g'ri so'raydi.
 
 ---
 
@@ -27,11 +27,10 @@ Mijoz **botga borgunicha** to'liq kontekstga ega bo'ladi, bot ortiqcha so'roq qi
 |---|---|---|---|
 | 1 | Xona turi | `RoomStep` | `roomTypeId !== ''` |
 | 2 | Xona o'lchami | `SizeStep` | `AREA_MIN_M2 ≤ area ≤ AREA_MAX_M2` (6–80 m²) |
-| 3 | Potolok turi | `CeilingStep` | `ceilingTypeId !== ''` |
-| 4 | Tuman | `DistrictStep` | `districtId !== '' && result.valid` |
-| 5 | Natija (`result`) | `ResultStep` | — |
+| 3 | Potolok turi | `CeilingStep` | `ceilingTypeId !== '' && result.valid` |
+| 4 | Natija (`result`) | `ResultStep` | — |
 
-`TOTAL_STEPS = 5` (4 input + 1 result), progress bar 5 segment.
+`TOTAL_STEPS = 4` (3 input + 1 result), progress bar 4 segment.
 
 ---
 
@@ -44,18 +43,14 @@ Mijoz **botga borgunicha** to'liq kontekstga ega bo'ladi, bot ortiqcha so'roq qi
 | `lengthM`, `widthM` | Step 2 (dimensions mode) | text input, decimal/comma OK |
 | `areaM2` | Step 2 (area mode) | text input, decimal/comma OK |
 | `ceilingTypeId` | Step 3 (radio list) | `ceilingTypes` |
-| `districtId` | Step 4 (2-col grid) | `districtOptions` |
 
 ### Stable ID kontrakt
 
-Phase Calc-2 bot kontrakti bilan **bir xil**:
+Phase Calc-3 bot kontrakti bilan **bir xil**:
 
 ```
 roomTypeId:    zal | yotoqxona | oshxona | koridor
 ceilingTypeId: odnotonniy | gulli | naqsh | mramor | uv-pechat
-districtId:    qarshi-shahar | qarshi-tumani | shahrisabz-shahar | shahrisabz-tumani |
-               kitob | yakkabog | chiroqchi | qamashi | guzor | kasbi |
-               koson | nishon | muborak | mirishkor | dehqonobod | kokdala
 ```
 
 > **Breaking change qoidasi:** ushbu ID'larni o'zgartirish frontend ↔ bot kontraktini buzadi. Migratsiya qo'llanmasi [`TELEGRAM_BOT_INTEGRATION.md`](./TELEGRAM_BOT_INTEGRATION.md) §10.
@@ -88,7 +83,7 @@ total_min = round_to_thousand(base_min)
 total_max = round_to_thousand(base_max)
 ```
 
-District narxga **ta'sir qilmaydi** — har 16 tuman uchun yagona narx siyosati.
+Narx Qashqadaryo bo'yicha umumiy — district/hudud kalkulyatorga kirmaydi.
 
 ### 4.3 Yaxlitlash
 
@@ -99,7 +94,7 @@ Yakuniy summa **`ROUNDING_STEP_SOM = 1000`** ga yaxlitlanadi.
 | Tekshiruv | Natija |
 |---|---|
 | `area < AREA_MIN_M2 (6)` yoki `> AREA_MAX_M2 (80)` | `result.valid = false`, total `0` |
-| `roomTypeId`, `ceilingTypeId`, `districtId` ro'yxatda yo'q | `valid = false` |
+| `roomTypeId`, `ceilingTypeId` ro'yxatda yo'q | `valid = false` |
 | `lengthM` / `widthM` parse bo'lmasa (dimensions mode) | `area = 0`, `valid = false` |
 
 ---
@@ -135,23 +130,27 @@ Result step'da `unit: 'area'` → UI'da `24 m²` ko'rsatadi.
 ## 6. Payload format (Telegram bot uchun)
 
 ```
-pro_<roomTypeId>_<areaM2>_<ceilingTypeId>_<districtId>
+pro_<roomTypeId>_<areaM2>_<ceilingTypeId>
 ```
 
 ### Misollar
 
 ```
-pro_zal_24_gulli_kitob
-pro_yotoqxona_18_odnotonniy_qarshi-shahar
-pro_oshxona_14_mramor_kasbi
-pro_koridor_10_uv-pechat_yakkabog
+pro_zal_24_gulli
+pro_yotoqxona_18_odnotonniy
+pro_oshxona_14_mramor
+pro_koridor_10_uv-pechat
 ```
 
-Hammasi `≤ 60 belgi` (eng uzun kombinatsiya `pro_yotoqxona_80_uv-pechat_shahrisabz-tumani` ≈ 46 ta belgi). Payload `≤ 60 belgi` shartiga to'g'ri kelmasa (deyarli imkonsiz) `slice(0, 60)` qilinadi.
+Hammasi `≤ 60 belgi` (eng uzun kombinatsiya `pro_yotoqxona_80_uv-pechat` ≈ 26 ta belgi). Payload Telegram 64-belgilik limitidan ancha pastda.
 
-### Legacy format (Phase 3.5 — olib tashlangan)
+### Legacy formatlar (olib tashlangan)
 
-`pro_<room>_<area>_<ceiling>_<district>_<N>a` formati Phase Calc-2'da `<N>a` segmentisiz qoldi (addons olib tashlandi). Eski format hozir generate qilinmaydi.
+- **Phase Calc-2:** `pro_<room>_<area>_<ceiling>_<district>` (5-segment, district bilan). Phase Calc-3'da `<district>` segmenti olib tashlandi.
+- **Phase 3.5:** `pro_<room>_<area>_<ceiling>_<district>_<N>a` (6-segment, addon count bilan). Phase Calc-2'da `<N>a` olib tashlandi.
+- **Phase 3:** `price_*` format. Phase 3.5'da `pro_*` ga ko'chirildi.
+
+Hozir frontend faqat **Phase Calc-3 4-segment** formatini generate qiladi. Eski formatlar bot parser tomonidan `unknown` qaytaradi.
 
 ---
 
@@ -202,15 +201,9 @@ Hammasi bir joyda: **`src/data/price-options.ts`**.
 
 **Tartib qoidasi:** UI'da array tartibida ko'rinadi → arzondan qimmatga saqlash tavsiya etiladi.
 
-### 8.3 Tuman ro'yxati
+### 8.3 District — olib tashlangan (Phase Calc-3)
 
-`districtOptions` array — 16 ta Qashqadaryo tumani/shahri. Narxga ta'sir yo'q. Yangi tuman qo'shilsa:
-
-```ts
-{ id: 'yangituman', label: 'Yangituman' }
-```
-
-ID'lar bot parser bilan sinxronlanishi shart (`docs/TELEGRAM_BOT_INTEGRATION.md` §3.4).
+Phase Calc-3'da `districtOptions` va `DistrictOption` type `data/price-options.ts`'dan olib tashlandi. Narx Qashqadaryo bo'yicha umumiy hisoblanadi. Tuman ma'lumotini bot mijozdan to'g'ridan-to'g'ri so'raydi.
 
 ### 8.4 Room multiplier — nima uchun kerak
 
@@ -225,10 +218,10 @@ ID'lar bot parser bilan sinxronlanishi shart (`docs/TELEGRAM_BOT_INTEGRATION.md`
 
 | # | Input | Expected range (joriy preset) |
 |---|---|---|
-| 1 | Yotoqxona · odnotonniy · 18 m² · Qarshi shahri | ~1 440 000 — 1 620 000 so'm |
-| 2 | Zal · gulli · 6×4 m (24 m²) · Kitob | ~3 024 000 — 3 402 000 so'm |
-| 3 | Oshxona · mramor · 14 m² · Kasbi | ~1 680 000 — 1 890 000 so'm |
-| 4 | Koridor · UV pechat · 10 m² · Yakkabog‘ | ~1 330 000 — 1 520 000 so'm |
+| 1 | Yotoqxona · odnotonniy · 18 m² | ~1 440 000 — 1 620 000 so'm |
+| 2 | Zal · gulli · 6×4 m (24 m²) | ~3 024 000 — 3 402 000 so'm |
+| 3 | Oshxona · mramor · 14 m² | ~1 680 000 — 1 890 000 so'm |
+| 4 | Koridor · UV pechat · 10 m² | ~1 330 000 — 1 520 000 so'm |
 
 ### 8.6 Yaxlitlash
 
@@ -237,7 +230,7 @@ ID'lar bot parser bilan sinxronlanishi shart (`docs/TELEGRAM_BOT_INTEGRATION.md`
 ### 8.7 Qaysi qiymatlarni o'zgartirmaslik kerak
 
 **TEGMANG** (Telegram bot kontrakti qismi):
-- `id` (room/ceiling/district) — bot whitelist'i shu ID'lar bilan ishlaydi
+- `id` (room/ceiling) — bot whitelist'i shu ID'lar bilan ishlaydi
 - `AREA_MIN_M2`, `AREA_MAX_M2` — payload format'i va validatsiya bilan bog'liq
 
 **EHTIYOT BO'LIB** o'zgartiring:
@@ -270,8 +263,7 @@ ID'lar bot parser bilan sinxronlanishi shart (`docs/TELEGRAM_BOT_INTEGRATION.md`
 - **`prefers-reduced-motion`** — barcha animatsiyalar avtomatik o'chadi.
 - **Active state** — `border-brand-accent-glow` + `bg-brand-accent-soft` + box-shadow glow.
 - **Premium level badge** (Step 3) — `standard` neutral, `comfort` brand-blue, `premium` gold.
-- **District info note** (Step 4) — “Qashqadaryo bo'ylab narx bir xil. Tuman tanlovi faqat kontakt uchun ishlatiladi.”
-- **Result step** — gradient total range katta, summary 4 row (Xona, Maydon, Potolok, Tuman), invoice 1 line + amber disclaimer.
+- **Result step** — gradient total range katta, summary 3 row (Xona, Maydon, Potolok), invoice 1 line + amber disclaimer.
 
 ---
 
@@ -284,8 +276,7 @@ ID'lar bot parser bilan sinxronlanishi shart (`docs/TELEGRAM_BOT_INTEGRATION.md`
 - [ ] Step 2: area 100 → warning “6–80 m² oralig'ida”, CTA disabled.
 - [ ] Step 2: `3,5` (vergulli) → `3.5` sifatida tan olinadi.
 - [ ] Step 3: 5 ta ceiling, har biri SVG pattern preview va premium badge bilan.
-- [ ] Step 4: 16 ta district 2-col grid, har biri tanlanadi, top'da info note.
-- [ ] Result: invoice 1 ta qator (Polotno + montaj) + total range gradient, district info summary'da.
-- [ ] Result: CTA Telegram'ga `pro_<room>_<area>_<ceiling>_<district>` payload bilan ochiladi.
+- [ ] Result: invoice 1 ta qator (Polotno + montaj) + total range gradient, summary 3 row.
+- [ ] Result: CTA Telegram'ga `pro_<room>_<area>_<ceiling>` payload bilan ochiladi.
 - [ ] Result: “Qayta hisoblash” → Step 1'ga, state reset.
 - [ ] Back navigatsiya har step'da ishlaydi.

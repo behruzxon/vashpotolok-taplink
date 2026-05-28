@@ -184,6 +184,29 @@ Hozir bot **alohida proyektda** (yoki yaratilishi kerak) — bu repository ichid
 
 ---
 
+## Phase Calc-3 — District step olib tashlash  ✅
+
+Calculator yana soddalashtirildi: tuman/shahar tanlash stepi olib tashlandi.
+
+### O'zgarishlar
+
+- **Step soni 5 → 4:** Tuman tanlash step olib tashlandi. Flow: Room → Size → Ceiling → Result.
+- **`TOTAL_STEPS = 4`** (3 input + 1 result).
+- **`DistrictOption` type va `districtOptions` array** `data/price-options.ts` dan olib tashlandi.
+- **`ProEstimateInput`** ichidan `districtId` field olib tashlandi.
+- **Formula soddalashdi:** `total = ceiling.pricePerM2 × area × room.baseMultiplier`. District allaqachon narxga ta'sir qilmas edi (Phase Calc-2'da fee 0 edi) — endi state'dan ham olib tashlandi.
+- **Yangi payload format:** `pro_<room>_<area>_<ceiling>` (eski `pro_..._<district>` o'rniga). Misol: `pro_zal_24_gulli`.
+- **Result step summary:** `Tuman` qatori olib tashlandi. Qoldi: Xona, Maydon, Potolok.
+- **`pro_calculator_completed` analytics** dan `districtId` field chiqarildi.
+- **`district-step.tsx`** fayli o'chirildi (158 qator).
+- **Bot kontrakti yangilandi:** `docs/TELEGRAM_BOT_INTEGRATION.md` + `docs/examples/telegram_payload_parser.py` 4-segment payload va DISTRICT_IDS whitelist'sizga moslandi.
+
+**Sabab:** narx Qashqadaryo bo'yicha umumiy hisoblanadi, tuman ma'lumotini operator botda mijozdan to'g'ridan-to'g'ri so'raydi — frontendda step ortiqcha friction yaratardi.
+
+**Deliverable:** mijoz uchun yanada ixchamroq oqim (3 input step), tezroq result, ortiqcha friction yo'q.
+
+---
+
 ## Phase Calc-2 — Business-aligned calculator simplification  ✅
 
 Pro Calculator biznes yo'nalishiga mosroq qilib soddalashtirildi.

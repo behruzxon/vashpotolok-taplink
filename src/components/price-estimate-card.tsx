@@ -5,7 +5,6 @@ import { CalculatorShell, TOTAL_STEPS } from './calculator/calculator-shell'
 import { RoomStep } from './calculator/room-step'
 import { SizeStep } from './calculator/size-step'
 import { CeilingStep } from './calculator/ceiling-step'
-import { DistrictStep } from './calculator/district-step'
 import { ResultStep } from './calculator/result-step'
 import {
   AREA_DEFAULT_M2,
@@ -19,13 +18,13 @@ import {
 } from '@/lib/pro-price-estimate'
 import { track } from '@/lib/analytics'
 
-type Step = 1 | 2 | 3 | 4 | 'result'
+type Step = 1 | 2 | 3 | 'result'
 
-const STEP_ORDER: Step[] = [1, 2, 3, 4, 'result']
+const STEP_ORDER: Step[] = [1, 2, 3, 'result']
 
-// Phase Calc-2 input steps: 1 room, 2 size, 3 ceiling, 4 district.
-// Result is the 5th visible state (TOTAL_STEPS = 5 in shell).
-const LAST_INPUT_STEP = 4
+// Phase Calc-3 input steps: 1 room, 2 size, 3 ceiling.
+// Result is the 4th visible state (TOTAL_STEPS = 4 in shell).
+const LAST_INPUT_STEP = 3
 
 const STEP_COPY: Record<Exclude<Step, 'result'>, { title: string; subtitle: string }> = {
   1: {
@@ -40,10 +39,6 @@ const STEP_COPY: Record<Exclude<Step, 'result'>, { title: string; subtitle: stri
     title: 'Qaysi tur kerak?',
     subtitle: 'Dizayn turiga qarab narx taxmini farq qiladi.',
   },
-  4: {
-    title: 'Tumanni tanlang',
-    subtitle: 'Qaysi hududdan yozayotganingizni belgilang.',
-  },
 }
 
 export function PriceEstimateCard() {
@@ -54,7 +49,6 @@ export function PriceEstimateCard() {
   const [widthM, setWidthM] = useState<string>('4')
   const [areaInput, setAreaInput] = useState<string>(String(AREA_DEFAULT_M2))
   const [ceilingTypeId, setCeilingTypeId] = useState<string>('')
-  const [districtId, setDistrictId] = useState<string>('')
 
   const startedRef = useRef(false)
   useEffect(() => {
@@ -72,9 +66,8 @@ export function PriceEstimateCard() {
         widthM: parseDecimal(widthM),
         areaM2: parseDecimal(areaInput),
         ceilingTypeId,
-        districtId,
       }),
-    [roomTypeId, mode, lengthM, widthM, areaInput, ceilingTypeId, districtId],
+    [roomTypeId, mode, lengthM, widthM, areaInput, ceilingTypeId],
   )
 
   const sizeValid = useMemo(() => {
@@ -112,7 +105,6 @@ export function PriceEstimateCard() {
         roomTypeId,
         areaM2: result.areaM2,
         ceilingTypeId,
-        districtId,
         totalMin: result.totalMin,
         totalMax: result.totalMax,
       })
@@ -133,7 +125,6 @@ export function PriceEstimateCard() {
   const restart = () => {
     setRoomTypeId('')
     setCeilingTypeId('')
-    setDistrictId('')
     setMode('dimensions')
     setLengthM('6')
     setWidthM('4')
@@ -147,10 +138,8 @@ export function PriceEstimateCard() {
       : step === 2
         ? sizeValid
         : step === 3
-          ? ceilingTypeId !== ''
-          : step === 4
-            ? districtId !== '' && result.valid
-            : false
+          ? ceilingTypeId !== '' && result.valid
+          : false
 
   const card =
     step === 'result' ? (
@@ -164,7 +153,6 @@ export function PriceEstimateCard() {
           result={result}
           roomTypeId={roomTypeId}
           ceilingTypeId={ceilingTypeId}
-          districtId={districtId}
           onRestart={restart}
         />
       </CalculatorShell>
@@ -197,15 +185,12 @@ export function PriceEstimateCard() {
             {step === 3 ? (
               <CeilingStep selectedId={ceilingTypeId} onSelect={setCeilingTypeId} />
             ) : null}
-            {step === 4 ? (
-              <DistrictStep selectedId={districtId} onSelect={setDistrictId} />
-            ) : null}
           </CalculatorShell>
         )
       })()
     )
 
-  // TOTAL_STEPS imported so it's referenced (5 segments rendered by shell).
+  // TOTAL_STEPS imported so it's referenced (4 segments rendered by shell).
   void TOTAL_STEPS
 
   return (

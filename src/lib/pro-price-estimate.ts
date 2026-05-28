@@ -2,10 +2,8 @@ import {
   AREA_MAX_M2,
   AREA_MIN_M2,
   ceilingTypes,
-  districtOptions,
   roomTypes,
   type CeilingType,
-  type DistrictOption,
   type RoomShapeMode,
   type RoomType,
 } from '@/data/price-options'
@@ -17,7 +15,6 @@ export type ProEstimateInput = {
   widthM?: number
   areaM2?: number
   ceilingTypeId: string
-  districtId: string
 }
 
 export type BreakdownItem = {
@@ -65,14 +62,9 @@ function findCeiling(id: string): CeilingType | undefined {
   return ceilingTypes.find((c) => c.id === id)
 }
 
-function findDistrict(id: string): DistrictOption | undefined {
-  return districtOptions.find((d) => d.id === id)
-}
-
 /**
  * Yakuniy summalar shu qadamga yaxlitlanadi. Mijozga `1 050 000 so‘m`
- * ko‘rinishi `1 047 612 so‘m`'dan ancha tushunarli — taxminiy hisob
- * uchun ham mos.
+ * ko‘rinishi `1 047 612 so‘m`'dan ancha tushunarli.
  */
 const ROUNDING_STEP_SOM = 1000
 
@@ -101,14 +93,13 @@ function deriveAreaAndPerimeter(input: ProEstimateInput): {
   }
   const a = parseDecimal(input.areaM2)
   if (!Number.isFinite(a) || a <= 0) return { area: 0, perimeter: 0 }
-  // Square taxminiy perimeter (kvadrat = eng yomon holat)
   const side = Math.sqrt(a)
   const perimeter = side * 4
   return { area: a, perimeter }
 }
 
 // ---------------------------------------------------------------------------
-// Calculation (Phase Calc-2: faqat polotno + montaj, addonsiz, travel = 0)
+// Calculation (Phase Calc-3: faqat polotno + montaj, districtsiz)
 // ---------------------------------------------------------------------------
 
 export function calculateProEstimate(input: ProEstimateInput): ProEstimateResult {
@@ -126,8 +117,7 @@ export function calculateProEstimate(input: ProEstimateInput): ProEstimateResult
 
   const room = findRoom(input.roomTypeId)
   const ceiling = findCeiling(input.ceilingTypeId)
-  const district = findDistrict(input.districtId)
-  if (!room || !ceiling || !district) return empty
+  if (!room || !ceiling) return empty
 
   const { area, perimeter } = deriveAreaAndPerimeter(input)
   if (area < AREA_MIN_M2 || area > AREA_MAX_M2) return empty
@@ -180,17 +170,18 @@ export function formatPriceRange(min: number, max: number): string {
 }
 
 // ---------------------------------------------------------------------------
-// Telegram payload (Phase Calc-2: addonsiz qisqa forma)
+// Telegram payload (Phase Calc-3: districtsiz qisqa forma)
 // ---------------------------------------------------------------------------
 
 /**
  * Pro calculator payload:
- *   pro_<room>_<area>_<ceiling>_<district>
+ *   pro_<room>_<area>_<ceiling>
  *
  * Misollar:
- *   pro_zal_24_gulli_kitob
- *   pro_yotoqxona_18_odnotonniy_qarshi-shahar
- *   pro_oshxona_14_mramor_kasbi
+ *   pro_zal_24_gulli
+ *   pro_yotoqxona_18_odnotonniy
+ *   pro_oshxona_14_mramor
+ *   pro_koridor_10_uv-pechat
  */
 export function buildProTelegramPayload(
   input: ProEstimateInput,
@@ -198,7 +189,6 @@ export function buildProTelegramPayload(
 ): string {
   const safeRoom = (input.roomTypeId || 'x').replace(/[^a-z0-9-]/gi, '')
   const safeCeiling = (input.ceilingTypeId || 'x').replace(/[^a-z0-9-]/gi, '')
-  const safeDistrict = (input.districtId || 'x').replace(/[^a-z0-9-]/gi, '')
 
   const areaSource =
     override?.areaM2 !== undefined
@@ -206,7 +196,7 @@ export function buildProTelegramPayload(
       : deriveAreaAndPerimeter(input).area
   const safeArea = Math.max(0, Math.round(areaSource))
 
-  const payload = `pro_${safeRoom}_${safeArea}_${safeCeiling}_${safeDistrict}`
+  const payload = `pro_${safeRoom}_${safeArea}_${safeCeiling}`
   return payload.length <= 60 ? payload : payload.slice(0, 60)
 }
 
@@ -228,50 +218,46 @@ export type TypicalExample = {
 export const TYPICAL_EXAMPLES: TypicalExample[] = [
   {
     id: 'simple-bedroom',
-    label: 'Yotoqxona · odnotonniy · 18 m² · Qarshi shahri',
+    label: 'Yotoqxona · odnotonniy · 18 m²',
     input: {
       roomTypeId: 'yotoqxona',
       mode: 'area',
       areaM2: 18,
       ceilingTypeId: 'odnotonniy',
-      districtId: 'qarshi-shahar',
     },
     expectedNote: '~1 440 000 — 1 620 000 so‘m (eng oddiy variant)',
   },
   {
     id: 'living-gulli',
-    label: 'Zal · gulli · 6×4 m (24 m²) · Kitob',
+    label: 'Zal · gulli · 6×4 m (24 m²)',
     input: {
       roomTypeId: 'zal',
       mode: 'dimensions',
       lengthM: 6,
       widthM: 4,
       ceilingTypeId: 'gulli',
-      districtId: 'kitob',
     },
     expectedNote: '~3 024 000 — 3 402 000 so‘m (zal + gulli)',
   },
   {
     id: 'mramor-kitchen',
-    label: 'Oshxona · mramor · 14 m² · Kasbi',
+    label: 'Oshxona · mramor · 14 m²',
     input: {
       roomTypeId: 'oshxona',
       mode: 'area',
       areaM2: 14,
       ceilingTypeId: 'mramor',
-      districtId: 'kasbi',
     },
     expectedNote: '~1 680 000 — 1 890 000 so‘m (premium mramor)',
   },
   {
     id: 'uv-print-koridor',
-    label: 'Koridor · UV pechat · 10 m² · Yakkabog‘',
+    label: 'Koridor · UV pechat · 10 m²',
     input: {
       roomTypeId: 'koridor',
       mode: 'area',
       areaM2: 10,
       ceilingTypeId: 'uv-pechat',
-      districtId: 'yakkabog',
     },
     expectedNote: '~1 330 000 — 1 520 000 so‘m (UV pechat, koridor multiplier 0.95)',
   },

@@ -4,20 +4,17 @@ VashPotolok - Telegram bot /start payload parser (referans implementatsiya).
 Bu fayl `docs/TELEGRAM_BOT_INTEGRATION.md` shartnomasiga muvofiq yozilgan.
 Frontend qism: `src/lib/pro-price-estimate.ts` (`buildProTelegramPayload`).
 
-Holat: bot loyihasi alohida repoda. Bu fayl - kontrakt referansi va sinov uchun.
-Productionga ko'chirish: faylni o'sha repoga bemalol ko'chiring; standart kutubxonadan
-boshqa hech narsa kerak emas.
-
-Joriy format (Phase Calc-2):
-    pro_<room>_<area>_<ceiling>_<district>
+Joriy format (Phase Calc-3):
+    pro_<room>_<area>_<ceiling>
 
 Eski formatlar:
-    pro_..._<N>a   (Phase 3.5, addon count - DEPRECATED)
-    price_*        (Phase 3 - DEPRECATED)
+    pro_..._<district>      (Phase Calc-2 - DEPRECATED)
+    pro_..._<district>_<N>a (Phase 3.5 - DEPRECATED)
+    price_*                 (Phase 3 - DEPRECATED)
 
 Ishlatish:
     from telegram_payload_parser import parse_start_payload
-    parsed = parse_start_payload("pro_zal_24_gulli_kitob")
+    parsed = parse_start_payload("pro_zal_24_gulli")
     # -> {"kind": "pro", "source": "pro", "room_type_id": "zal", ...}
 
 Testlar:
@@ -36,13 +33,6 @@ from typing import Dict, List, Optional, Union
 
 ROOM_IDS = ("zal", "yotoqxona", "oshxona", "koridor")
 CEILING_IDS = ("odnotonniy", "gulli", "naqsh", "mramor", "uv-pechat")
-DISTRICT_IDS = (
-    "qarshi-shahar", "qarshi-tumani",
-    "shahrisabz-shahar", "shahrisabz-tumani",
-    "kitob", "yakkabog", "chiroqchi", "qamashi",
-    "guzor", "kasbi", "koson", "nishon",
-    "muborak", "mirishkor", "dehqonobod", "kokdala",
-)
 SOURCE_IDS = ("hero", "sticky", "footer", "portfolio", "price", "services", "trust")
 
 # Telegram cheklovi
@@ -85,17 +75,15 @@ def _unknown(raw: str) -> ParsedResult:
 
 def _parse_pro(raw: str) -> ParsedResult:
     parts = raw.split("_")
-    # ['pro', room, area, ceiling, district]
-    if len(parts) != 5:
+    # ['pro', room, area, ceiling]
+    if len(parts) != 4:
         return _unknown(raw)
 
-    _, room, area_str, ceiling, district = parts
+    _, room, area_str, ceiling = parts
 
     if room not in ROOM_IDS:
         return _unknown(raw)
     if ceiling not in CEILING_IDS:
-        return _unknown(raw)
-    if district not in DISTRICT_IDS:
         return _unknown(raw)
 
     try:
@@ -112,15 +100,13 @@ def _parse_pro(raw: str) -> ParsedResult:
         "room_type_id": room,
         "area_m2": area,
         "ceiling_type_id": ceiling,
-        "district_id": district,
         "raw": raw,
     }
 
 
 # ---------------------------------------------------------------------------
-# Bonus: bot tomonida taxminiy narx hisoblash (Phase Calc-2).
+# Bonus: bot tomonida taxminiy narx hisoblash (Phase Calc-3).
 # Tablitsa qiymatlari `src/data/price-options.ts` bilan birxil bo'lishi shart.
-# Addonlar yo'q, district narxga ta'sir qilmaydi (travel fee = 0).
 # ---------------------------------------------------------------------------
 
 ROOM_MULTIPLIER = {
@@ -145,10 +131,7 @@ def calculate_estimate(
     area_m2: int,
     ceiling_type_id: str,
 ) -> Dict[str, int]:
-    """Frontend `calculateProEstimate` bilan binmuvofiq taxminiy range.
-
-    Phase Calc-2: faqat polotno + montaj. District narxga ta'sir qilmaydi.
-    """
+    """Frontend `calculateProEstimate` bilan binmuvofiq taxminiy range."""
     multiplier = ROOM_MULTIPLIER.get(room_type_id)
     ceiling = CEILING_PRICE_PER_M2.get(ceiling_type_id)
     if multiplier is None or ceiling is None:
@@ -169,7 +152,6 @@ def _round_to_thousand(v: float) -> int:
 
 
 def format_uz_number(n: int) -> str:
-    """Intl.NumberFormat('uz-UZ') ekvivalenti - guruh ajratuvchi sifatida space."""
     s = f"{n:,}".replace(",", " ")
     return s
 
@@ -183,7 +165,7 @@ def format_price_range(p_min: int, p_max: int) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Test cases - `python telegram_payload_parser.py` bilan yuriladi.
+# Test cases
 # ---------------------------------------------------------------------------
 
 def _expect(actual, expected, label: str) -> bool:
@@ -211,80 +193,70 @@ def _run_tests() -> int:
             "generic source: portfolio",
         ),
         (
-            "sticky",
-            {"kind": "source", "source": "sticky", "raw": "sticky"},
-            "generic source: sticky",
-        ),
-        (
             "trust",
             {"kind": "source", "source": "trust", "raw": "trust"},
-            "generic source: trust (Phase Trust-1)",
+            "generic source: trust",
         ),
-        # Pro calculator - Phase Calc-2 typical examples
+        # Pro calculator - Phase Calc-3 typical examples
         (
-            "pro_zal_24_gulli_kitob",
+            "pro_zal_24_gulli",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "zal",
                 "area_m2": 24,
                 "ceiling_type_id": "gulli",
-                "district_id": "kitob",
-                "raw": "pro_zal_24_gulli_kitob",
+                "raw": "pro_zal_24_gulli",
             },
-            "pro: zal . 24 . gulli . kitob",
+            "pro: zal . 24 . gulli",
         ),
         (
-            "pro_yotoqxona_18_odnotonniy_qarshi-shahar",
+            "pro_yotoqxona_18_odnotonniy",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "yotoqxona",
                 "area_m2": 18,
                 "ceiling_type_id": "odnotonniy",
-                "district_id": "qarshi-shahar",
-                "raw": "pro_yotoqxona_18_odnotonniy_qarshi-shahar",
+                "raw": "pro_yotoqxona_18_odnotonniy",
             },
-            "pro: yotoqxona . 18 . odnotonniy . qarshi-shahar",
+            "pro: yotoqxona . 18 . odnotonniy",
         ),
         (
-            "pro_oshxona_14_mramor_kasbi",
+            "pro_oshxona_14_mramor",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "oshxona",
                 "area_m2": 14,
                 "ceiling_type_id": "mramor",
-                "district_id": "kasbi",
-                "raw": "pro_oshxona_14_mramor_kasbi",
+                "raw": "pro_oshxona_14_mramor",
             },
-            "pro: oshxona . 14 . mramor . kasbi",
+            "pro: oshxona . 14 . mramor",
         ),
         (
-            "pro_koridor_10_uv-pechat_yakkabog",
+            "pro_koridor_10_uv-pechat",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "koridor",
                 "area_m2": 10,
                 "ceiling_type_id": "uv-pechat",
-                "district_id": "yakkabog",
-                "raw": "pro_koridor_10_uv-pechat_yakkabog",
+                "raw": "pro_koridor_10_uv-pechat",
             },
-            "pro: koridor . 10 . uv-pechat . yakkabog (hyphenated ceiling id)",
+            "pro: koridor . 10 . uv-pechat (hyphenated ceiling id)",
         ),
         (
-            "pro_zal_80_mramor_shahrisabz-tumani",
+            "pro_zal_80_mramor",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "zal",
                 "area_m2": 80,
                 "ceiling_type_id": "mramor",
-                "district_id": "shahrisabz-tumani",
-                "raw": "pro_zal_80_mramor_shahrisabz-tumani",
+                "raw": "pro_zal_80_mramor",
             },
-            "pro: max area (80) . hyphenated district",
+            "pro: max area (80)",
         ),
         # Unknown - invalid format
         ("", {"kind": "unknown", "source": "unknown", "raw": ""}, "empty payload"),
@@ -299,45 +271,45 @@ def _run_tests() -> int:
             "too long (>64 chars)",
         ),
         (
-            "pro_zal_24_gulli_kitob$",
-            {"kind": "unknown", "source": "unknown", "raw": "pro_zal_24_gulli_kitob$"},
+            "pro_zal_24_gulli$",
+            {"kind": "unknown", "source": "unknown", "raw": "pro_zal_24_gulli$"},
             "illegal char ($)",
         ),
         (
-            "pro_unknownroom_24_gulli_kitob",
+            "pro_unknownroom_24_gulli",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_unknownroom_24_gulli_kitob",
+                "raw": "pro_unknownroom_24_gulli",
             },
             "unknown room id",
         ),
         (
-            "pro_zal_abc_gulli_kitob",
+            "pro_zal_abc_gulli",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_abc_gulli_kitob",
+                "raw": "pro_zal_abc_gulli",
             },
             "non-numeric area",
         ),
         (
-            "pro_zal_24_unknownceiling_kitob",
+            "pro_zal_24_unknownceiling",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_24_unknownceiling_kitob",
+                "raw": "pro_zal_24_unknownceiling",
             },
             "unknown ceiling id",
         ),
         (
-            "pro_zal_24_gulli_unknowndistrict",
+            "pro_zal_24_gulli_kitob",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_24_gulli_unknowndistrict",
+                "raw": "pro_zal_24_gulli_kitob",
             },
-            "unknown district id",
+            "legacy Phase Calc-2 format (with district) -> unknown",
         ),
         (
             "pro_zal_24_gulli_kitob_3a",
@@ -349,31 +321,31 @@ def _run_tests() -> int:
             "legacy Phase 3.5 format (with addon count) -> unknown",
         ),
         (
-            "pro_zal_5_gulli_kitob",
+            "pro_zal_5_gulli",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_5_gulli_kitob",
+                "raw": "pro_zal_5_gulli",
             },
             "area below AREA_MIN (5 < 6)",
         ),
         (
-            "pro_zal_100_gulli_kitob",
+            "pro_zal_100_gulli",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_100_gulli_kitob",
+                "raw": "pro_zal_100_gulli",
             },
             "area above AREA_MAX (100 > 80)",
         ),
         (
-            "pro_zal_24_gulli",
+            "pro_zal_24",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_24_gulli",
+                "raw": "pro_zal_24",
             },
-            "pro_ prefix but missing district (4 parts)",
+            "pro_ prefix but missing ceiling (3 parts)",
         ),
         (
             "completelyrandomstring",
@@ -401,7 +373,7 @@ def _run_tests() -> int:
             fails += 1
 
     print()
-    print("=== calculate_estimate (Phase Calc-2: addonsiz) ===")
+    print("=== calculate_estimate ===")
     e1 = calculate_estimate("zal", 24, "gulli")
     print(f"  zal . 24m2 . gulli -> {e1}")
     print(f"    formatted: {format_price_range(e1['min'], e1['max'])}")
@@ -410,9 +382,13 @@ def _run_tests() -> int:
     print(f"  yotoqxona . 18m2 . odnotonniy -> {e2}")
     print(f"    formatted: {format_price_range(e2['min'], e2['max'])}")
 
-    e3 = calculate_estimate("zal", 24, "mramor")
-    print(f"  zal . 24m2 . mramor -> {e3}")
+    e3 = calculate_estimate("oshxona", 14, "mramor")
+    print(f"  oshxona . 14m2 . mramor -> {e3}")
     print(f"    formatted: {format_price_range(e3['min'], e3['max'])}")
+
+    e4 = calculate_estimate("koridor", 10, "uv-pechat")
+    print(f"  koridor . 10m2 . uv-pechat -> {e4}")
+    print(f"    formatted: {format_price_range(e4['min'], e4['max'])}")
 
     print()
     if fails == 0:

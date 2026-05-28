@@ -18,7 +18,7 @@ export type AnalyticsEvent =
   | { name: 'pro_calculator_started'; payload: { source: 'view' } }
   | { name: 'pro_calculator_step_changed'; payload: { from: number | 'result'; to: number | 'result'; direction: 'forward' | 'back' } }
   | { name: 'pro_calculator_dimension_entered'; payload: { mode: 'dimensions' | 'area'; lengthM?: number; widthM?: number; areaM2?: number } }
-  | { name: 'pro_calculator_completed'; payload: { roomTypeId: string; areaM2: number; ceilingTypeId: string; districtId: string; totalMin: number; totalMax: number } }
+  | { name: 'pro_calculator_completed'; payload: { roomTypeId: string; areaM2: number; ceilingTypeId: string; totalMin: number; totalMax: number } }
   | { name: 'click_pro_calculator_telegram'; payload: { payload: string; totalMin: number; totalMax: number } }
 
 const isDev = process.env.NODE_ENV !== 'production'
