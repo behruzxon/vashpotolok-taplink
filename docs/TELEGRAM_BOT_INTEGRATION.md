@@ -4,7 +4,7 @@ Bu hujjat **taplink frontend ↔ Telegram bot** o'rtasidagi rasmiy kontrakt.
 
 > Hozircha bot kodi **bu repository ichida emas**. Bu hujjat — boshqa repoda yoki shu monorepo'da bot yaratuvchi (yoki integratsiyalovchi) uchun yagona haqiqat manbai.
 >
-> **Joriy versiya:** `pro_*` payload format (Phase 3.5+). Eski `price_*` format (Phase 3) ishlatilmaydi va bu hujjatda **§10 Legacy** bo'limida tarixiy referans sifatida saqlanadi.
+> **Joriy versiya:** `pro_*` payload format (Phase Calc-2 — addonsiz qisqa forma). Eski Phase 3.5 `pro_..._<N>a` va Phase 3 `price_*` formatlari ishlatilmaydi va bu hujjatda **§10 Versioning** bo'limida tarixiy referans sifatida saqlanadi.
 
 ---
 
@@ -62,12 +62,12 @@ https://t.me/vashpotolokbot?start=portfolio
 
 > Yangi source qo'shilsa: `src/data/links.ts` ichidagi `TelegramSource` type'iga qo'shing **va** bu doc'ni yangilang.
 
-### 2.4 Pro calculator payload
+### 2.4 Pro calculator payload (Phase Calc-2)
 
 Format:
 
 ```
-pro_<roomTypeId>_<areaM2>_<ceilingTypeId>_<districtId>_<N>a
+pro_<roomTypeId>_<areaM2>_<ceilingTypeId>_<districtId>
 ```
 
 Komponentlar:
@@ -77,29 +77,25 @@ Komponentlar:
 | 0 | `pro` literali | doimo `pro` | `pro` |
 | 1 | `roomTypeId` | `data/price-options.ts` → `roomTypes` | `zal` |
 | 2 | `areaM2` | integer, ≥ 6 va ≤ 80 (`AREA_MIN_M2`–`AREA_MAX_M2`) | `24` |
-| 3 | `ceilingTypeId` | `data/price-options.ts` → `ceilingTypes` | `led` |
-| 4 | `districtId` | `data/price-options.ts` → `districtOptions` | `qarshi` |
-| 5 | `<N>a` | qty > 0 bo'lgan addonlar **soni** (0..6), `a` suffix bilan | `3a` |
+| 3 | `ceilingTypeId` | `data/price-options.ts` → `ceilingTypes` | `gulli` |
+| 4 | `districtId` | `data/price-options.ts` → `districtOptions` | `kitob` |
 
 Misollar:
 ```
-pro_zal_24_led_qarshi_3a
-pro_yotoqxona_18_glyans_qarshi_0a
-pro_oshxona_14_matoviy_qashqadaryo_2a
-pro_koridor_10_premium_far_6a
+pro_zal_24_gulli_kitob
+pro_yotoqxona_18_odnotonniy_qarshi-shahar
+pro_oshxona_14_mramor_kasbi
+pro_koridor_10_uv-pechat_yakkabog
 ```
 
-Hammasi `≤ 60 belgi`. Frontend `payload.length <= 60 ? payload : slice(0, 60)` qoidasini qo'llaydi — amaliyotda hech qachon kesilmaydi.
+Hammasi `≤ 60 belgi` (eng uzun kombinatsiya ~46 belgi). Frontend `payload.length <= 60 ? payload : slice(0, 60)` qoidasini qo'llaydi — amaliyotda hech qachon kesilmaydi.
 
-### 2.5 Nima yo'q va nima uchun
+### 2.5 Phase Calc-2 da nima o'zgardi
 
-**Addon ID'lari va quantitylar payload ichida YUBORILMAYDI.** Sabab:
-
-- Telegram 64 belgilik cheklovi — `pro_yotoqxona_18_glyans_qashqadaryo_led-line-karniz-lyustra-spot-pipe-complex-corner` 60+ belgi va quantitylar bilan birga 64'dan oshib ketadi.
-- Aniq quantity (LED liniya 6m, karniz 4m, ...) bot tomonida **mijozdan qayta tasdiqlanadi** — bu welcome flow'ning bir qismi va operatorga ham foyda beradi (mijoz e'tibor bermay qoldirgan parametrlarni yana ko'radi).
-- `<N>a` segmenti — bot welcome'da “Siz 3 ta qo'shimcha xizmatni tanladingiz” deb taxmin yozish va keyin batafsil so'rash uchun.
-
-Agar kelajakda quantitylar ham yuborilishi kerak bo'lsa — `v2` payload formatiga o'tish kerak (§10).
+- **`<N>a` (addon count) segmenti olib tashlandi** — Pro Calculator'dan addons step butunlay olib tashlandi.
+- **Ceiling type'lar yangi:** `odnotonniy / gulli / naqsh / mramor / uv-pechat` (eski `matoviy/glyans/satin/led/premium` o'rniga).
+- **District ro'yxati Qashqadaryo bo'ylab 16 ta**: tuman/shahar. Travel fee 0 — narxga ta'sir yo'q, faqat lead context.
+- Eski Phase 3.5 format (`pro_..._<N>a`) deprecated. Eski Phase 3 format (`price_*`) ham deprecated. Faqat yangi 5-segment format generate qilinadi.
 
 ### 2.6 Char sanitatsiya (frontend tomonida)
 
@@ -120,36 +116,42 @@ Quyidagi ID'lar — **rasmiy kontrakt qismi**. Ularning **har qanday o'zgarishi 
 | `oshxona` | Oshxona |
 | `koridor` | Koridor |
 
-### 3.2 `ceilingTypeId` (5 ta)
+### 3.2 `ceilingTypeId` (5 ta — Phase Calc-2)
 
 | ID | UI label | Premium level |
 |---|---|---|
-| `matoviy` | Matoviy натяжной потолок | standard |
-| `glyans` | Glyans потолок | comfort |
-| `satin` | Satin потолок | comfort |
-| `led` | LED yoritish bilan | premium |
-| `premium` | Premium dizayn | premium |
+| `odnotonniy` | Однотонный | standard |
+| `gulli` | Gulli | comfort |
+| `naqsh` | Naqsh | comfort |
+| `mramor` | Mramor | premium |
+| `uv-pechat` | UV pechat | premium |
 
-### 3.3 `addonId` (6 ta)
+### 3.3 `addonId` — OLIB TASHLANGAN (Phase Calc-2)
 
-> Payload ichida **uzatilmaydi**, faqat ichki referans uchun. Bot welcome'da quantitylar bilan birga qayta tasdiqlanadi.
+Phase Calc-2 da addons step va ID ro'yxati olib tashlandi. Payloadda mavjud emas.
 
-| ID | UI label | Unit |
-|---|---|---|
-| `led-line` | LED liniya | meter |
-| `karniz` | Karniz | meter |
-| `lyustra` | Lyustra joyi | piece |
-| `spot` | Spot chiroqlar | piece |
-| `pipe` | Truba obxod | piece |
-| `complex-corner` | Murakkab burchak | piece |
+### 3.4 `districtId` (16 ta — Phase Calc-2)
 
-### 3.4 `districtId` (3 ta)
+Hammasi uchun travel fee `0` — narxga ta'sir yo'q.
 
-| ID | UI label | Travel fee |
-|---|---|---|
-| `qarshi` | Qarshi | 0 (bepul) |
-| `qashqadaryo` | Qashqadaryo tumani | 80k–180k so'm |
-| `far` | Uzoqroq hudud | 200k–400k so'm |
+| ID | UI label |
+|---|---|
+| `qarshi-shahar` | Qarshi shahri |
+| `qarshi-tumani` | Qarshi tumani |
+| `shahrisabz-shahar` | Shahrisabz shahri |
+| `shahrisabz-tumani` | Shahrisabz tumani |
+| `kitob` | Kitob |
+| `yakkabog` | Yakkabog‘ |
+| `chiroqchi` | Chiroqchi |
+| `qamashi` | Qamashi |
+| `guzor` | G‘uzor |
+| `kasbi` | Kasbi |
+| `koson` | Koson |
+| `nishon` | Nishon |
+| `muborak` | Muborak |
+| `mirishkor` | Mirishkor |
+| `dehqonobod` | Dehqonobod |
+| `kokdala` | Ko‘kdala |
 
 ### 3.5 Source identifikatorlari
 
@@ -176,7 +178,6 @@ type ParsedPayload =
   | { kind: 'pro';     source: 'pro';
       room_type_id: RoomId; area_m2: number;
       ceiling_type_id: CeilingId; district_id: DistrictId;
-      addon_count: number;
       raw: string }
   | { kind: 'source';  source: 'hero'|'sticky'|'footer'|'portfolio'|'price'|'services'|'trust';
       raw: string }
@@ -187,13 +188,16 @@ type ParsedPayload =
 
 ```ts
 const ROOM_IDS = ['zal', 'yotoqxona', 'oshxona', 'koridor'] as const
-const CEILING_IDS = ['matoviy', 'glyans', 'satin', 'led', 'premium'] as const
-const DISTRICT_IDS = ['qarshi', 'qashqadaryo', 'far'] as const
+const CEILING_IDS = ['odnotonniy', 'gulli', 'naqsh', 'mramor', 'uv-pechat'] as const
+const DISTRICT_IDS = [
+  'qarshi-shahar', 'qarshi-tumani', 'shahrisabz-shahar', 'shahrisabz-tumani',
+  'kitob', 'yakkabog', 'chiroqchi', 'qamashi', 'guzor', 'kasbi',
+  'koson', 'nishon', 'muborak', 'mirishkor', 'dehqonobod', 'kokdala',
+] as const
 const SOURCE_IDS = ['hero', 'sticky', 'footer', 'portfolio', 'price', 'services', 'trust'] as const
 
 const VALID_CHARS = /^[A-Za-z0-9_-]+$/
 const MAX_LEN = 64
-const ADDON_COUNT_RE = /^(\d+)a$/
 
 export function parseStartPayload(raw: string): ParsedPayload {
   const empty = !raw || raw.trim() === ''
@@ -206,13 +210,13 @@ export function parseStartPayload(raw: string): ParsedPayload {
     return { kind: 'source', source: raw as typeof SOURCE_IDS[number], raw }
   }
 
-  // Pro calculator
+  // Pro calculator (Phase Calc-2: 5 segments, no addon count)
   if (raw.startsWith('pro_')) {
     const segments = raw.split('_')
-    // ['pro', room, area, ceiling, district, '<N>a']
-    if (segments.length !== 6) return { kind: 'unknown', source: 'unknown', raw }
+    // ['pro', room, area, ceiling, district]
+    if (segments.length !== 5) return { kind: 'unknown', source: 'unknown', raw }
 
-    const [, room, areaStr, ceiling, district, addonsSeg] = segments
+    const [, room, areaStr, ceiling, district] = segments
     if (!(ROOM_IDS as readonly string[]).includes(room ?? '')) {
       return { kind: 'unknown', source: 'unknown', raw }
     }
@@ -228,20 +232,12 @@ export function parseStartPayload(raw: string): ParsedPayload {
       return { kind: 'unknown', source: 'unknown', raw }
     }
 
-    const m = ADDON_COUNT_RE.exec(addonsSeg ?? '')
-    if (!m) return { kind: 'unknown', source: 'unknown', raw }
-    const addonCount = Number(m[1])
-    if (!Number.isFinite(addonCount) || addonCount < 0 || addonCount > 6) {
-      return { kind: 'unknown', source: 'unknown', raw }
-    }
-
     return {
       kind: 'pro', source: 'pro',
       room_type_id: room as typeof ROOM_IDS[number],
       area_m2: Math.round(area),
       ceiling_type_id: ceiling as typeof CEILING_IDS[number],
       district_id: district as typeof DISTRICT_IDS[number],
-      addon_count: addonCount,
       raw,
     }
   }
@@ -265,13 +261,11 @@ Fayl o'zining `__main__` blokida 15+ ta test case bilan keladi. Bot'da to'g'rida
 | Bo'sh / `None` / `""` | `unknown` |
 | Uzunlik > 64 | `unknown` |
 | Allowlist'dan tashqari belgi | `unknown` |
-| `pro_` prefiks lekin segmentlar ≠ 6 | `unknown` |
+| `pro_` prefiks lekin segmentlar ≠ 5 | `unknown` |
 | `roomTypeId` ro'yxatda yo'q | `unknown` |
 | `ceilingTypeId` ro'yxatda yo'q | `unknown` |
 | `districtId` ro'yxatda yo'q | `unknown` |
 | `areaM2` raqam emas yoki < 6 yoki > 80 | `unknown` |
-| Addon segment `<N>a` formatiga mos kelmaydi | `unknown` |
-| `<N>` < 0 yoki > 6 | `unknown` |
 | Hech qaysi tur — boshqa string | `unknown` |
 
 `unknown` → bot **Template D** (umumiy welcome) bilan javob beradi va `raw` qiymatini lead'ga `payload` sifatida saqlaydi (debug uchun).
@@ -289,16 +283,15 @@ Fayl o'zining `__main__` blokida 15+ ta test case bilan keladi. Bot'da to'g'rida
 
 Template matnlari: [`TELEGRAM_BOT_MESSAGES.md`](./TELEGRAM_BOT_MESSAGES.md)
 
-### Pro calculator welcome flow (Template C)
+### Pro calculator welcome flow (Template C, Phase Calc-2)
 
-Mijoz Pro Calculator natijasidan keyin botga keladi. Bot 4 qadamda welcome qiladi:
+Mijoz Pro Calculator natijasidan keyin botga keladi. Bot 3 qadamda welcome qiladi:
 
-1. **Summary chiqaradi:** xona / maydon / potolok / hudud / "Siz 3 ta qo'shimcha xizmatni tanladingiz" (addonCount).
-2. **Aniq qiymatlarni qayta tasdiqlaydi:** "Qo'shimcha xizmatlar — qaysilarini va qancha?" (inline keyboard yoki text reply).
-3. **Rasm so'raydi:** "Iltimos xonangiz rasmini yuboring (ixtiyoriy)."
-4. **Aloqa ma'lumotlari:** telefon raqami yoki manzil — operator chiqishi uchun.
+1. **Summary chiqaradi:** xona / maydon / potolok / tuman.
+2. **Rasm so'raydi:** “Iltimos xonangiz rasmini yuboring (ixtiyoriy).”
+3. **Aloqa ma'lumotlari:** telefon raqami — operator chiqishi uchun.
 
-Keyin operatorga lead notify yuboriladi.
+Addons step yo'q — barcha taqdimot bevosita o'lchov bilan operator tomonidan tushuntiriladi. Keyin operatorga lead notify yuboriladi.
 
 ---
 
@@ -306,20 +299,16 @@ Keyin operatorga lead notify yuboriladi.
 
 Bot ham frontend bilan **bir xil formula** bo'yicha taxminiy range hisoblashi mumkin. Bu Template C'da `Taxminiy range: 1 050 000 — 1 720 000 so'm` matnini chiqarish uchun kerak.
 
-Formula (frontend `src/lib/pro-price-estimate.ts` bilan birxil):
+Formula (frontend `src/lib/pro-price-estimate.ts` bilan birxil — Phase Calc-2):
 
 ```
 base_min = ceiling.pricePerM2Min × area × room.baseMultiplier
 base_max = ceiling.pricePerM2Max × area × room.baseMultiplier
 
-# Addonlar — payloadda yo'q, mijozdan qayta so'rashdan keyin qo'shiladi.
-# Welcome'da faqat base + travel ko'rsatish mumkin.
+# Addons yo'q, district narxga ta'sir qilmaydi (travel fee = 0).
 
-travel_min = district.travelFeeMin
-travel_max = district.travelFeeMax
-
-partial_min = round_to_thousand(base_min + travel_min)
-partial_max = round_to_thousand(base_max + travel_max)
+total_min = round_to_thousand(base_min)
+total_max = round_to_thousand(base_max)
 ```
 
 Narx tablitsalari — `docs/examples/telegram_payload_parser.py` ichida ham takrorlangan. Frontend `data/price-options.ts` o'zgarsa, bot tomonidagi nusxani ham yangilash kerak.
@@ -343,8 +332,6 @@ Narx tablitsalari — `docs/examples/telegram_payload_parser.py` ichida ham takr
 | `area_m2` | int? | Parser |
 | `ceiling_type` | string? | Parser |
 | `district` | string? | Parser |
-| `addon_count` | int? | Parser (pro_*'da har doim mavjud) |
-| `addon_details` | string? | Bot welcome flow ichida mijozdan olinadi |
 | `estimated_min` | int? | Bot calc |
 | `estimated_max` | int? | Bot calc |
 | `created_at` | timestamp | Bot |
@@ -381,8 +368,6 @@ CREATE TABLE leads (
   area_m2         INTEGER,
   ceiling_type    TEXT,
   district        TEXT,
-  addon_count     INTEGER,
-  addon_details   TEXT,
   estimated_min   INTEGER,
   estimated_max   INTEGER,
   status          TEXT NOT NULL DEFAULT 'new',
@@ -435,8 +420,8 @@ Operator har holatda bot ichida `/lead 123 status measured` kabi komandadan foyd
 | Versiya | Format | Sana | Status |
 |---|---|---|---|
 | `v1` (legacy) | `price_<room>_<area>_<ceiling>[_<addons>]` | 2026-05 (Phase 3) | **Deprecated** — frontend ishlatmaydi |
-| `v2` (current) | `pro_<room>_<area>_<ceiling>_<district>_<N>a` | 2026-05 (Phase 3.5) | **Aktiv** |
-| `v3` (rejada) | `pv3_...` — quantitylar bilan to'liq forma | TBD | Quantitylar payloadga sig'sa |
+| `v2` (legacy) | `pro_<room>_<area>_<ceiling>_<district>_<N>a` | 2026-05 (Phase 3.5) | **Deprecated** — Phase Calc-2'da `<N>a` olib tashlangan |
+| `v3` (current) | `pro_<room>_<area>_<ceiling>_<district>` | 2026-05 (Phase Calc-2) | **Aktiv** |
 
 ### Legacy `price_*` format (faqat tarixiy referans)
 

@@ -5,7 +5,6 @@ import { CalculatorShell, TOTAL_STEPS } from './calculator/calculator-shell'
 import { RoomStep } from './calculator/room-step'
 import { SizeStep } from './calculator/size-step'
 import { CeilingStep } from './calculator/ceiling-step'
-import { AddonsStep } from './calculator/addons-step'
 import { DistrictStep } from './calculator/district-step'
 import { ResultStep } from './calculator/result-step'
 import {
@@ -16,15 +15,17 @@ import {
 } from '@/data/price-options'
 import {
   calculateProEstimate,
-  defaultAddonQuantities,
   parseDecimal,
-  totalActiveAddons,
 } from '@/lib/pro-price-estimate'
 import { track } from '@/lib/analytics'
 
-type Step = 1 | 2 | 3 | 4 | 5 | 6 | 'result'
+type Step = 1 | 2 | 3 | 4 | 'result'
 
-const STEP_ORDER: Step[] = [1, 2, 3, 4, 5, 6, 'result']
+const STEP_ORDER: Step[] = [1, 2, 3, 4, 'result']
+
+// Phase Calc-2 input steps: 1 room, 2 size, 3 ceiling, 4 district.
+// Result is the 5th visible state (TOTAL_STEPS = 5 in shell).
+const LAST_INPUT_STEP = 4
 
 const STEP_COPY: Record<Exclude<Step, 'result'>, { title: string; subtitle: string }> = {
   1: {
@@ -36,20 +37,12 @@ const STEP_COPY: Record<Exclude<Step, 'result'>, { title: string; subtitle: stri
     subtitle: 'Uzunlik va eni yozilsa, maydon avtomatik hisoblanadi.',
   },
   3: {
-    title: 'Qaysi ko‘rinish yoqadi?',
-    subtitle: 'Material va dizayn turiga qarab narx farq qiladi.',
+    title: 'Qaysi tur kerak?',
+    subtitle: 'Dizayn turiga qarab narx taxmini farq qiladi.',
   },
   4: {
-    title: 'Qo‘shimcha ishlar',
-    subtitle: 'Bilmasangiz 0 qoldiring — operator maslahat beradi.',
-  },
-  5: {
-    title: 'Montaj hududi',
-    subtitle: 'Hudud yo‘l xarajatiga ta’sir qilishi mumkin.',
-  },
-  6: {
-    title: 'Tanlovni tasdiqlang',
-    subtitle: 'Hammasi to‘g‘ri bo‘lsa — hisobni ko‘rsataman.',
+    title: 'Tumanni tanlang',
+    subtitle: 'Qaysi hududdan yozayotganingizni belgilang.',
   },
 }
 
@@ -61,9 +54,6 @@ export function PriceEstimateCard() {
   const [widthM, setWidthM] = useState<string>('4')
   const [areaInput, setAreaInput] = useState<string>(String(AREA_DEFAULT_M2))
   const [ceilingTypeId, setCeilingTypeId] = useState<string>('')
-  const [addonQuantities, setAddonQuantities] = useState<Record<string, number>>(
-    () => defaultAddonQuantities(),
-  )
   const [districtId, setDistrictId] = useState<string>('')
 
   const startedRef = useRef(false)
@@ -82,10 +72,9 @@ export function PriceEstimateCard() {
         widthM: parseDecimal(widthM),
         areaM2: parseDecimal(areaInput),
         ceilingTypeId,
-        addonQuantities,
         districtId,
       }),
-    [roomTypeId, mode, lengthM, widthM, areaInput, ceilingTypeId, addonQuantities, districtId],
+    [roomTypeId, mode, lengthM, widthM, areaInput, ceilingTypeId, districtId],
   )
 
   const sizeValid = useMemo(() => {
@@ -119,13 +108,11 @@ export function PriceEstimateCard() {
     }
     setStep(next)
     if (next === 'result' && result.valid) {
-      const activeAddons = totalActiveAddons(addonQuantities)
       track('pro_calculator_completed', {
         roomTypeId,
         areaM2: result.areaM2,
         ceilingTypeId,
         districtId,
-        addonCount: activeAddons,
         totalMin: result.totalMin,
         totalMax: result.totalMax,
       })
@@ -147,7 +134,6 @@ export function PriceEstimateCard() {
     setRoomTypeId('')
     setCeilingTypeId('')
     setDistrictId('')
-    setAddonQuantities(defaultAddonQuantities())
     setMode('dimensions')
     setLengthM('6')
     setWidthM('4')
@@ -163,35 +149,30 @@ export function PriceEstimateCard() {
         : step === 3
           ? ceilingTypeId !== ''
           : step === 4
-            ? true
-            : step === 5
-              ? districtId !== ''
-              : step === 6
-                ? result.valid
-                : false
+            ? districtId !== '' && result.valid
+            : false
 
   const card =
     step === 'result' ? (
       <CalculatorShell
         step="result"
-        title="Sizning xonangiz uchun taxminiy hisob"
+        title="Siz uchun taxminiy hisob"
         subtitle="Aniq narxni botda olishingiz mumkin."
-        back={{ onClick: () => goTo(6) }}
+        back={{ onClick: () => goTo(LAST_INPUT_STEP) }}
       >
         <ResultStep
           result={result}
           roomTypeId={roomTypeId}
           ceilingTypeId={ceilingTypeId}
           districtId={districtId}
-          addonQuantities={addonQuantities}
           onRestart={restart}
         />
       </CalculatorShell>
     ) : (
       (() => {
         const copy = STEP_COPY[step]
-        const isFinalStep = step === TOTAL_STEPS
-        const nextLabel = isFinalStep ? 'Hisobni ko‘rish' : 'Davom etish'
+        const isFinalInput = step === LAST_INPUT_STEP
+        const nextLabel = isFinalInput ? 'Hisobni ko‘rish' : 'Davom etish'
         return (
           <CalculatorShell
             step={step}
@@ -217,19 +198,15 @@ export function PriceEstimateCard() {
               <CeilingStep selectedId={ceilingTypeId} onSelect={setCeilingTypeId} />
             ) : null}
             {step === 4 ? (
-              <AddonsStep
-                quantities={addonQuantities}
-                onChange={(id, qty) => setAddonQuantities((prev) => ({ ...prev, [id]: qty }))}
-              />
-            ) : null}
-            {step === 5 ? (
               <DistrictStep selectedId={districtId} onSelect={setDistrictId} />
             ) : null}
-            {step === 6 ? <ConfirmStep result={result} /> : null}
           </CalculatorShell>
         )
       })()
     )
+
+  // TOTAL_STEPS imported so it's referenced (5 segments rendered by shell).
+  void TOTAL_STEPS
 
   return (
     <div className="flex flex-col gap-2.5">
@@ -258,29 +235,8 @@ function PriceAnchor() {
       </svg>
       <p className="text-[11.5px] leading-snug text-ink-secondary">
         <span className="font-semibold text-ink-primary">Taxminiy hisob 1 daqiqada.</span>{' '}
-        Yakuniy narx o‘lchovdan keyin aniqlanadi — m², material va qo‘shimchalarga qarab.
+        Yakuniy narx o‘lchov va yakuniy tanlovdan keyin aniqlanadi.
       </p>
-    </div>
-  )
-}
-
-function ConfirmStep({ result }: { result: ReturnType<typeof calculateProEstimate> }) {
-  return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-line-soft bg-bg-base/40 p-4 text-[13px] text-ink-secondary">
-      <p>
-        Tanlovlaringiz tayyor. <span className="font-semibold text-ink-primary">Hisobni ko‘rish</span> tugmasini bossangiz —
-        polotno, qo‘shimcha xizmatlar va hudud bo‘yicha taxminiy diapazon ko‘rsataman.
-      </p>
-      {result.valid ? (
-        <p className="text-[12px] text-ink-muted">
-          Maydon: <span className="font-semibold text-ink-primary">{result.areaM2} m²</span>
-          {'  ·  '}Perimetr: <span className="font-semibold text-ink-primary">{result.perimeterM} m</span>
-        </p>
-      ) : (
-        <p className="text-[12px] text-call/90">
-          Avvalgi qadamlarda ba’zi maydonlar to‘liq emas. Iltimos, orqaga qaytib tekshiring.
-        </p>
-      )}
     </div>
   )
 }

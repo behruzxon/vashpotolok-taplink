@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 import { GlassCard } from '../primitives/glass-card'
 import { cn } from '@/lib/cn'
 
-export const TOTAL_STEPS = 6
+export const TOTAL_STEPS = 5
 
 type Props = {
   step: number | 'result'

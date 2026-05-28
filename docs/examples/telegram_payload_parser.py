@@ -1,20 +1,24 @@
 """
-VashPotolok — Telegram bot /start payload parser (referans implementatsiya).
+VashPotolok - Telegram bot /start payload parser (referans implementatsiya).
 
 Bu fayl `docs/TELEGRAM_BOT_INTEGRATION.md` shartnomasiga muvofiq yozilgan.
 Frontend qism: `src/lib/pro-price-estimate.ts` (`buildProTelegramPayload`).
 
-Holat: bot loyihasi alohida repoda. Bu fayl — kontrakt referansi va sinov uchun.
+Holat: bot loyihasi alohida repoda. Bu fayl - kontrakt referansi va sinov uchun.
 Productionga ko'chirish: faylni o'sha repoga bemalol ko'chiring; standart kutubxonadan
 boshqa hech narsa kerak emas.
 
-Joriy format: pro_<room>_<area>_<ceiling>_<district>_<N>a (Phase 3.5+).
-Eski price_* format Phase 3'da ishlatilgan va olib tashlangan.
+Joriy format (Phase Calc-2):
+    pro_<room>_<area>_<ceiling>_<district>
+
+Eski formatlar:
+    pro_..._<N>a   (Phase 3.5, addon count - DEPRECATED)
+    price_*        (Phase 3 - DEPRECATED)
 
 Ishlatish:
     from telegram_payload_parser import parse_start_payload
-    parsed = parse_start_payload("pro_zal_24_led_qarshi_3a")
-    # → {"kind": "pro", "source": "pro", "room_type_id": "zal", ...}
+    parsed = parse_start_payload("pro_zal_24_gulli_kitob")
+    # -> {"kind": "pro", "source": "pro", "room_type_id": "zal", ...}
 
 Testlar:
     python telegram_payload_parser.py
@@ -26,27 +30,28 @@ import re
 from typing import Dict, List, Optional, Union
 
 # ---------------------------------------------------------------------------
-# Stable kontrakt — `data/price-options.ts` bilan SYNCHRONIZED bo'lishi shart.
-# Bu identifikatorlar har qanday o'zgarishi — breaking change.
+# Stable kontrakt - `data/price-options.ts` bilan SYNCHRONIZED bo'lishi shart.
+# Bu identifikatorlar har qanday o'zgarishi - breaking change.
 # ---------------------------------------------------------------------------
 
 ROOM_IDS = ("zal", "yotoqxona", "oshxona", "koridor")
-CEILING_IDS = ("matoviy", "glyans", "satin", "led", "premium")
-ADDON_IDS = ("led-line", "karniz", "lyustra", "spot", "pipe", "complex-corner")
-DISTRICT_IDS = ("qarshi", "qashqadaryo", "far")
+CEILING_IDS = ("odnotonniy", "gulli", "naqsh", "mramor", "uv-pechat")
+DISTRICT_IDS = (
+    "qarshi-shahar", "qarshi-tumani",
+    "shahrisabz-shahar", "shahrisabz-tumani",
+    "kitob", "yakkabog", "chiroqchi", "qamashi",
+    "guzor", "kasbi", "koson", "nishon",
+    "muborak", "mirishkor", "dehqonobod", "kokdala",
+)
 SOURCE_IDS = ("hero", "sticky", "footer", "portfolio", "price", "services", "trust")
 
 # Telegram cheklovi
 MAX_PAYLOAD_LEN = 64
 ALLOWED_CHARS = re.compile(r"^[A-Za-z0-9_-]+$")
-ADDON_COUNT_RE = re.compile(r"^(\d+)a$")
 
-# Area uchun — frontend AREA_MIN_M2..AREA_MAX_M2 (6..80) bilan teng.
+# Area uchun - frontend AREA_MIN_M2..AREA_MAX_M2 (6..80) bilan teng.
 AREA_MIN = 6
 AREA_MAX = 80
-
-# Addon count chegarasi — kalkulyatordagi 6 ta addonga teng.
-ADDON_COUNT_MAX = len(ADDON_IDS)
 
 ParsedResult = Dict[str, Union[str, int, List[str], None]]
 
@@ -80,11 +85,11 @@ def _unknown(raw: str) -> ParsedResult:
 
 def _parse_pro(raw: str) -> ParsedResult:
     parts = raw.split("_")
-    # ['pro', room, area, ceiling, district, '<N>a']
-    if len(parts) != 6:
+    # ['pro', room, area, ceiling, district]
+    if len(parts) != 5:
         return _unknown(raw)
 
-    _, room, area_str, ceiling, district, addons_seg = parts
+    _, room, area_str, ceiling, district = parts
 
     if room not in ROOM_IDS:
         return _unknown(raw)
@@ -101,18 +106,6 @@ def _parse_pro(raw: str) -> ParsedResult:
     if not (AREA_MIN <= area <= AREA_MAX):
         return _unknown(raw)
 
-    m = ADDON_COUNT_RE.match(addons_seg)
-    if not m:
-        return _unknown(raw)
-
-    try:
-        addon_count = int(m.group(1))
-    except (TypeError, ValueError):
-        return _unknown(raw)
-
-    if not (0 <= addon_count <= ADDON_COUNT_MAX):
-        return _unknown(raw)
-
     return {
         "kind": "pro",
         "source": "pro",
@@ -120,19 +113,14 @@ def _parse_pro(raw: str) -> ParsedResult:
         "area_m2": area,
         "ceiling_type_id": ceiling,
         "district_id": district,
-        "addon_count": addon_count,
         "raw": raw,
     }
 
 
 # ---------------------------------------------------------------------------
-# Bonus: bot tomonida taxminiy narx hisoblash uchun (frontend
-# pro-price-estimate.ts misli). Tablitsa qiymatlari
-# `src/data/price-options.ts` bilan birxil bo'lishi shart.
-#
-# Addonlar payloadda yo'q — bu yerda faqat base + travel partial hisob.
-# Aniq addon quantitylarni mijozdan bot welcome flow ichida olib, keyin
-# to'liq hisob chiqarish kerak.
+# Bonus: bot tomonida taxminiy narx hisoblash (Phase Calc-2).
+# Tablitsa qiymatlari `src/data/price-options.ts` bilan birxil bo'lishi shart.
+# Addonlar yo'q, district narxga ta'sir qilmaydi (travel fee = 0).
 # ---------------------------------------------------------------------------
 
 ROOM_MULTIPLIER = {
@@ -143,100 +131,36 @@ ROOM_MULTIPLIER = {
 }
 
 CEILING_PRICE_PER_M2 = {
-    # id → (min, max)
-    "matoviy": (28_000, 38_000),
-    "glyans":  (35_000, 48_000),
-    "satin":   (42_000, 58_000),
-    "led":     (60_000, 90_000),
-    "premium": (80_000, 120_000),
-}
-
-ADDON_PRICE = {
-    # id → (min, max). Payloadda yuborilmaydi — bot welcome'da
-    # qaysi addonlar tanlangani aniqlangach ishlatiladi.
-    "led-line":       (65_000, 95_000),
-    "karniz":         (35_000, 60_000),
-    "lyustra":        (50_000, 90_000),
-    "spot":           (25_000, 45_000),
-    "pipe":           (80_000, 140_000),
-    "complex-corner": (60_000, 110_000),
-}
-
-DISTRICT_TRAVEL = {
-    # id → (min, max)
-    "qarshi":      (0, 0),
-    "qashqadaryo": (80_000, 180_000),
-    "far":         (200_000, 400_000),
+    # id -> (min, max)
+    "odnotonniy": (30_000, 42_000),
+    "gulli":      (50_000, 68_000),
+    "naqsh":      (58_000, 78_000),
+    "mramor":     (65_000, 90_000),
+    "uv-pechat":  (80_000, 120_000),
 }
 
 
-def calculate_partial_estimate(
+def calculate_estimate(
     room_type_id: str,
     area_m2: int,
     ceiling_type_id: str,
-    district_id: str,
 ) -> Dict[str, int]:
-    """Pro payloaddan derive bo'ladigan partial hisob (addonlarsiz).
+    """Frontend `calculateProEstimate` bilan binmuvofiq taxminiy range.
 
-    Frontend `calculateProEstimate` bilan **base + travel** qismi mos
-    keladi. Aniq jami narx — addonlar mijozdan qayta tasdiqlangach.
+    Phase Calc-2: faqat polotno + montaj. District narxga ta'sir qilmaydi.
     """
     multiplier = ROOM_MULTIPLIER.get(room_type_id)
     ceiling = CEILING_PRICE_PER_M2.get(ceiling_type_id)
-    travel = DISTRICT_TRAVEL.get(district_id)
-    if multiplier is None or ceiling is None or travel is None:
+    if multiplier is None or ceiling is None:
         return {"min": 0, "max": 0}
 
     p_min, p_max = ceiling
-    t_min, t_max = travel
     base_min = p_min * area_m2 * multiplier
     base_max = p_max * area_m2 * multiplier
 
     return {
-        "min": _round_to_thousand(base_min + t_min),
-        "max": _round_to_thousand(base_max + t_max),
-    }
-
-
-def calculate_full_estimate(
-    room_type_id: str,
-    area_m2: int,
-    ceiling_type_id: str,
-    district_id: str,
-    addon_quantities: Dict[str, int],
-) -> Dict[str, int]:
-    """Bot welcome flow yakunida — addonlar tasdiqlangach to'liq hisob.
-
-    `addon_quantities`: `{"led-line": 6, "karniz": 4, "lyustra": 1}` shaklida.
-    `pipe` va `complex-corner` `piece` unit'da, qolganlar ko'rsatilgan tartibga
-    qarab. Frontend va bu yerdagi tablitsalar mos.
-    """
-    multiplier = ROOM_MULTIPLIER.get(room_type_id)
-    ceiling = CEILING_PRICE_PER_M2.get(ceiling_type_id)
-    travel = DISTRICT_TRAVEL.get(district_id)
-    if multiplier is None or ceiling is None or travel is None:
-        return {"min": 0, "max": 0}
-
-    p_min, p_max = ceiling
-    t_min, t_max = travel
-    base_min = p_min * area_m2 * multiplier
-    base_max = p_max * area_m2 * multiplier
-
-    addon_min = 0
-    addon_max = 0
-    for aid, qty in addon_quantities.items():
-        if qty <= 0:
-            continue
-        price = ADDON_PRICE.get(aid)
-        if price is None:
-            continue
-        a_min, a_max = price
-        addon_min += a_min * qty
-        addon_max += a_max * qty
-
-    return {
-        "min": _round_to_thousand(base_min + addon_min + t_min),
-        "max": _round_to_thousand(base_max + addon_max + t_max),
+        "min": _round_to_thousand(base_min),
+        "max": _round_to_thousand(base_max),
     }
 
 
@@ -245,21 +169,21 @@ def _round_to_thousand(v: float) -> int:
 
 
 def format_uz_number(n: int) -> str:
-    """Intl.NumberFormat('uz-UZ') ekvivalenti — guruh ajratuvchi sifatida space."""
+    """Intl.NumberFormat('uz-UZ') ekvivalenti - guruh ajratuvchi sifatida space."""
     s = f"{n:,}".replace(",", " ")
     return s
 
 
 def format_price_range(p_min: int, p_max: int) -> str:
     if p_min <= 0 and p_max <= 0:
-        return "—"
+        return "-"
     if p_min == p_max:
         return f"{format_uz_number(p_min)} so'm"
-    return f"{format_uz_number(p_min)} — {format_uz_number(p_max)} so'm"
+    return f"{format_uz_number(p_min)} - {format_uz_number(p_max)} so'm"
 
 
 # ---------------------------------------------------------------------------
-# Test cases — `python telegram_payload_parser.py` bilan yuriladi.
+# Test cases - `python telegram_payload_parser.py` bilan yuriladi.
 # ---------------------------------------------------------------------------
 
 def _expect(actual, expected, label: str) -> bool:
@@ -292,82 +216,77 @@ def _run_tests() -> int:
             "generic source: sticky",
         ),
         (
-            "price",
-            {"kind": "source", "source": "price", "raw": "price"},
-            "generic source: price (Phase 2 attribution)",
+            "trust",
+            {"kind": "source", "source": "trust", "raw": "trust"},
+            "generic source: trust (Phase Trust-1)",
         ),
-        # Pro calculator — typical examples
+        # Pro calculator - Phase Calc-2 typical examples
         (
-            "pro_zal_24_led_qarshi_3a",
+            "pro_zal_24_gulli_kitob",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "zal",
                 "area_m2": 24,
-                "ceiling_type_id": "led",
-                "district_id": "qarshi",
-                "addon_count": 3,
-                "raw": "pro_zal_24_led_qarshi_3a",
+                "ceiling_type_id": "gulli",
+                "district_id": "kitob",
+                "raw": "pro_zal_24_gulli_kitob",
             },
-            "pro: zal · 24 · led · qarshi · 3 addons",
+            "pro: zal . 24 . gulli . kitob",
         ),
         (
-            "pro_yotoqxona_18_glyans_qarshi_0a",
+            "pro_yotoqxona_18_odnotonniy_qarshi-shahar",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "yotoqxona",
                 "area_m2": 18,
-                "ceiling_type_id": "glyans",
-                "district_id": "qarshi",
-                "addon_count": 0,
-                "raw": "pro_yotoqxona_18_glyans_qarshi_0a",
+                "ceiling_type_id": "odnotonniy",
+                "district_id": "qarshi-shahar",
+                "raw": "pro_yotoqxona_18_odnotonniy_qarshi-shahar",
             },
-            "pro: yotoqxona · 18 · glyans · qarshi · 0 addons",
+            "pro: yotoqxona . 18 . odnotonniy . qarshi-shahar",
         ),
         (
-            "pro_oshxona_14_satin_qashqadaryo_2a",
+            "pro_oshxona_14_mramor_kasbi",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "oshxona",
                 "area_m2": 14,
-                "ceiling_type_id": "satin",
-                "district_id": "qashqadaryo",
-                "addon_count": 2,
-                "raw": "pro_oshxona_14_satin_qashqadaryo_2a",
+                "ceiling_type_id": "mramor",
+                "district_id": "kasbi",
+                "raw": "pro_oshxona_14_mramor_kasbi",
             },
-            "pro: oshxona · 14 · satin · qashqadaryo · 2 addons (new ceiling: satin)",
+            "pro: oshxona . 14 . mramor . kasbi",
         ),
         (
-            "pro_koridor_10_premium_far_6a",
+            "pro_koridor_10_uv-pechat_yakkabog",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "koridor",
                 "area_m2": 10,
-                "ceiling_type_id": "premium",
-                "district_id": "far",
-                "addon_count": 6,
-                "raw": "pro_koridor_10_premium_far_6a",
+                "ceiling_type_id": "uv-pechat",
+                "district_id": "yakkabog",
+                "raw": "pro_koridor_10_uv-pechat_yakkabog",
             },
-            "pro: koridor · 10 · premium · far · 6 addons (all)",
+            "pro: koridor . 10 . uv-pechat . yakkabog (hyphenated ceiling id)",
         ),
         (
-            "pro_zal_24_matoviy_qarshi_0a",
+            "pro_zal_80_mramor_shahrisabz-tumani",
             {
                 "kind": "pro",
                 "source": "pro",
                 "room_type_id": "zal",
-                "area_m2": 24,
-                "ceiling_type_id": "matoviy",
-                "district_id": "qarshi",
-                "addon_count": 0,
-                "raw": "pro_zal_24_matoviy_qarshi_0a",
+                "area_m2": 80,
+                "ceiling_type_id": "mramor",
+                "district_id": "shahrisabz-tumani",
+                "raw": "pro_zal_80_mramor_shahrisabz-tumani",
             },
-            "pro: minimal (0 addons)",
+            "pro: max area (80) . hyphenated district",
         ),
-        # Unknown — invalid format
+        # Unknown - invalid format
         ("", {"kind": "unknown", "source": "unknown", "raw": ""}, "empty payload"),
         (
             None,
@@ -380,90 +299,81 @@ def _run_tests() -> int:
             "too long (>64 chars)",
         ),
         (
-            "pro_zal_24_led_qarshi_3a$",
-            {"kind": "unknown", "source": "unknown", "raw": "pro_zal_24_led_qarshi_3a$"},
+            "pro_zal_24_gulli_kitob$",
+            {"kind": "unknown", "source": "unknown", "raw": "pro_zal_24_gulli_kitob$"},
             "illegal char ($)",
         ),
         (
-            "pro_unknownroom_24_led_qarshi_3a",
+            "pro_unknownroom_24_gulli_kitob",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_unknownroom_24_led_qarshi_3a",
+                "raw": "pro_unknownroom_24_gulli_kitob",
             },
             "unknown room id",
         ),
         (
-            "pro_zal_abc_led_qarshi_3a",
+            "pro_zal_abc_gulli_kitob",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_abc_led_qarshi_3a",
+                "raw": "pro_zal_abc_gulli_kitob",
             },
             "non-numeric area",
         ),
         (
-            "pro_zal_24_unknownceiling_qarshi_3a",
+            "pro_zal_24_unknownceiling_kitob",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_24_unknownceiling_qarshi_3a",
+                "raw": "pro_zal_24_unknownceiling_kitob",
             },
             "unknown ceiling id",
         ),
         (
-            "pro_zal_24_led_unknowndistrict_3a",
+            "pro_zal_24_gulli_unknowndistrict",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_24_led_unknowndistrict_3a",
+                "raw": "pro_zal_24_gulli_unknowndistrict",
             },
             "unknown district id",
         ),
         (
-            "pro_zal_24_led_qarshi_3",
+            "pro_zal_24_gulli_kitob_3a",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_24_led_qarshi_3",
+                "raw": "pro_zal_24_gulli_kitob_3a",
             },
-            "addon segment missing 'a' suffix",
+            "legacy Phase 3.5 format (with addon count) -> unknown",
         ),
         (
-            "pro_zal_24_led_qarshi_9a",
+            "pro_zal_5_gulli_kitob",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_24_led_qarshi_9a",
-            },
-            "addon count > max (9 > 6)",
-        ),
-        (
-            "pro_zal_5_led_qarshi_0a",
-            {
-                "kind": "unknown",
-                "source": "unknown",
-                "raw": "pro_zal_5_led_qarshi_0a",
+                "raw": "pro_zal_5_gulli_kitob",
             },
             "area below AREA_MIN (5 < 6)",
         ),
         (
-            "pro_zal_100_led_qarshi_0a",
+            "pro_zal_100_gulli_kitob",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_100_led_qarshi_0a",
+                "raw": "pro_zal_100_gulli_kitob",
             },
             "area above AREA_MAX (100 > 80)",
         ),
         (
-            "pro_zal_24_led_qarshi",
+            "pro_zal_24_gulli",
             {
                 "kind": "unknown",
                 "source": "unknown",
-                "raw": "pro_zal_24_led_qarshi",
+                "raw": "pro_zal_24_gulli",
             },
-            "pro_ prefix but missing addon segment (5 parts)",
+            "pro_ prefix but missing district (4 parts)",
         ),
         (
             "completelyrandomstring",
@@ -481,7 +391,7 @@ def _run_tests() -> int:
                 "source": "unknown",
                 "raw": "price_zal_24_led_led-line-karniz",
             },
-            "legacy price_* payload (Phase 3) → unknown",
+            "legacy Phase 3 price_* payload -> unknown",
         ),
     ]
     fails = 0
@@ -491,27 +401,18 @@ def _run_tests() -> int:
             fails += 1
 
     print()
-    print("=== calculate_partial_estimate (base + travel) ===")
-    p1 = calculate_partial_estimate("zal", 24, "led", "qarshi")
-    print(f"  zal · 24m² · led · qarshi -> {p1}")
-    print(f"    formatted: {format_price_range(p1['min'], p1['max'])}")
+    print("=== calculate_estimate (Phase Calc-2: addonsiz) ===")
+    e1 = calculate_estimate("zal", 24, "gulli")
+    print(f"  zal . 24m2 . gulli -> {e1}")
+    print(f"    formatted: {format_price_range(e1['min'], e1['max'])}")
 
-    p2 = calculate_partial_estimate("yotoqxona", 18, "glyans", "qarshi")
-    print(f"  yotoqxona · 18m² · glyans · qarshi -> {p2}")
-    print(f"    formatted: {format_price_range(p2['min'], p2['max'])}")
+    e2 = calculate_estimate("yotoqxona", 18, "odnotonniy")
+    print(f"  yotoqxona . 18m2 . odnotonniy -> {e2}")
+    print(f"    formatted: {format_price_range(e2['min'], e2['max'])}")
 
-    p3 = calculate_partial_estimate("koridor", 10, "premium", "far")
-    print(f"  koridor · 10m² · premium · far -> {p3}")
-    print(f"    formatted: {format_price_range(p3['min'], p3['max'])}")
-
-    print()
-    print("=== calculate_full_estimate (addonlar tasdiqlangach) ===")
-    full1 = calculate_full_estimate(
-        "zal", 24, "led", "qarshi",
-        {"led-line": 6, "karniz": 4, "lyustra": 1},
-    )
-    print(f"  zal · 24 · led · qarshi · LED 6m + karniz 4m + lyustra 1 -> {full1}")
-    print(f"    formatted: {format_price_range(full1['min'], full1['max'])}")
+    e3 = calculate_estimate("zal", 24, "mramor")
+    print(f"  zal . 24m2 . mramor -> {e3}")
+    print(f"    formatted: {format_price_range(e3['min'], e3['max'])}")
 
     print()
     if fails == 0:

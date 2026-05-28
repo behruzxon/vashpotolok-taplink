@@ -184,6 +184,27 @@ Hozir bot **alohida proyektda** (yoki yaratilishi kerak) — bu repository ichid
 
 ---
 
+## Phase Calc-2 — Business-aligned calculator simplification  ✅
+
+Pro Calculator biznes yo'nalishiga mosroq qilib soddalashtirildi.
+
+### O'zgarishlar
+
+- **Step soni 6 → 5:** “Qo‘shimcha ishlar” (addons) step **olib tashlandi**. Flow: Room → Size → Ceiling → District → Result.
+- **Yangi ceiling type'lar:** `odnotonniy / gulli / naqsh / mramor / uv-pechat` (eski `matoviy/glyans/satin/led/premium` o'rniga). Har biri uchun inline SVG pattern preview qo'shildi (Однотонный gradient, Gulli dot grid, Naqsh ornamental, Mramor wavy veins, UV pechat photo glyph).
+- **District policy:** travel fee `0` — barcha 16 Qashqadaryo tumanlari uchun narx bir xil. Tuman tanlovi faqat lead context uchun saqlanadi.
+- **Yangi district ro'yxati (16 ta):** Qarshi shahri, Qarshi tumani, Shahrisabz shahri, Shahrisabz tumani, Kitob, Yakkabog‘, Chiroqchi, Qamashi, G‘uzor, Kasbi, Koson, Nishon, Muborak, Mirishkor, Dehqonobod, Ko‘kdala.
+- **Formula soddalashdi:** `total = ceiling.pricePerM2 × area × room.baseMultiplier` (round to 1000). Addons va travel hisobdan chiqarildi.
+- **Yangi payload format:** `pro_<room>_<area>_<ceiling>_<district>` (eski `pro_..._<N>a` o'rniga, addonCount yo'q). Misol: `pro_zal_24_gulli_kitob`.
+- **Result step soddalashdi:** breakdown faqat `Polotno + montaj` qatori, summary'da district info ko'rsatiladi (price line emas). Disclaimer copy yangilandi: “Bu taxminiy hisob. Aniq narx o‘lchov va yakuniy tanlovdan keyin belgilanadi.”
+- **Analytics taksonomiyasi:** `pro_calculator_addon_changed` olib tashlandi, `pro_calculator_completed` dan `addonCount` field chiqarildi.
+- **Fayllar o'chirildi:** `src/components/calculator/addons-step.tsx`, `src/components/calculator/quantity-control.tsx`.
+- **Bot kontrakti yangilandi:** `docs/TELEGRAM_BOT_INTEGRATION.md` + `docs/examples/telegram_payload_parser.py` yangi 5-segment payload va yangi ID jadvallariga moslandi.
+
+**Deliverable:** mijoz uchun ixchamroq oqim (4 input step), biznes egasi uchun haqiqiy yo'nalishga mos ceiling preset, butun viloyat uchun bitta narx siyosati.
+
+---
+
 ## Phase Trust-1 — Videos + Testimonials  ✅
 
 Saytga ikkita ishonch bo'limi qo'shildi: **VideoShowcase** (Reels) va **TestimonialsSection** (mijoz fikrlari).

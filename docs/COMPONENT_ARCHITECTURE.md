@@ -44,16 +44,17 @@ lib/
 ├── pro-price-estimate.ts (Phase 3.5 — calculateProEstimate, parseDecimal, buildProTelegramPayload)
 └── cn.ts               (className merger)
 
-components/calculator/   (Phase 3.5 — Pro calculator)
-├── calculator-shell.tsx       (header + progress + body + nav)
-├── quantity-control.tsx       (universal −/+ counter)
-├── room-step.tsx              (Step 1)
+components/calculator/   (Phase Calc-2 — 5-step Pro calculator)
+├── calculator-shell.tsx       (header + 5-segment progress + body + nav)
+├── room-step.tsx              (Step 1 — custom SVG room icons)
 ├── size-step.tsx              (Step 2 — dimensions/area toggle)
-├── ceiling-step.tsx           (Step 3 — premium-level badges)
-├── addons-step.tsx            (Step 4 — quantity controls)
-├── district-step.tsx          (Step 5)
-├── result-step.tsx            (Result — invoice + CTA)
+├── ceiling-step.tsx           (Step 3 — 5 ceiling types with SVG pattern preview)
+├── district-step.tsx          (Step 4 — 16 Qashqadaryo districts, 2-col grid, narx bir xil)
+├── result-step.tsx            (Step 5 — premium invoice + CTA)
 └── estimate-breakdown.tsx     (invoice line items)
+
+Phase Calc-2 da olib tashlangan:
+- addons-step.tsx, quantity-control.tsx (Qo'shimcha ishlar step yo'q)
 ```
 
 ## 3. Component contracts

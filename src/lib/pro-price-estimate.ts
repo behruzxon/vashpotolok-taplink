@@ -3,11 +3,9 @@ import {
   AREA_MIN_M2,
   ceilingTypes,
   districtOptions,
-  proAddonOptions,
   roomTypes,
   type CeilingType,
   type DistrictOption,
-  type ProAddonOption,
   type RoomShapeMode,
   type RoomType,
 } from '@/data/price-options'
@@ -19,7 +17,6 @@ export type ProEstimateInput = {
   widthM?: number
   areaM2?: number
   ceilingTypeId: string
-  addonQuantities: Record<string, number>
   districtId: string
 }
 
@@ -38,10 +35,6 @@ export type ProEstimateResult = {
   perimeterM: number
   baseMin: number
   baseMax: number
-  addonsMin: number
-  addonsMax: number
-  travelMin: number
-  travelMax: number
   totalMin: number
   totalMax: number
   breakdown: BreakdownItem[]
@@ -72,10 +65,6 @@ function findCeiling(id: string): CeilingType | undefined {
   return ceilingTypes.find((c) => c.id === id)
 }
 
-function findAddon(id: string): ProAddonOption | undefined {
-  return proAddonOptions.find((a) => a.id === id)
-}
-
 function findDistrict(id: string): DistrictOption | undefined {
   return districtOptions.find((d) => d.id === id)
 }
@@ -83,19 +72,13 @@ function findDistrict(id: string): DistrictOption | undefined {
 /**
  * Yakuniy summalar shu qadamga yaxlitlanadi. Mijozga `1 050 000 so‘m`
  * ko‘rinishi `1 047 612 so‘m`'dan ancha tushunarli — taxminiy hisob
- * uchun ham mos. Agar 500'ga yaxlitlash kerak bo'lsa — shu qiymatni
- * o'zgartiring.
+ * uchun ham mos.
  */
 const ROUNDING_STEP_SOM = 1000
 
 function roundToStep(value: number): number {
   if (!Number.isFinite(value) || value <= 0) return 0
   return Math.round(value / ROUNDING_STEP_SOM) * ROUNDING_STEP_SOM
-}
-
-function clamp(value: number, min: number, max: number): number {
-  if (!Number.isFinite(value)) return min
-  return Math.min(max, Math.max(min, value))
 }
 
 // ---------------------------------------------------------------------------
@@ -125,7 +108,7 @@ function deriveAreaAndPerimeter(input: ProEstimateInput): {
 }
 
 // ---------------------------------------------------------------------------
-// Calculation
+// Calculation (Phase Calc-2: faqat polotno + montaj, addonsiz, travel = 0)
 // ---------------------------------------------------------------------------
 
 export function calculateProEstimate(input: ProEstimateInput): ProEstimateResult {
@@ -135,10 +118,6 @@ export function calculateProEstimate(input: ProEstimateInput): ProEstimateResult
     perimeterM: 0,
     baseMin: 0,
     baseMax: 0,
-    addonsMin: 0,
-    addonsMax: 0,
-    travelMin: 0,
-    travelMax: 0,
     totalMin: 0,
     totalMax: 0,
     breakdown: [],
@@ -167,47 +146,10 @@ export function calculateProEstimate(input: ProEstimateInput): ProEstimateResult
     },
   ]
 
-  let addonsMin = 0
-  let addonsMax = 0
-  for (const addon of proAddonOptions) {
-    const raw = input.addonQuantities[addon.id] ?? 0
-    const qty = clamp(Math.round(raw), addon.minQty, addon.maxQty)
-    if (qty <= 0) continue
+  const totalMin = roundToStep(baseMin)
+  const totalMax = roundToStep(baseMax)
 
-    const itemMin = addon.unit === 'fixed' ? addon.priceMin : addon.priceMin * qty
-    const itemMax = addon.unit === 'fixed' ? addon.priceMax : addon.priceMax * qty
-    addonsMin += itemMin
-    addonsMax += itemMax
-
-    breakdown.push({
-      id: addon.id,
-      label: addon.label,
-      qty,
-      unit: addon.unit,
-      min: roundToStep(itemMin),
-      max: roundToStep(itemMax),
-    })
-  }
-
-  const travelMin = district.travelFeeMin
-  const travelMax = district.travelFeeMax
-  if (travelMax > 0) {
-    breakdown.push({
-      id: 'travel',
-      label: `Yo‘l/hudud · ${district.label}`,
-      unit: 'fixed',
-      min: roundToStep(travelMin),
-      max: roundToStep(travelMax),
-    })
-  }
-
-  const totalMin = roundToStep(baseMin + addonsMin + travelMin)
-  const totalMax = roundToStep(baseMax + addonsMax + travelMax)
-
-  const payload = buildProTelegramPayload(input, {
-    areaM2: area,
-    addonQuantities: input.addonQuantities,
-  })
+  const payload = buildProTelegramPayload(input, { areaM2: area })
 
   return {
     valid: true,
@@ -215,10 +157,6 @@ export function calculateProEstimate(input: ProEstimateInput): ProEstimateResult
     perimeterM: Math.round(perimeter * 10) / 10,
     baseMin: roundToStep(baseMin),
     baseMax: roundToStep(baseMax),
-    addonsMin: roundToStep(addonsMin),
-    addonsMax: roundToStep(addonsMax),
-    travelMin,
-    travelMax,
     totalMin,
     totalMax,
     breakdown,
@@ -242,22 +180,21 @@ export function formatPriceRange(min: number, max: number): string {
 }
 
 // ---------------------------------------------------------------------------
-// Telegram payload
+// Telegram payload (Phase Calc-2: addonsiz qisqa forma)
 // ---------------------------------------------------------------------------
 
 /**
  * Pro calculator payload:
- *   pro_<room>_<area>_<ceiling>_<district>_<N>a
+ *   pro_<room>_<area>_<ceiling>_<district>
  *
- * <N> = qty > 0 bo‘lgan addonlar soni (0..6).
- *
- * Hozircha qisqa forma tanlandi — quantity'larni ham yuborish 64 belgilik
- * Telegram cheklovidan oshib ketadi. Bot tomonida summary tanlovlar
- * qaytadan tasdiqlanadi.
+ * Misollar:
+ *   pro_zal_24_gulli_kitob
+ *   pro_yotoqxona_18_odnotonniy_qarshi-shahar
+ *   pro_oshxona_14_mramor_kasbi
  */
 export function buildProTelegramPayload(
   input: ProEstimateInput,
-  override?: { areaM2?: number; addonQuantities?: Record<string, number> },
+  override?: { areaM2?: number },
 ): string {
   const safeRoom = (input.roomTypeId || 'x').replace(/[^a-z0-9-]/gi, '')
   const safeCeiling = (input.ceilingTypeId || 'x').replace(/[^a-z0-9-]/gi, '')
@@ -269,27 +206,8 @@ export function buildProTelegramPayload(
       : deriveAreaAndPerimeter(input).area
   const safeArea = Math.max(0, Math.round(areaSource))
 
-  const quantities = override?.addonQuantities ?? input.addonQuantities
-  const activeAddons = proAddonOptions.filter((a) => (quantities[a.id] ?? 0) > 0).length
-
-  const payload = `pro_${safeRoom}_${safeArea}_${safeCeiling}_${safeDistrict}_${activeAddons}a`
+  const payload = `pro_${safeRoom}_${safeArea}_${safeCeiling}_${safeDistrict}`
   return payload.length <= 60 ? payload : payload.slice(0, 60)
-}
-
-// ---------------------------------------------------------------------------
-// Misc helpers used by UI
-// ---------------------------------------------------------------------------
-
-export function defaultAddonQuantities(): Record<string, number> {
-  const out: Record<string, number> = {}
-  for (const a of proAddonOptions) out[a.id] = a.defaultQty
-  return out
-}
-
-export function totalActiveAddons(quantities: Record<string, number>): number {
-  let n = 0
-  for (const a of proAddonOptions) if ((quantities[a.id] ?? 0) > 0) n++
-  return n
 }
 
 // ---------------------------------------------------------------------------
@@ -298,16 +216,6 @@ export function totalActiveAddons(quantities: Record<string, number>): number {
 // Real narxlarni o'zgartirgandan keyin: shu 4 ta misol natijasi mantiqsiz
 // (juda baland yoki juda past) bo'lib qolmaganini tekshiring. Manual
 // sanity check jadvali: docs/PRO_CALCULATOR_SPEC.md §8.5.
-//
-// Dev konsolda tekshirish:
-//
-//   import { TYPICAL_EXAMPLES, calculateProEstimate, formatPriceRange } from '@/lib/pro-price-estimate'
-//   for (const ex of TYPICAL_EXAMPLES) {
-//     const r = calculateProEstimate(ex.input)
-//     console.log(ex.label, '→', formatPriceRange(r.totalMin, r.totalMax))
-//   }
-//
-// Ushbu massiv lint'da "unused" warning bermaydi — `export` qilingani uchun.
 
 export type TypicalExample = {
   id: string
@@ -320,56 +228,52 @@ export type TypicalExample = {
 export const TYPICAL_EXAMPLES: TypicalExample[] = [
   {
     id: 'simple-bedroom',
-    label: 'Yotoqxona · matoviy · Qarshi',
+    label: 'Yotoqxona · odnotonniy · Qarshi shahri',
     input: {
       roomTypeId: 'yotoqxona',
       mode: 'area',
       areaM2: 18,
-      ceilingTypeId: 'matoviy',
-      addonQuantities: { lyustra: 0 },
-      districtId: 'qarshi',
+      ceilingTypeId: 'odnotonniy',
+      districtId: 'qarshi-shahar',
     },
-    expectedNote: '~500k–700k so‘m (eng oddiy, eng arzon variant)',
+    expectedNote: '~540k–756k so‘m (eng oddiy variant)',
   },
   {
-    id: 'premium-living',
-    label: 'Zal · LED · LED liniya 6m + karniz 4m + lyustra 1 · Qarshi',
+    id: 'living-gulli',
+    label: 'Zal · gulli · 6×4 m · Kitob',
     input: {
       roomTypeId: 'zal',
       mode: 'dimensions',
       lengthM: 6,
       widthM: 4,
-      ceilingTypeId: 'led',
-      addonQuantities: { 'led-line': 6, karniz: 4, lyustra: 1 },
-      districtId: 'qarshi',
+      ceilingTypeId: 'gulli',
+      districtId: 'kitob',
     },
-    expectedNote: '~2.0M–3.2M so‘m (premium komplekt)',
+    expectedNote: '~1.26M–1.71M so‘m (zal + gulli)',
   },
   {
-    id: 'kitchen-far-spots',
-    label: 'Oshxona · glyans · spot 4 · Qashqadaryo tumani',
+    id: 'mramor-premium',
+    label: 'Zal · mramor · 5×4 m · Shahrisabz shahri',
     input: {
-      roomTypeId: 'oshxona',
-      mode: 'area',
-      areaM2: 14,
-      ceilingTypeId: 'glyans',
-      addonQuantities: { spot: 4 },
-      districtId: 'qashqadaryo',
+      roomTypeId: 'zal',
+      mode: 'dimensions',
+      lengthM: 5,
+      widthM: 4,
+      ceilingTypeId: 'mramor',
+      districtId: 'shahrisabz-shahar',
     },
-    expectedNote: '~650k–1.1M so‘m (o‘rta narx + tuman yo‘l xarajati)',
+    expectedNote: '~1.37M–1.89M so‘m (premium mramor)',
   },
   {
-    id: 'tiny-corridor-far',
-    label: 'Koridor · premium · LED liniya 5m · Uzoq hudud',
+    id: 'uv-print-koridor',
+    label: 'Koridor · UV pechat · 10 m² · Yakkabog‘',
     input: {
       roomTypeId: 'koridor',
       mode: 'area',
       areaM2: 10,
-      ceilingTypeId: 'premium',
-      addonQuantities: { 'led-line': 5 },
-      districtId: 'far',
+      ceilingTypeId: 'uv-pechat',
+      districtId: 'yakkabog',
     },
-    expectedNote: '~1.2M–2.1M so‘m (kichik joy lekin premium + uzoq yo‘l)',
+    expectedNote: '~760k–1.14M so‘m (kichik joy, UV pechat premium)',
   },
 ]
-

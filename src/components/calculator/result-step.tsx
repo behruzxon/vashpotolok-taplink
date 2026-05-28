@@ -1,6 +1,6 @@
 'use client'
 
-import { ceilingTypes, districtOptions, proAddonOptions, roomTypes } from '@/data/price-options'
+import { ceilingTypes, districtOptions, roomTypes } from '@/data/price-options'
 import { formatPriceRange, type ProEstimateResult } from '@/lib/pro-price-estimate'
 import { createTelegramBotLink } from '@/data/links'
 import { track } from '@/lib/analytics'
@@ -11,7 +11,6 @@ type Props = {
   roomTypeId: string
   ceilingTypeId: string
   districtId: string
-  addonQuantities: Record<string, number>
   onRestart: () => void
 }
 
@@ -20,14 +19,11 @@ export function ResultStep({
   roomTypeId,
   ceilingTypeId,
   districtId,
-  addonQuantities,
   onRestart,
 }: Props) {
   const room = roomTypes.find((r) => r.id === roomTypeId)
   const ceiling = ceilingTypes.find((c) => c.id === ceilingTypeId)
   const district = districtOptions.find((d) => d.id === districtId)
-
-  const activeAddons = proAddonOptions.filter((a) => (addonQuantities[a.id] ?? 0) > 0)
 
   const botLink = createTelegramBotLink(result.payload)
   const isValid = result.valid && result.totalMax > 0
@@ -63,22 +59,7 @@ export function ResultStep({
         <SummaryRow label="Xona" value={room?.label ?? '—'} />
         <SummaryRow label="Maydon" value={`${result.areaM2} m²`} />
         <SummaryRow label="Potolok" value={ceiling?.label ?? '—'} full />
-        <SummaryRow
-          label="Qo‘shimcha"
-          value={
-            activeAddons.length > 0
-              ? activeAddons
-                  .map((a) => {
-                    const q = addonQuantities[a.id] ?? 0
-                    const unit = a.unit === 'meter' ? ' m' : a.unit === 'piece' ? ' dona' : ''
-                    return `${a.label} (${q}${unit})`
-                  })
-                  .join(', ')
-              : 'Yo‘q'
-          }
-          full
-        />
-        <SummaryRow label="Hudud" value={district?.label ?? '—'} full />
+        <SummaryRow label="Tuman" value={district?.label ?? '—'} full />
       </dl>
 
       <EstimateBreakdown items={result.breakdown} />
@@ -90,7 +71,8 @@ export function ResultStep({
           <path d="M12 16h.01" />
         </svg>
         <p className="text-[11.5px] leading-snug text-ink-secondary">
-          <span className="font-semibold text-ink-primary">Bu hisob taxminiy.</span> Aniq narx o‘lchov, xona holati, material turi, yoritish va montaj murakkabligiga qarab belgilanadi.
+          <span className="font-semibold text-ink-primary">Bu taxminiy hisob.</span>{' '}
+          Aniq narx o‘lchov va yakuniy tanlovdan keyin belgilanadi.
         </p>
       </div>
 
@@ -127,7 +109,7 @@ export function ResultStep({
       <button
         type="button"
         onClick={onRestart}
-        className="text-center text-[12px] font-semibold text-ink-secondary underline-offset-4 hover:underline"
+        className="text-center text-[12px] font-semibold text-ink-secondary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base rounded"
       >
         Qayta hisoblash
       </button>
