@@ -132,11 +132,11 @@ ROOM_MULTIPLIER = {
 
 CEILING_PRICE_PER_M2 = {
     # id -> (min, max)
-    "odnotonniy": (30_000, 42_000),
-    "gulli":      (50_000, 68_000),
-    "naqsh":      (58_000, 78_000),
-    "mramor":     (65_000, 90_000),
-    "uv-pechat":  (80_000, 120_000),
+    "odnotonniy": (80_000, 90_000),
+    "gulli":      (120_000, 135_000),
+    "naqsh":      (120_000, 135_000),
+    "mramor":     (120_000, 135_000),
+    "uv-pechat":  (140_000, 160_000),
 }
 
 

@@ -190,8 +190,8 @@ Hammasi bir joyda: **`src/data/price-options.ts`**.
 {
   id: 'mramor',                    // ← TEGMANG (Telegram bot kontrakti)
   label: 'Mramor',
-  pricePerM2Min: 65000,            // ← shu yerda almashtiring (so'm/m²)
-  pricePerM2Max: 90000,
+  pricePerM2Min: 120000,           // ← shu yerda almashtiring (so'm/m²)
+  pricePerM2Max: 135000,
   premiumLevel: 'premium',
 }
 ```
@@ -225,10 +225,10 @@ ID'lar bot parser bilan sinxronlanishi shart (`docs/TELEGRAM_BOT_INTEGRATION.md`
 
 | # | Input | Expected range (joriy preset) |
 |---|---|---|
-| 1 | Yotoqxona · odnotonniy · 18 m² · Qarshi shahri | ~540k–756k so'm |
-| 2 | Zal · gulli · 6×4 m · Kitob | ~1.26M–1.71M so'm |
-| 3 | Zal · mramor · 5×4 m · Shahrisabz shahri | ~1.37M–1.89M so'm |
-| 4 | Koridor · UV pechat · 10 m² · Yakkabog‘ | ~760k–1.14M so'm |
+| 1 | Yotoqxona · odnotonniy · 18 m² · Qarshi shahri | ~1 440 000 — 1 620 000 so'm |
+| 2 | Zal · gulli · 6×4 m (24 m²) · Kitob | ~3 024 000 — 3 402 000 so'm |
+| 3 | Oshxona · mramor · 14 m² · Kasbi | ~1 680 000 — 1 890 000 so'm |
+| 4 | Koridor · UV pechat · 10 m² · Yakkabog‘ | ~1 330 000 — 1 520 000 so'm |
 
 ### 8.6 Yaxlitlash
 

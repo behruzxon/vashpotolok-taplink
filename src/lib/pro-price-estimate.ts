@@ -228,7 +228,7 @@ export type TypicalExample = {
 export const TYPICAL_EXAMPLES: TypicalExample[] = [
   {
     id: 'simple-bedroom',
-    label: 'Yotoqxona · odnotonniy · Qarshi shahri',
+    label: 'Yotoqxona · odnotonniy · 18 m² · Qarshi shahri',
     input: {
       roomTypeId: 'yotoqxona',
       mode: 'area',
@@ -236,11 +236,11 @@ export const TYPICAL_EXAMPLES: TypicalExample[] = [
       ceilingTypeId: 'odnotonniy',
       districtId: 'qarshi-shahar',
     },
-    expectedNote: '~540k–756k so‘m (eng oddiy variant)',
+    expectedNote: '~1 440 000 — 1 620 000 so‘m (eng oddiy variant)',
   },
   {
     id: 'living-gulli',
-    label: 'Zal · gulli · 6×4 m · Kitob',
+    label: 'Zal · gulli · 6×4 m (24 m²) · Kitob',
     input: {
       roomTypeId: 'zal',
       mode: 'dimensions',
@@ -249,20 +249,19 @@ export const TYPICAL_EXAMPLES: TypicalExample[] = [
       ceilingTypeId: 'gulli',
       districtId: 'kitob',
     },
-    expectedNote: '~1.26M–1.71M so‘m (zal + gulli)',
+    expectedNote: '~3 024 000 — 3 402 000 so‘m (zal + gulli)',
   },
   {
-    id: 'mramor-premium',
-    label: 'Zal · mramor · 5×4 m · Shahrisabz shahri',
+    id: 'mramor-kitchen',
+    label: 'Oshxona · mramor · 14 m² · Kasbi',
     input: {
-      roomTypeId: 'zal',
-      mode: 'dimensions',
-      lengthM: 5,
-      widthM: 4,
+      roomTypeId: 'oshxona',
+      mode: 'area',
+      areaM2: 14,
       ceilingTypeId: 'mramor',
-      districtId: 'shahrisabz-shahar',
+      districtId: 'kasbi',
     },
-    expectedNote: '~1.37M–1.89M so‘m (premium mramor)',
+    expectedNote: '~1 680 000 — 1 890 000 so‘m (premium mramor)',
   },
   {
     id: 'uv-print-koridor',
@@ -274,6 +273,6 @@ export const TYPICAL_EXAMPLES: TypicalExample[] = [
       ceilingTypeId: 'uv-pechat',
       districtId: 'yakkabog',
     },
-    expectedNote: '~760k–1.14M so‘m (kichik joy, UV pechat premium)',
+    expectedNote: '~1 330 000 — 1 520 000 so‘m (UV pechat, koridor multiplier 0.95)',
   },
 ]
