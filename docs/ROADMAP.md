@@ -184,6 +184,27 @@ Hozir bot **alohida proyektda** (yoki yaratilishi kerak) — bu repository ichid
 
 ---
 
+## Phase Trust-1 — Videos + Testimonials  ✅
+
+Saytga ikkita ishonch bo'limi qo'shildi: **VideoShowcase** (Reels) va **TestimonialsSection** (mijoz fikrlari).
+
+### Bajarilgani:
+
+- **`src/data/videos.ts`** — `VideoItem` type + 3 sample (Zal LED Qarshi featured, Yotoqxona matoviy Qashqadaryo, Oshxona glyans Qarshi). `thumbnail`, `videoUrl` ixtiyoriy — yo'q bo'lsa abstrakt LED ceiling fallback render qilinadi.
+- **`src/data/testimonials.ts`** — `TestimonialItem` type + 3 sample (5/5 baho, `customerLabel` joy+xona turi — fake ism ishlatilmagan).
+- **`src/components/video-showcase.tsx`** — horizontal snap-scroll cards, Reels badge, duration badge, central play button, gradient hover shine, Instagram CTA pastida.
+- **`src/components/testimonials-section.tsx`** — 3 ta stacked card, 5-yulduzli rating SVG, blockquote ikona + quote, customerLabel/location/projectType/m², bot CTA pastida (`source: 'trust'`).
+- **`src/lib/analytics.ts`** kengaytirildi:
+  - `click_telegram_bot` source enum'iga `'trust'` qo'shildi.
+  - `click_instagram` source enum'iga `'video'` qo'shildi.
+  - Yangi `click_video { id, destination: 'instagram' | 'video' }`.
+- **`src/app/page.tsx`** flow: Hero → CTA → Calculator → Services → Trust → **VideoShowcase** → Portfolio → **TestimonialsSection** → Process → Footer.
+- **`docs/VIDEOS_AND_TESTIMONIALS_GUIDE.md`** — yangi qo'llanma (10 ta bo'lim: video tanlash, thumbnail, Reels link, testimonial copy qoidalari, sample, workflow, privacy, performance, quick ref).
+
+**Deliverable:** sayt endi “demo” taassurotidan ham uzoq — Reels va mijoz fikrlari real trust signali beradi (Reels link kelganda bevosita ulanadi).
+
+---
+
 ## Phase 4.5 — Actual Telegram bot implementation  ◀ keyingisi
 
 Bot kodi yaratiladi (alohida repo yoki monorepo `bot/` papka).

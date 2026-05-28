@@ -4,7 +4,9 @@ import { MainCTAButtons } from '@/components/main-cta-buttons'
 import { PriceEstimateCard } from '@/components/price-estimate-card'
 import { ServicesGrid } from '@/components/services-grid'
 import { TrustBadges } from '@/components/trust-badges'
+import { VideoShowcase } from '@/components/video-showcase'
 import { PortfolioPreview } from '@/components/portfolio-preview'
+import { TestimonialsSection } from '@/components/testimonials-section'
 import { ProcessSteps } from '@/components/process-steps'
 import { StickyBottomCTA } from '@/components/sticky-bottom-cta'
 import { FooterCTA } from '@/components/footer-cta'
@@ -13,6 +15,8 @@ import { links } from '@/data/links'
 import { services } from '@/data/services'
 import { portfolio } from '@/data/portfolio'
 import { trust } from '@/data/trust'
+import { videos } from '@/data/videos'
+import { testimonials } from '@/data/testimonials'
 
 export default function Page() {
   return (
@@ -39,14 +43,22 @@ export default function Page() {
         </RevealOnScroll>
 
         <RevealOnScroll delay={320}>
-          <PortfolioPreview items={portfolio} portfolioLink={links.instagram} />
+          <VideoShowcase items={videos} instagramLink={links.instagram} />
         </RevealOnScroll>
 
         <RevealOnScroll delay={400}>
-          <ProcessSteps />
+          <PortfolioPreview items={portfolio} portfolioLink={links.instagram} />
         </RevealOnScroll>
 
         <RevealOnScroll delay={480}>
+          <TestimonialsSection items={testimonials} />
+        </RevealOnScroll>
+
+        <RevealOnScroll delay={560}>
+          <ProcessSteps />
+        </RevealOnScroll>
+
+        <RevealOnScroll delay={640}>
           <FooterCTA phone={links.phone} phoneDisplay={links.phoneDisplay} />
         </RevealOnScroll>
       </main>

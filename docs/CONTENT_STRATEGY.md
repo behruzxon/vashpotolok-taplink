@@ -70,6 +70,43 @@ Eslatma: emoji'lar **icon component** sifatida ham renderlanishi mumkin (lucide-
 - Yakuniy CTA — Telegram bot'ga olib boradi.
 - "Aniq narx" so'zi muhim — bu narx faqat orientir ekanligini bildiradi.
 
+## 5b. Video va mijoz fikrlari (Phase Trust-1)
+
+### VideoShowcase
+
+- Section title: `Video ishlarimiz`
+- Subtitle: `Montaj jarayoni va tayyor natijalarni qisqa videolarda ko‘ring.`
+- Har card uchun:
+  - **Title** — qisqa, 5–8 so'z (`"Zal uchun LED натяжной потолок"`)
+  - **Tags** — max 3–4 ta (`LED`, `Zal`, `Qarshi`)
+  - **Duration** — `M:SS` format (15–30 soniya Reels)
+  - **CTA** — `"Videoni ko‘rish"`, Instagram Reels linkka olib boradi
+- Section CTA: `"Instagramda ko‘proq videolarni ko‘rish"`
+
+### TestimonialsSection
+
+- Section title: `Mijozlar fikri`
+- Subtitle: `Har bir buyurtmada tushunarli hisob, toza montaj va mos yechimga e’tibor beramiz.`
+- Section CTA: `"Shunga o‘xshash hisoblatish"` (Telegram bot `source: 'trust'`)
+
+### Copy qoidalari
+
+**Fake ism qat'iy taqiqlangan.** Mijoz ruxsati bo'lmasa `customerLabel` faqat joy + xona turi:
+- ✅ `"Qarshi · Zal"`
+- ✅ `"Qashqadaryo · Yotoqxona"`
+- ❌ `"Sherzod · Qarshi · Zal"` — ruxsat tasdiqlanmagan
+
+**Quote yumshoq va professional:**
+- ✅ `"Zalimiz ancha yorug‘ va chiroyli bo‘lib qoldi. Montaj toza qilindi."`
+- ❌ `"Eng zo‘r firma, 100% tavsiya qilaman!"` — reklama va'da
+- ❌ `"Boshqa hech kim shuni qila olmaydi"` — competitive da'vo
+
+**Rating 5/5 faqat real bo'lsa.** Yolg'on rating qo'shilmaydi. Rating yo'q bo'lsa field bermang.
+
+**Privacy:** Bola, yosh oilaviy a'zo, mijoz yuzi yoki shaxsiy buyumi videoda ko'rinmasin. Mijoz ruxsatini olib tashlash so'rovi kelsa 24 soat ichida data file'dan o'chiriladi.
+
+Batafsil workflow: [`VIDEOS_AND_TESTIMONIALS_GUIDE.md`](./VIDEOS_AND_TESTIMONIALS_GUIDE.md).
+
 ## 6. Xizmatlar (ServicesGrid)
 
 ```

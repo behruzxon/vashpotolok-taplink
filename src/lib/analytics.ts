@@ -1,10 +1,11 @@
 export type AnalyticsEvent =
   | { name: 'view_page'; payload: { path: string } }
-  | { name: 'click_telegram_bot'; payload: { source: 'hero' | 'price' | 'portfolio' | 'sticky' | 'footer' } }
+  | { name: 'click_telegram_bot'; payload: { source: 'hero' | 'price' | 'portfolio' | 'sticky' | 'footer' | 'trust' } }
   | { name: 'click_call'; payload: { source: 'hero' | 'sticky' | 'footer' } }
   | { name: 'click_telegram_profile'; payload: { source: 'hero' } }
-  | { name: 'click_instagram'; payload: { source: 'cta' | 'portfolio' } }
+  | { name: 'click_instagram'; payload: { source: 'cta' | 'portfolio' | 'video' } }
   | { name: 'click_portfolio'; payload: { itemId: string } }
+  | { name: 'click_video'; payload: { id: string; destination: 'instagram' | 'video' } }
   | { name: 'click_price_estimate'; payload: { area: number; estimate: number } }
   | { name: 'interact_price_slider'; payload: { area: number } }
   | { name: 'scroll_depth'; payload: { percent: 25 | 50 | 75 | 100 } }

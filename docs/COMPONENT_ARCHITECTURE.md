@@ -16,6 +16,8 @@ components/
 ├── services-grid.tsx           (5 services with icons)
 ├── trust-badges.tsx            (4 trust badges, 2×2 grid)
 ├── portfolio-preview.tsx       (horizontal scroll cards)
+├── video-showcase.tsx          (Phase Trust-1 — Reels horizontal scroll)
+├── testimonials-section.tsx    (Phase Trust-1 — mijoz fikrlari)
 ├── process-steps.tsx           (5-step timeline)
 ├── sticky-bottom-cta.tsx       (always-visible CTA bar)
 ├── footer-cta.tsx              (phone + caption)
@@ -32,7 +34,9 @@ data/
 ├── links.ts            (all external URLs — single source of truth)
 ├── services.ts         (5 services array)
 ├── portfolio.ts        (placeholder portfolio items)
-├── trust.ts            (4 trust badges)
+├── trust.ts            (5 trust badges — Phase UI-1)
+├── videos.ts           (Phase Trust-1 — VideoItem array)
+├── testimonials.ts     (Phase Trust-1 — TestimonialItem array)
 └── price-options.ts    (Phase 3.5 — RoomType / CeilingType / ProAddonOption / DistrictOption)
 
 lib/
