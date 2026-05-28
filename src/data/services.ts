@@ -11,19 +11,19 @@ export const services: Service[] = [
   {
     id: 'ceiling',
     title: 'натяжной потолок',
-    subtitle: 'Matt, glyans, satin',
+    subtitle: 'Mat, glyans, satin',
     icon: 'ceiling',
   },
   {
     id: 'led',
     title: 'LED yoritish',
-    subtitle: 'Zamonaviy yechim',
+    subtitle: 'Zamonaviy nur chiziqlari',
     icon: 'led',
   },
   {
     id: 'cornice',
     title: 'Karniz',
-    subtitle: 'Yashirin va ochiq',
+    subtitle: 'Yashirin va ochiq yechim',
     icon: 'cornice',
   },
   {
@@ -35,7 +35,7 @@ export const services: Service[] = [
   {
     id: 'design',
     title: 'Dizayn maslahat',
-    subtitle: 'Bepul',
+    subtitle: 'Xonaga mos tavsiya',
     icon: 'design',
   },
 ]

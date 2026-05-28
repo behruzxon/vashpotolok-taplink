@@ -25,7 +25,7 @@ const variantClasses: Record<Variant, string> = {
   tertiary:
     'bg-grad-button-tg text-white shadow-cta-tg border-white/15',
   ghost:
-    'bg-bg-glass-strong text-ink-primary border-line-strong backdrop-blur-xl hover:bg-white/[0.10]',
+    'bg-bg-glass-strong text-ink-primary border-transparent backdrop-blur-xl hover:bg-white/[0.08] before:absolute before:inset-0 before:rounded-2xl before:p-px before:[background:linear-gradient(135deg,rgba(255,255,255,0.28),rgba(255,255,255,0.04))] before:[mask:linear-gradient(#000,#000)_content-box,linear-gradient(#000,#000)] before:[mask-composite:exclude]',
 }
 
 const iconWrapClasses: Record<Variant, string> = {

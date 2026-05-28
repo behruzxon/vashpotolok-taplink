@@ -42,6 +42,13 @@ function Icon({ name }: { name: TrustIcon }) {
           <circle cx="12" cy="9" r="2.5" />
         </svg>
       )
+    case 'compass':
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="m15.5 8.5-2.5 5-5 2.5 2.5-5 5-2.5z" />
+        </svg>
+      )
   }
 }
 
@@ -49,49 +56,52 @@ export function TrustBadges({ items }: Props) {
   return (
     <section aria-labelledby="trust-title">
       <div className="mb-3 px-1">
-        <h2 id="trust-title" className="text-[18px] font-bold text-ink-primary">
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-glass-strong px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary backdrop-blur-md">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-accent-glow shadow-[0_0_8px_rgba(91,155,255,0.9)]" />
+          Ishonch
+        </div>
+        <h2 id="trust-title" className="mt-2 text-[20px] font-bold leading-tight text-ink-primary">
           Nega bizni tanlaysiz
         </h2>
-        <p className="text-[12px] text-ink-muted">
+        <p className="mt-1 text-[12px] text-ink-muted">
           Har bir buyurtma — sizning xotirjamligingiz uchun.
         </p>
       </div>
 
-      <ul className="grid grid-cols-2 gap-2.5">
+      <ul className="flex flex-col gap-2">
         {items.map((t) => (
           <li
             key={t.id}
-            className="group relative isolate flex flex-col gap-2 overflow-hidden rounded-2xl border border-line-soft bg-bg-glass-strong p-3.5 backdrop-blur-md transition-colors duration-300 hover:border-line-strong"
+            className="group relative isolate flex items-start gap-3 overflow-hidden rounded-2xl border border-line-soft bg-bg-glass-strong p-3.5 backdrop-blur-md transition-colors duration-300 hover:border-line-strong"
           >
             <span
               aria-hidden
-              className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-brand-accent-soft opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100 motion-reduce:hidden"
+              className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-brand-accent-soft opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100 motion-reduce:hidden"
             />
-
             <span
               aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
             />
 
-            <div className="flex items-center gap-2.5">
-              <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-accent-glow/30 to-brand-accent/10 text-brand-accent-glow ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-105 group-hover:ring-white/20">
-                <Icon name={t.icon} />
-                <span
-                  aria-hidden
-                  className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 motion-reduce:hidden"
-                  style={{
-                    boxShadow: '0 0 18px rgba(91, 155, 255, 0.55)',
-                  }}
-                />
-              </span>
-              <span className="text-[13px] font-bold leading-tight text-ink-primary">
-                {t.title}
-              </span>
-            </div>
+            <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-accent-glow/30 to-brand-accent/10 text-brand-accent-glow ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-[1.04] group-hover:ring-white/20">
+              <Icon name={t.icon} />
+              <span
+                aria-hidden
+                className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 motion-reduce:hidden"
+                style={{
+                  boxShadow: '0 0 18px rgba(91, 155, 255, 0.55)',
+                }}
+              />
+            </span>
 
-            <p className="text-[11.5px] leading-snug text-ink-secondary">
-              {t.description}
-            </p>
+            <div className="min-w-0 flex-1">
+              <p className="text-[13.5px] font-bold leading-tight text-ink-primary">
+                {t.title}
+              </p>
+              <p className="mt-0.5 text-[11.5px] leading-snug text-ink-secondary">
+                {t.description}
+              </p>
+            </div>
           </li>
         ))}
       </ul>

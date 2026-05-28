@@ -21,26 +21,31 @@ export function CalculatorShell({ step, title, subtitle, children, back, next }:
 
   return (
     <GlassCard glow className="overflow-hidden p-5">
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-brand-accent-glow/70 to-transparent"
+      />
       <div>
         <div className="flex items-center justify-between gap-3">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-white/[0.04] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary">
-            <svg viewBox="0 0 24 24" className="h-3 w-3 text-brand-accent-glow" fill="currentColor" aria-hidden>
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-brand-accent/30 bg-brand-accent-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-brand-accent-glow shadow-[0_0_18px_-6px_rgba(91,155,255,0.5)]">
+            <svg viewBox="0 0 24 24" className="h-3 w-3" fill="currentColor" aria-hidden>
               <path d="M12 2 4 6v6c0 5 3.4 9.5 8 10 4.6-.5 8-5 8-10V6l-8-4Z" />
             </svg>
             Pro kalkulyator
           </div>
           {isResult ? (
-            <span className="rounded-full bg-success/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-success">
+            <span className="rounded-full border border-success/30 bg-success/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-success">
               Hisob tayyor
             </span>
           ) : (
             <span className="text-[11px] font-bold tabular-nums text-ink-secondary">
-              {stepIndex}/{TOTAL_STEPS}
+              <span className="text-ink-primary">{stepIndex}</span>
+              <span className="opacity-50">/{TOTAL_STEPS}</span>
             </span>
           )}
         </div>
 
-        <div className="mt-2 flex gap-1">
+        <div className="mt-3 flex gap-1">
           {Array.from({ length: TOTAL_STEPS }, (_, i) => {
             const filled = isResult || i < stepIndex
             const current = !isResult && i === stepIndex - 1
@@ -48,14 +53,21 @@ export function CalculatorShell({ step, title, subtitle, children, back, next }:
               <span
                 key={i}
                 className={cn(
-                  'h-1 flex-1 rounded-full transition-all duration-500',
+                  'relative h-1.5 flex-1 overflow-hidden rounded-full transition-all duration-500',
                   filled
                     ? current
-                      ? 'bg-grad-button shadow-[0_0_12px_rgba(91,155,255,0.6)]'
-                      : 'bg-brand-accent/70'
+                      ? 'bg-grad-button shadow-[0_0_14px_rgba(91,155,255,0.7)]'
+                      : 'bg-brand-accent/80'
                     : 'bg-white/[0.08]',
                 )}
-              />
+              >
+                {current ? (
+                  <span
+                    aria-hidden
+                    className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shine motion-reduce:hidden"
+                  />
+                ) : null}
+              </span>
             )
           })}
         </div>

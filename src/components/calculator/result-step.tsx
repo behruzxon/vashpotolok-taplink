@@ -34,20 +34,33 @@ export function ResultStep({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="rounded-2xl border border-line-soft bg-bg-base/40 p-4">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
-          Taxminiy diapazon
-        </p>
-        <p className="mt-1 bg-gradient-to-br from-white to-ink-secondary bg-clip-text text-[28px] font-extrabold leading-tight text-transparent tabular-nums sm:text-[32px]">
-          {formatPriceRange(result.totalMin, result.totalMax)}
-        </p>
-        <p className="mt-1 text-[12px] text-ink-muted">
-          {result.areaM2} m² · perimetr {result.perimeterM} m
-        </p>
+      <div className="relative overflow-hidden rounded-2xl border border-brand-accent/30 bg-gradient-to-br from-brand-accent-soft via-bg-base/60 to-bg-base/40 p-5 shadow-[0_0_40px_-12px_rgba(91,155,255,0.5)]">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -right-10 -top-12 h-40 w-40 rounded-full bg-brand-accent-soft blur-3xl"
+        />
+        <div className="relative">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-accent-glow">
+              Taxminiy diapazon
+            </p>
+            <span className="rounded-full border border-success/30 bg-success/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-success">
+              Tayyor
+            </span>
+          </div>
+          <p className="mt-2 bg-gradient-to-br from-white via-brand-accent-glow to-ink-secondary bg-clip-text text-[30px] font-extrabold leading-tight text-transparent tabular-nums sm:text-[34px]">
+            {formatPriceRange(result.totalMin, result.totalMax)}
+          </p>
+          <p className="mt-1.5 text-[12px] text-ink-secondary">
+            <span className="font-semibold text-ink-primary tabular-nums">{result.areaM2} m²</span>
+            <span className="mx-1.5 text-ink-muted">·</span>
+            <span>perimetr <span className="tabular-nums">{result.perimeterM} m</span></span>
+          </p>
+        </div>
       </div>
 
       <dl className="grid grid-cols-2 gap-2 rounded-2xl border border-line-soft bg-white/[0.03] p-3 text-[12px]">
-        <SummaryRow label="Xona" value={room ? `${room.icon} ${room.label}` : '—'} />
+        <SummaryRow label="Xona" value={room?.label ?? '—'} />
         <SummaryRow label="Maydon" value={`${result.areaM2} m²`} />
         <SummaryRow label="Potolok" value={ceiling?.label ?? '—'} full />
         <SummaryRow
@@ -70,14 +83,16 @@ export function ResultStep({
 
       <EstimateBreakdown items={result.breakdown} />
 
-      <p className="flex items-start gap-2 text-[11.5px] leading-snug text-ink-muted">
-        <svg viewBox="0 0 24 24" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-accent-glow" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <div className="flex items-start gap-2.5 rounded-2xl border border-gold/30 bg-gold-soft px-3.5 py-3">
+        <svg viewBox="0 0 24 24" className="mt-0.5 h-4 w-4 shrink-0 text-gold" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <circle cx="12" cy="12" r="9" />
           <path d="M12 8v4" />
           <path d="M12 16h.01" />
         </svg>
-        Bu hisob taxminiy. Aniq narx o‘lchov, xona holati, material turi, yoritish va montaj murakkabligiga qarab belgilanadi.
-      </p>
+        <p className="text-[11.5px] leading-snug text-ink-secondary">
+          <span className="font-semibold text-ink-primary">Bu hisob taxminiy.</span> Aniq narx o‘lchov, xona holati, material turi, yoritish va montaj murakkabligiga qarab belgilanadi.
+        </p>
+      </div>
 
       <a
         href={isValid ? botLink : undefined}

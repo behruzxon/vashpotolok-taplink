@@ -1,4 +1,4 @@
-export type TrustIcon = 'shield' | 'sparkles' | 'check' | 'pin'
+export type TrustIcon = 'shield' | 'sparkles' | 'check' | 'pin' | 'compass'
 
 export type TrustItem = {
   id: string
@@ -9,27 +9,33 @@ export type TrustItem = {
 
 export const trust: TrustItem[] = [
   {
+    id: 'consult',
+    title: 'Bepul maslahat',
+    description: 'Xonangizga mos variantni tushuntirib beramiz.',
+    icon: 'compass',
+  },
+  {
     id: 'clean',
     title: 'Toza montaj',
     description: 'Ish joyi tartibli, montajdan keyin toza topshiriladi.',
     icon: 'check',
   },
   {
-    id: 'quality',
-    title: 'Sifatli material',
-    description: 'Chiroyli ko‘rinish va uzoq muddatli foydalanish uchun tanlangan material.',
+    id: 'material',
+    title: 'Material tanlash',
+    description: 'Mat, glyans, satin va LED yechimlar bo‘yicha yo‘l ko‘rsatamiz.',
     icon: 'sparkles',
   },
   {
-    id: 'warranty',
-    title: 'Kafolat',
-    description: 'Ish sifati bo‘yicha mijozga aniq va tushunarli kafolat.',
-    icon: 'shield',
+    id: 'area',
+    title: 'Qashqadaryo bo‘ylab',
+    description: 'Qarshi va viloyat hududlarida chiqish imkoniyati.',
+    icon: 'pin',
   },
   {
-    id: 'area',
-    title: 'Viloyat bo‘ylab xizmat',
-    description: 'Qarshi va Qashqadaryo hududlarida o‘lchov va montaj.',
-    icon: 'pin',
+    id: 'warranty',
+    title: 'Kafolat shartlari',
+    description: 'Ish sifati bo‘yicha tushunarli kafolat shartlari.',
+    icon: 'shield',
   },
 ]

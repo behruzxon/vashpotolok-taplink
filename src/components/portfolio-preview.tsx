@@ -43,7 +43,7 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
 
       <div className="-mx-5 px-5">
         <ul
-          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 pr-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           role="list"
         >
           {items.map((item) => (
@@ -74,7 +74,7 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
     <li
       className={cn(
         'group relative shrink-0 snap-start overflow-hidden rounded-3xl border border-line-strong shadow-card',
-        isFeatured ? 'w-[78%]' : 'w-[64%]',
+        isFeatured ? 'w-[82%]' : 'w-[70%]',
       )}
     >
       <article className="relative flex h-full flex-col">
@@ -94,7 +94,33 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
               className="absolute inset-0 h-full w-full object-cover"
             />
           ) : (
-            <div className="absolute inset-0" style={{ background: item.gradient }} aria-hidden />
+            <>
+              <div className="absolute inset-0" style={{ background: item.gradient }} aria-hidden />
+              {/* abstract ceiling panel — LED line pattern */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 opacity-[0.22]"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(rgba(255,255,255,0.95) 1px, transparent 1px)',
+                  backgroundSize: '100% 28px',
+                  maskImage:
+                    'linear-gradient(180deg, #000 0%, #000 50%, transparent 100%)',
+                  WebkitMaskImage:
+                    'linear-gradient(180deg, #000 0%, #000 50%, transparent 100%)',
+                }}
+              />
+              {/* central LED strip */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-8 top-[18%] h-px"
+                style={{
+                  background:
+                    'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.85) 50%, transparent 100%)',
+                  boxShadow: '0 0 16px rgba(91,155,255,0.7)',
+                }}
+              />
+            </>
           )}
 
           <span
@@ -179,7 +205,7 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
               <path d="M21.5 4.2 2.8 11.4c-1 .4-.9 1.8.1 2l4.8 1.4 1.8 5.5c.2.6 1 .8 1.4.3l2.7-3 5 3.7c.8.6 2 .2 2.2-.8l3.4-14.6c.3-1.1-.8-2-1.8-1.6Z"/>
             </svg>
-            Shunga o‘xshash narx hisoblatish
+            Shunga o‘xshash hisoblatish
           </a>
         </div>
       </article>

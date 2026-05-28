@@ -15,7 +15,7 @@ export function MainCTAButtons({ links }: Props) {
         href={links.telegramBot}
         variant="primary"
         label="Telegram bot orqali hisoblash"
-        sublabel="1 daqiqada taxminiy narx"
+        sublabel="1 daqiqada taxminiy hisob"
         ariaLabel="Telegram bot orqali narx hisoblash"
         icon={
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
@@ -31,7 +31,7 @@ export function MainCTAButtons({ links }: Props) {
           variant="secondary"
           external={false}
           label="Qo‘ng‘iroq"
-          sublabel={links.phoneDisplay}
+          sublabel="Tezkor maslahat"
           ariaLabel={`Qo'ng'iroq qilish ${links.phoneDisplay}`}
           icon={
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
@@ -45,7 +45,7 @@ export function MainCTAButtons({ links }: Props) {
           href={links.telegramProfile}
           variant="tertiary"
           label="Telegram"
-          sublabel="Operator chat"
+          sublabel="Operator bilan yozish"
           ariaLabel="Telegramda yozish"
           icon={
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
@@ -60,7 +60,7 @@ export function MainCTAButtons({ links }: Props) {
         href={links.instagram}
         variant="ghost"
         label="Instagram profil"
-        sublabel="So‘nggi ishlarimiz"
+        sublabel="Real ishlarimiz"
         ariaLabel="Instagram profil"
         icon={
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>

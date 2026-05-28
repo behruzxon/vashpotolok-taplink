@@ -55,13 +55,16 @@ function ServiceIconSVG({ name }: { name: ServiceIcon }) {
 export function ServicesGrid({ items }: Props) {
   return (
     <section aria-labelledby="services-title">
-      <div className="mb-3 flex items-center justify-between px-1">
-        <h2 id="services-title" className="text-[18px] font-bold text-ink-primary">
-          Nimani qilamiz
-        </h2>
-        <span className="text-[11px] font-medium uppercase tracking-wider text-ink-muted">
-          5 yo‘nalish
-        </span>
+      <div className="mb-3 flex items-end justify-between px-1">
+        <div>
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-glass-strong px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary backdrop-blur-md">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-accent-glow shadow-[0_0_8px_rgba(91,155,255,0.9)]" />
+            5 yo‘nalish
+          </div>
+          <h2 id="services-title" className="mt-2 text-[20px] font-bold leading-tight text-ink-primary">
+            Nimani qilamiz
+          </h2>
+        </div>
       </div>
 
       <ul className="grid grid-cols-2 gap-2.5">
@@ -71,13 +74,17 @@ export function ServicesGrid({ items }: Props) {
             <li
               key={s.id}
               className={cn(
-                'relative overflow-hidden rounded-2xl border border-line-soft bg-bg-glass-strong p-3 backdrop-blur-md',
+                'group relative overflow-hidden rounded-2xl border border-line-soft bg-bg-glass-strong p-3 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-line-strong',
                 isLastOdd && 'col-span-2',
               )}
             >
-              <span aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand-accent-soft blur-2xl" />
+              <span aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand-accent-soft blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+              />
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-accent-soft text-brand-accent-glow ring-1 ring-white/10">
+                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-accent-glow/30 to-brand-accent/10 text-brand-accent-glow ring-1 ring-white/10 transition-transform duration-300 group-hover:scale-[1.05]">
                   <ServiceIconSVG name={s.icon} />
                 </span>
                 <div className="min-w-0">
@@ -85,7 +92,7 @@ export function ServicesGrid({ items }: Props) {
                     {s.title}
                   </p>
                   {s.subtitle ? (
-                    <p className="truncate text-[12px] leading-tight text-ink-muted">
+                    <p className="truncate text-[11.5px] leading-tight text-ink-secondary">
                       {s.subtitle}
                     </p>
                   ) : null}
