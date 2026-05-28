@@ -32,7 +32,7 @@ export function HeroSection() {
       </div>
 
       <p className="mt-2.5 text-[17px] font-semibold leading-tight text-ink-primary">
-        Қашқадарё бўйлаб
+        Qashqadaryo bo‘ylab
         <br />
         <span className="bg-gradient-to-r from-brand-accent-glow to-brand-accent bg-clip-text text-transparent">
           натяжной потолок
@@ -40,7 +40,7 @@ export function HeroSection() {
       </p>
 
       <p className="mx-auto mt-2 text-[12.5px] font-medium uppercase tracking-[0.18em] text-ink-secondary">
-        ўлчов · дизайн · монтаж
+        o‘lchov · dizayn · montaj
       </p>
 
       {/* Showroom visual — abstract ceiling + LED + horizon */}

@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     alternateLocale: ['ru_RU'],
     url: SITE_URL,
     siteName: 'VashPotolok',
-    title: 'VashPotolok — натяжной потолок Қашқадарё бўйлаб',
-    description: 'Ўлчовдан монтажгача тайёр ечим. Toza montaj, kafolat, viloyat bo‘ylab xizmat.',
+    title: 'VashPotolok — натяжной потолок Qashqadaryo bo‘ylab',
+    description: 'O‘lchovdan montajgacha tayyor yechim. Toza montaj, kafolat shartlari, viloyat bo‘ylab xizmat.',
   },
   // Twitter ham `app/opengraph-image.tsx`'ni qabul qiladi (alternative:
   // `app/twitter-image.tsx` qo'shilsa, shu ishlatiladi). Hozircha OG bilan
   // bir xil rasm.
   twitter: {
     card: 'summary_large_image',
-    title: 'VashPotolok — натяжной потолок Қашқадарё',
-    description: 'Ўлчовдан монтажгача тайёр ечим. Telegram botda narx hisoblang.',
+    title: 'VashPotolok — натяжной потолок Qashqadaryo',
+    description: 'O‘lchovdan montajgacha tayyor yechim. Telegram botda narx hisoblang.',
   },
   robots: {
     index: true,

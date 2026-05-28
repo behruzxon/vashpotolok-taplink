@@ -31,5 +31,5 @@ export const links: Links = {
   telegramProfile: 'https://t.me/vashpotolok',
   instagram: 'https://instagram.com/vashpotolok',
   phone: 'tel:+998908866666',
-  phoneDisplay: '90 886 66 66',
+  phoneDisplay: '+998 90 886 66 66',
 }

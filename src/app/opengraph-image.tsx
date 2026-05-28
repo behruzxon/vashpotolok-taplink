@@ -69,7 +69,7 @@ export default function OpengraphImage() {
               color: '#5B9BFF',
             }}
           >
-            Қашқадарё бўйлаб натяжной потолок
+            Qashqadaryo bo‘ylab натяжной потолок
           </div>
           <div
             style={{
@@ -79,7 +79,7 @@ export default function OpengraphImage() {
               marginTop: 12,
             }}
           >
-            Ўлчовдан монтажгача тайёр ечим
+            O‘lchovdan montajgacha tayyor yechim
           </div>
         </div>
 

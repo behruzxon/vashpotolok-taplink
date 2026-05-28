@@ -202,9 +202,32 @@ Production URL'da bularni manual tekshiring:
 
 ---
 
+## 5.7 External CTA manual verification (Instagram bio'ga qo'yishdan oldin SHART)
+
+Bio link Instagram'ga qo'yilgach mijozlar haqiqiy CTA'larni bossa — har bittasi javob berishi shart. Bu blokni **bio update'dan oldin** to'liq o'tkazing.
+
+| # | Manual check | Kutilgan natija |
+|---|---|---|
+| E1 | Telefonda `@vashpotolokbot` ni qidir | Bot topiladi, ochiladi |
+| E2 | Botda `/start` bosildi | Bot welcome xabar yuboradi (template A yoki D) |
+| E3 | Live URL'da Hero primary CTA bosildi | Telegram'ga `?start=hero` bilan o'tadi va welcome ko'rinadi |
+| E4 | Portfolio card CTA bosildi | `?start=portfolio` welcome (template B) |
+| E5 | Pro Calculator to'liq → Result CTA bosildi | `?start=pro_<...>` welcome (template C — summary) |
+| E6 | Sticky CTA Telegram bosildi | `?start=sticky` welcome |
+| E7 | `+998 90 886 66 66` raqamiga qo'ng'iroq qilindi | Telefon ko'tariladi, javob beradi |
+| E8 | `t.me/vashpotolok` (operator profile) ochildi | Profil mavjud va xabar yozish imkoniyati bor |
+| E9 | `instagram.com/vashpotolok` ochildi | Profil mavjud, real ishlar postlari ko'rinadi |
+| E10 | Footer CTA telefon raqami `+998 90 886 66 66` formatida | Display format to'g'ri (xom `tel:...` ko'rinmaydi) |
+
+**Agar E1–E9 dan biri ham FAIL bo'lsa:** Instagram bio'ga link qo'ymang. Avval shu xizmatni jonli ishlaydigan qiling. Yo'qsa mijoz CTA bossa boshi berk ko'chaga kiradi va lead yo'qoladi.
+
+**E10 maxsus eslatma:** Sticky va Phone CTA matnida hech qachon xom `tel:+998908866666` ko'rinmasligi kerak — faqat `+998 90 886 66 66` (display format) yoki `Qo‘ng‘iroq`.
+
+---
+
 ## 6. Instagram bio update
 
-Deploy tasdiqlangach:
+Deploy tasdiqlangach **va §5.7 hammasi yashil bo'lsa**:
 
 1. Instagram → **Profil** → **Edit profile**
 2. **Website** maydoniga `https://vashpotolok.uz` (yoki preview URL)

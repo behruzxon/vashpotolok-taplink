@@ -6,10 +6,10 @@ type Step = {
 
 const steps: Step[] = [
   { id: '1', title: 'Buyurtma', subtitle: 'Telegram yoki qo‘ng‘iroq' },
-  { id: '2', title: 'Ўлчов', subtitle: 'Mutaxassis kelib o‘lchaydi · bepul' },
+  { id: '2', title: 'O‘lchov', subtitle: 'Mutaxassis kelib o‘lchaydi · bepul' },
   { id: '3', title: 'Tanlash', subtitle: 'Material, rang, dizayn' },
   { id: '4', title: 'Montaj', subtitle: 'Toza, 1 kun ichida' },
-  { id: '5', title: 'Kafolat', subtitle: 'Rasmiy hujjat bilan' },
+  { id: '5', title: 'Kafolat', subtitle: 'Shartlar oldindan tushuntiriladi' },
 ]
 
 export function ProcessSteps() {

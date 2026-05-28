@@ -29,9 +29,9 @@ export function FooterCTA({ phone, phoneDisplay }: Props) {
             Bugun bepul maslahat oling
           </h3>
           <p className="mt-1.5 text-[12px] text-ink-secondary">
-            Қашқадарё бўйлаб
+            Qashqadaryo bo‘ylab
             <span className="mx-1.5 text-ink-muted">·</span>
-            ҳар куни 09:00–20:00
+            har kuni 09:00–20:00
           </p>
 
           <a

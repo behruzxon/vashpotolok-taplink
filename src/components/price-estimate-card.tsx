@@ -170,8 +170,8 @@ export function PriceEstimateCard() {
                 ? result.valid
                 : false
 
-  if (step === 'result') {
-    return (
+  const card =
+    step === 'result' ? (
       <CalculatorShell
         step="result"
         title="Sizning xonangiz uchun taxminiy hisob"
@@ -187,48 +187,80 @@ export function PriceEstimateCard() {
           onRestart={restart}
         />
       </CalculatorShell>
+    ) : (
+      (() => {
+        const copy = STEP_COPY[step]
+        const isFinalStep = step === TOTAL_STEPS
+        const nextLabel = isFinalStep ? 'Hisobni ko‘rish' : 'Davom etish'
+        return (
+          <CalculatorShell
+            step={step}
+            title={copy.title}
+            subtitle={copy.subtitle}
+            back={step > 1 ? { onClick: back } : undefined}
+            next={{ onClick: next, disabled: !canGoNext, label: nextLabel }}
+          >
+            {step === 1 ? <RoomStep selectedId={roomTypeId} onSelect={setRoomTypeId} /> : null}
+            {step === 2 ? (
+              <SizeStep
+                mode={mode}
+                lengthM={lengthM}
+                widthM={widthM}
+                areaM2={areaInput}
+                onModeChange={setMode}
+                onLengthChange={setLengthM}
+                onWidthChange={setWidthM}
+                onAreaChange={setAreaInput}
+              />
+            ) : null}
+            {step === 3 ? (
+              <CeilingStep selectedId={ceilingTypeId} onSelect={setCeilingTypeId} />
+            ) : null}
+            {step === 4 ? (
+              <AddonsStep
+                quantities={addonQuantities}
+                onChange={(id, qty) => setAddonQuantities((prev) => ({ ...prev, [id]: qty }))}
+              />
+            ) : null}
+            {step === 5 ? (
+              <DistrictStep selectedId={districtId} onSelect={setDistrictId} />
+            ) : null}
+            {step === 6 ? <ConfirmStep result={result} /> : null}
+          </CalculatorShell>
+        )
+      })()
     )
-  }
-
-  const copy = STEP_COPY[step]
-  const isFinalStep = step === TOTAL_STEPS
-  const nextLabel = isFinalStep ? 'Hisobni ko‘rish' : 'Davom etish'
 
   return (
-    <CalculatorShell
-      step={step}
-      title={copy.title}
-      subtitle={copy.subtitle}
-      back={step > 1 ? { onClick: back } : undefined}
-      next={{ onClick: next, disabled: !canGoNext, label: nextLabel }}
-    >
-      {step === 1 ? <RoomStep selectedId={roomTypeId} onSelect={setRoomTypeId} /> : null}
-      {step === 2 ? (
-        <SizeStep
-          mode={mode}
-          lengthM={lengthM}
-          widthM={widthM}
-          areaM2={areaInput}
-          onModeChange={setMode}
-          onLengthChange={setLengthM}
-          onWidthChange={setWidthM}
-          onAreaChange={setAreaInput}
-        />
-      ) : null}
-      {step === 3 ? (
-        <CeilingStep selectedId={ceilingTypeId} onSelect={setCeilingTypeId} />
-      ) : null}
-      {step === 4 ? (
-        <AddonsStep
-          quantities={addonQuantities}
-          onChange={(id, qty) => setAddonQuantities((prev) => ({ ...prev, [id]: qty }))}
-        />
-      ) : null}
-      {step === 5 ? (
-        <DistrictStep selectedId={districtId} onSelect={setDistrictId} />
-      ) : null}
-      {step === 6 ? <ConfirmStep result={result} /> : null}
-    </CalculatorShell>
+    <div className="flex flex-col gap-2.5">
+      <PriceAnchor />
+      {card}
+    </div>
+  )
+}
+
+function PriceAnchor() {
+  return (
+    <div className="flex items-start gap-2.5 rounded-2xl border border-line-soft bg-white/[0.03] px-3.5 py-2.5">
+      <svg
+        viewBox="0 0 24 24"
+        className="mt-0.5 h-4 w-4 shrink-0 text-brand-accent-glow"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 8v4" />
+        <path d="M12 16h.01" />
+      </svg>
+      <p className="text-[11.5px] leading-snug text-ink-secondary">
+        <span className="font-semibold text-ink-primary">Taxminiy hisob 1 daqiqada.</span>{' '}
+        Yakuniy narx o‘lchovdan keyin aniqlanadi — m², material va qo‘shimchalarga qarab.
+      </p>
+    </div>
   )
 }
 
