@@ -20,24 +20,23 @@ export function HeroSection() {
         </span>
       </div>
 
-      {/* Logo + wordmark — 60px, contain, light premium card */}
-      <div className="relative mx-auto mt-4 flex items-center justify-center gap-3">
-        <span className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-line-soft bg-bg-surface p-0.5 shadow-[0_10px_28px_-10px_rgba(15,23,42,0.22)]">
+      {/* Brand block — wide logo card (wordmark text removed) */}
+      <h1 className="relative mx-auto mt-4 flex w-fit items-center justify-center">
+        <span className="sr-only">Potolok X</span>
+        <span
+          aria-hidden
+          className="relative flex h-[68px] w-[210px] items-center justify-center overflow-hidden rounded-2xl border border-line-soft bg-bg-surface shadow-[0_12px_32px_-12px_rgba(15,23,42,0.22)] sm:h-[76px] sm:w-[240px]"
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/brand/potolok-x-logo.jpg"
-            alt="Potolok X logo"
+            alt=""
             loading="eager"
             decoding="async"
             className="h-full w-full scale-150 object-contain object-center"
           />
         </span>
-        <h1 className="text-[34px] font-extrabold leading-[1.0] tracking-tight text-ink-primary sm:text-[42px]">
-          <span className="block bg-gradient-to-br from-ink-primary via-brand-primary to-brand-accent bg-clip-text text-transparent">
-            Potolok X
-          </span>
-        </h1>
-      </div>
+      </h1>
 
       {/* Headline */}
       <p className="mx-auto mt-3 max-w-[320px] text-[19px] font-bold leading-[1.15] text-ink-primary sm:text-[22px]">
