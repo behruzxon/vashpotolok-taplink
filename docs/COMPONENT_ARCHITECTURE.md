@@ -1,4 +1,6 @@
-# VashPotolok — Component Architecture
+# PotolX — Component Architecture
+
+> Phase Brand-1: VashPotolok → PotolX. Dark navy → light premium. Token nomlari saqlandi (`bg-base`, `ink-primary`, ...), qiymatlar `tailwind.config.ts` ichida light theme'ga ko'chirildi.
 
 ## 1. Tree
 

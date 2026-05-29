@@ -21,20 +21,20 @@ type Props = {
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    'bg-grad-button text-white shadow-cta border-white/15 hover:shadow-[0_18px_50px_-8px_rgba(61,126,255,0.7)]',
+    'bg-grad-button text-white shadow-cta border-transparent hover:shadow-[0_18px_42px_-10px_rgba(47,107,255,0.55)]',
   secondary:
-    'bg-grad-button-green text-white shadow-cta-green border-white/15',
+    'bg-grad-button-green text-white shadow-cta-green border-transparent',
   tertiary:
-    'bg-grad-button-tg text-white shadow-cta-tg border-white/15',
+    'bg-grad-button-tg text-white shadow-cta-tg border-transparent',
   ghost:
-    'bg-bg-glass-strong text-ink-primary border-transparent backdrop-blur-xl hover:bg-white/[0.08] before:absolute before:inset-0 before:rounded-2xl before:p-px before:[background:linear-gradient(135deg,rgba(255,255,255,0.28),rgba(255,255,255,0.04))] before:[mask:linear-gradient(#000,#000)_content-box,linear-gradient(#000,#000)] before:[mask-composite:exclude]',
+    'bg-bg-surface text-ink-primary border-line-soft shadow-soft hover:border-line-strong hover:shadow-card',
 }
 
 const iconWrapClasses: Record<Variant, string> = {
-  primary: 'bg-white/15 ring-1 ring-white/25',
-  secondary: 'bg-white/15 ring-1 ring-white/25',
-  tertiary: 'bg-white/15 ring-1 ring-white/25',
-  ghost: 'bg-white/[0.06] ring-1 ring-white/15',
+  primary: 'bg-white/20 ring-1 ring-white/30',
+  secondary: 'bg-white/20 ring-1 ring-white/30',
+  tertiary: 'bg-white/20 ring-1 ring-white/30',
+  ghost: 'bg-brand-accent-soft ring-1 ring-brand-accent/15 text-brand-accent',
 }
 
 export function CtaButton({

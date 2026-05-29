@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'VashPotolok — Qashqadaryoda натяжной потолок'
+export const alt = 'PotolX — Qashqadaryoda натяжной потолок'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -17,8 +17,8 @@ export default function OpengraphImage() {
           justifyContent: 'space-between',
           padding: 80,
           background:
-            'radial-gradient(120% 80% at 50% -10%, #1E2E66 0%, #0A0E1A 60%)',
-          color: '#F4F7FF',
+            'radial-gradient(120% 80% at 50% -10%, #DBEAFE 0%, #F5F7FB 60%)',
+          color: '#0F172A',
           fontFamily: 'system-ui, -apple-system, Segoe UI, sans-serif',
         }}
       >
@@ -31,7 +31,7 @@ export default function OpengraphImage() {
             fontWeight: 700,
             letterSpacing: 4,
             textTransform: 'uppercase',
-            color: '#B6C2DC',
+            color: '#475569',
           }}
         >
           <div
@@ -39,8 +39,8 @@ export default function OpengraphImage() {
               width: 12,
               height: 12,
               borderRadius: 999,
-              background: '#5B9BFF',
-              boxShadow: '0 0 24px #5B9BFF',
+              background: '#2F6BFF',
+              boxShadow: '0 0 24px #60A5FA',
             }}
           />
           Qarshi · Qashqadaryo
@@ -49,24 +49,50 @@ export default function OpengraphImage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
           <div
             style={{
-              fontSize: 96,
-              fontWeight: 800,
-              lineHeight: 1,
-              letterSpacing: -3,
-              backgroundImage:
-                'linear-gradient(135deg, #FFFFFF 0%, #B6C2DC 100%)',
-              backgroundClip: 'text',
-              color: 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 22,
             }}
           >
-            VASH POTOLOK
+            <div
+              style={{
+                width: 96,
+                height: 96,
+                borderRadius: 24,
+                background: 'linear-gradient(135deg, #2F6BFF 0%, #1D4ED8 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#FFFFFF',
+                fontSize: 44,
+                fontWeight: 800,
+                letterSpacing: -1,
+                boxShadow: '0 16px 40px -8px rgba(47,107,255,0.45)',
+              }}
+            >
+              PX
+            </div>
+            <div
+              style={{
+                fontSize: 96,
+                fontWeight: 800,
+                lineHeight: 1,
+                letterSpacing: -3,
+                backgroundImage:
+                  'linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%)',
+                backgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              PotolX
+            </div>
           </div>
           <div
             style={{
-              fontSize: 52,
+              fontSize: 50,
               fontWeight: 700,
               lineHeight: 1.05,
-              color: '#5B9BFF',
+              color: '#1D4ED8',
             }}
           >
             Qashqadaryo bo‘ylab натяжной потолок
@@ -75,32 +101,33 @@ export default function OpengraphImage() {
             style={{
               fontSize: 28,
               fontWeight: 500,
-              color: '#B6C2DC',
-              marginTop: 12,
+              color: '#475569',
+              marginTop: 8,
             }}
           >
-            O‘lchovdan montajgacha tayyor yechim
+            O‘lchov · Dizayn · Montaj
           </div>
         </div>
 
         <div
           style={{
             display: 'flex',
-            gap: 24,
+            gap: 18,
             fontSize: 20,
             fontWeight: 600,
-            color: '#B6C2DC',
+            color: '#475569',
           }}
         >
-          {['Toza montaj', 'Sifatli material', 'Kafolat', 'LED yoritish'].map(
+          {['Taxminiy hisob', 'Toza montaj', 'Material tanlash', 'Telegram'].map(
             (badge) => (
               <div
                 key={badge}
                 style={{
                   padding: '12px 22px',
                   borderRadius: 999,
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  background: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
+                  boxShadow: '0 2px 6px rgba(15,23,42,0.05)',
                 }}
               >
                 {badge}

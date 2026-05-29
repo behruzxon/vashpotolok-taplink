@@ -15,8 +15,8 @@ export function VideoShowcase({ items, instagramLink }: Props) {
   return (
     <section aria-labelledby="videos-title">
       <div className="mb-3 px-1">
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-glass-strong px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary backdrop-blur-md">
-          <span className="h-1.5 w-1.5 rounded-full bg-brand-accent-glow shadow-[0_0_8px_rgba(91,155,255,0.9)]" />
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-surface px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary shadow-soft">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-accent shadow-[0_0_8px_rgba(47,107,255,0.65)]" />
           Video
         </div>
         <h2
@@ -48,15 +48,15 @@ export function VideoShowcase({ items, instagramLink }: Props) {
           rel="noopener noreferrer"
           onClick={() => track('click_instagram', { source: 'video' })}
           aria-label="Instagramda ko‘proq videolarni ko‘rish"
-          className="mt-2 flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-line-soft bg-bg-glass-strong px-4 py-3 text-[14px] font-semibold text-ink-primary backdrop-blur-md transition-colors hover:bg-white/[0.10] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
+          className="mt-2 flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-line-soft bg-bg-surface px-4 py-3 text-[14px] font-semibold text-ink-primary shadow-soft transition-colors hover:bg-bg-base active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
         >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 text-brand-accent-glow" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+          <svg viewBox="0 0 24 24" className="h-4 w-4 text-brand-accent" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
             <rect x="3" y="3" width="18" height="18" rx="5" />
             <circle cx="12" cy="12" r="4" />
             <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
           </svg>
           Instagramda ko‘proq videolarni ko‘rish
-          <span aria-hidden className="text-brand-accent-glow">→</span>
+          <span aria-hidden className="text-brand-accent">→</span>
         </a>
       ) : null}
     </section>
@@ -72,7 +72,7 @@ function VideoCard({ item }: { item: VideoItem }) {
   return (
     <li
       className={cn(
-        'group relative shrink-0 snap-start overflow-hidden rounded-3xl border border-line-strong shadow-card',
+        'group relative shrink-0 snap-start overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-card',
         isFeatured ? 'w-[82%]' : 'w-[70%]',
       )}
     >
@@ -150,8 +150,8 @@ function VideoCard({ item }: { item: VideoItem }) {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-3 bg-bg-elevated/80 p-4 backdrop-blur-xl">
-          <p className="text-[12px] font-semibold uppercase tracking-wider text-brand-accent-glow">
+        <div className="flex flex-1 flex-col gap-3 bg-bg-surface p-4">
+          <p className="text-[12px] font-semibold uppercase tracking-wider text-brand-primary">
             {item.serviceType}
           </p>
 
@@ -160,7 +160,7 @@ function VideoCard({ item }: { item: VideoItem }) {
               {item.tags.map((tag) => (
                 <li
                   key={tag}
-                  className="rounded-full border border-line-soft bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-ink-secondary"
+                  className="rounded-full border border-line-soft bg-bg-base px-2 py-0.5 text-[10px] font-medium text-ink-secondary"
                 >
                   #{tag}
                 </li>
@@ -188,7 +188,7 @@ function VideoCard({ item }: { item: VideoItem }) {
               'mt-auto flex min-h-[44px] items-center justify-center gap-2 rounded-xl text-[13px] font-semibold transition-transform active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
               hasLink
                 ? 'bg-grad-button text-white shadow-cta'
-                : 'cursor-not-allowed bg-white/[0.05] text-ink-muted',
+                : 'cursor-not-allowed bg-line-soft text-ink-muted',
             )}
           >
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>

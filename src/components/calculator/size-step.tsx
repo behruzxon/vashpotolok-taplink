@@ -52,7 +52,7 @@ export function SizeStep({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="grid grid-cols-2 gap-1.5 rounded-2xl border border-line-soft bg-white/[0.04] p-1">
+      <div className="grid grid-cols-2 gap-1.5 rounded-2xl border border-line-soft bg-bg-base p-1">
         <ModeButton active={mode === 'dimensions'} onClick={() => onModeChange('dimensions')}>
           Uzunlik × eni
         </ModeButton>
@@ -91,7 +91,7 @@ export function SizeStep({
         />
       )}
 
-      <div className="rounded-2xl border border-line-soft bg-bg-base/40 p-4">
+      <div className="rounded-2xl border border-line-soft bg-bg-base p-4">
         <div className="grid grid-cols-2 gap-3">
           <PreviewMetric
             label="Maydon"
@@ -104,14 +104,14 @@ export function SizeStep({
           />
         </div>
         {derived.valid && !inRange ? (
-          <p className="mt-2 text-[11px] font-semibold text-call/90">
+          <p className="mt-2 text-[11px] font-semibold text-call">
             Maydon {AREA_MIN_M2}–{AREA_MAX_M2} m² oralig‘ida bo‘lishi kerak.
           </p>
         ) : null}
       </div>
 
       <p className="flex items-start gap-2 text-[11.5px] leading-snug text-ink-muted">
-        <svg viewBox="0 0 24 24" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-accent-glow" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <svg viewBox="0 0 24 24" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-accent" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <circle cx="12" cy="12" r="9" />
           <path d="M12 8v4" />
           <path d="M12 16h.01" />
@@ -136,8 +136,8 @@ function ModeButton({ active, onClick, children }: { active: boolean; onClick: (
         'flex min-h-[40px] items-center justify-center rounded-xl text-[12.5px] font-semibold transition-all',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
         active
-          ? 'bg-grad-button text-white shadow-[0_0_14px_-2px_rgba(91,155,255,0.6)]'
-          : 'text-ink-secondary hover:bg-white/[0.04]',
+          ? 'bg-grad-button text-white shadow-[0_4px_12px_-2px_rgba(47,107,255,0.45)]'
+          : 'text-ink-secondary hover:bg-bg-surface',
       )}
     >
       {children}
@@ -173,7 +173,7 @@ function NumericField({
         onChange={(e) => onChange(e.currentTarget.value)}
         placeholder={placeholder}
         aria-label={label}
-        className="h-12 rounded-xl border border-line-strong bg-white/[0.04] px-3 text-[16px] font-bold tabular-nums text-ink-primary placeholder:text-ink-muted/60 focus:border-brand-accent-glow focus:bg-white/[0.07] focus:outline-none focus:ring-2 focus:ring-brand-accent/40"
+        className="h-12 rounded-xl border border-line-soft bg-bg-surface px-3 text-[16px] font-bold tabular-nums text-ink-primary shadow-soft placeholder:text-ink-muted focus:border-brand-accent focus:bg-bg-surface focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
       />
       <span className="text-[10px] text-ink-muted">{min}–{max}</span>
     </label>
@@ -197,7 +197,7 @@ function PreviewMetric({
       <p
         className={cn(
           'mt-0.5 text-[22px] font-extrabold leading-none tabular-nums',
-          highlight ? 'text-brand-accent-glow' : 'text-ink-primary',
+          highlight ? 'text-brand-primary' : 'text-ink-primary',
         )}
       >
         {value}

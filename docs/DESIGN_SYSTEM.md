@@ -1,56 +1,89 @@
-# VashPotolok — Design System
+# PotolX — Design System (Phase Brand-1 light premium)
 
 ## 1. Visual Direction
 
-**Premium, zamonaviy, "ceiling light" estetikasi.**
+**Clean premium light, modern interior showroom.**
 
-Vizual metafora — toza, yorug', baland shipga qaratilgan yoritgich. Sahifaning yuqorisida — yumshoq glow (potolok yorug'ligi singari), barcha tugmalar — silliq metallik / shisha effekti bilan.
+Vizual metafora — quyosh nuri ostidagi premium interior studio. Bright white card'lar yumshoq off-white fonda turadi, har element subtle cobalt aksent bilan ajraladi. “Magazin/jurnal” feel — Instagram'dan kirgan oilaviy/uy egasi mijozga **toza, qimmatbaho, ishonchli** taassurot beradi.
 
-Dizayn **darklik ham, light ham emas** — `deep navy` asosida, ustida elektr ko'k aksent va kumush yaltirashlar. Bu "premium tunda yoqilgan LED yoritish" hissini beradi.
+Hech qanday dark navy yo'q — yangi PotolX **light premium**.
 
-## 2. Color Tokens
+## 2. Color Tokens (Tailwind config)
 
-```css
-/* Base */
---bg-base:        #0A0E1A;   /* deep navy / near black */
---bg-elevated:    #111729;   /* card surface */
---bg-glass:       rgba(255, 255, 255, 0.04);
---bg-glass-strong:rgba(255, 255, 255, 0.08);
-
-/* Brand */
---primary:        #0B1B3F;   /* deep navy (printable) */
---primary-700:    #0E2454;
---accent:         #3D7EFF;   /* electric blue */
---accent-glow:    #5B9BFF;   /* lighter glow */
---accent-soft:    rgba(61, 126, 255, 0.18);
-
-/* Neutral */
---text-primary:   #F4F7FF;   /* off-white */
---text-secondary: #B6C2DC;   /* soft silver */
---text-muted:     #6B7896;
---border-soft:    rgba(255, 255, 255, 0.08);
---border-strong:  rgba(255, 255, 255, 0.16);
-
-/* Premium accent (optional) */
---gold:           #D9B872;   /* subtle gold (sparingly) */
---gold-soft:      rgba(217, 184, 114, 0.15);
-
-/* Functional */
---success:        #3DD68C;
---call:           #28C76F;   /* phone CTA hue */
---telegram:       #29A9EB;   /* Telegram brand */
+```ts
+colors: {
+  bg: {
+    base: '#F5F7FB',                        // soft off-white page
+    surface: '#FFFFFF',                     // card surface
+    elevated: '#FFFFFF',                    // back-compat alias of surface
+    glass: 'rgba(255, 255, 255, 0.70)',
+    'glass-strong': 'rgba(255, 255, 255, 0.92)',
+  },
+  brand: {
+    primary: '#1E3A8A',                     // deep navy text accent
+    'primary-700': '#1D4ED8',
+    accent: '#2F6BFF',                      // electric cobalt
+    'accent-glow': '#60A5FA',               // light blue glow
+    'accent-soft': 'rgba(47, 107, 255, 0.10)',
+  },
+  ink: {
+    primary: '#0F172A',                     // slate-900
+    secondary: '#475569',                   // slate-600
+    muted: '#94A3B8',                       // slate-400
+  },
+  line: {
+    soft: '#E2E8F0',                        // slate-200
+    strong: '#CBD5E1',                      // slate-300
+  },
+  gold: {
+    DEFAULT: '#B8954A',
+    soft: 'rgba(184, 149, 74, 0.12)',
+  },
+  success: '#16A34A',
+  call: '#16A34A',
+  telegram: '#2563EB',
+}
 ```
 
-### Gradient'lar
+## 3. Shadows (light theme — ikki qatlamli soft)
 
-```css
---grad-hero:    radial-gradient(120% 80% at 50% -10%, #1E2E66 0%, #0A0E1A 55%);
---grad-glow:    radial-gradient(50% 50% at 50% 0%, rgba(91,155,255,0.45), transparent 70%);
---grad-button:  linear-gradient(135deg, #3D7EFF 0%, #2A5BD1 100%);
---grad-button-shine: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
---grad-border:  linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05));
---grad-gold:    linear-gradient(135deg, #E9CE89, #B8954A);
+```ts
+boxShadow: {
+  soft: '0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04)',
+  card: '0 4px 14px rgba(15,23,42,0.06), 0 2px 6px rgba(15,23,42,0.04)',
+  cta:  '0 10px 24px -8px rgba(47,107,255,0.35), 0 2px 6px rgba(15,23,42,0.05)',
+  glow: '0 0 32px rgba(96,165,250,0.22)',
+  'cta-green': '0 10px 24px -8px rgba(22,163,74,0.30), 0 2px 6px rgba(15,23,42,0.05)',
+  'cta-tg':    '0 10px 24px -8px rgba(37,99,235,0.30), 0 2px 6px rgba(15,23,42,0.05)',
+}
 ```
+
+## 4. Gradients
+
+```ts
+backgroundImage: {
+  'grad-hero':         'radial-gradient(120% 80% at 50% -10%, #DBEAFE 0%, #F5F7FB 55%)',
+  'grad-glow':         'radial-gradient(50% 50% at 50% 0%, rgba(96,165,250,0.22), transparent 70%)',
+  'grad-button':       'linear-gradient(135deg, #2F6BFF 0%, #1D4ED8 100%)',
+  'grad-button-green': 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
+  'grad-button-tg':    'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
+  'grad-border':       'linear-gradient(135deg, rgba(15,23,42,0.12), rgba(15,23,42,0.04))',
+  'grad-gold':         'linear-gradient(135deg, #D9B872, #B8954A)',
+}
+```
+
+## 5. Brand
+
+- **Brand name:** `PotolX` (P + lowercase otol + X)
+- **Monogram:** `PX` — deep blue gradient card, white text, gentle white-to-transparent sheen overlay
+- **Logo treatment:** monogram + wordmark side-by-side on hero
+- **Wordmark gradient:** `from-ink-primary via-brand-primary to-brand-accent` bg-clip-text
+
+---
+
+## Old (VashPotolok dark navy) — DEPRECATED
+
+The earlier dark navy palette was retired in Phase Brand-1.
 
 ## 3. Typography
 

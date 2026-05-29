@@ -1,4 +1,6 @@
-# VashPotolok — Content Strategy
+# PotolX — Content Strategy
+
+> **Phase Brand-1 (PotolX, light premium):** brand name `VashPotolok` → `PotolX`. Mood “premium tunda LED” → **`clean premium interior studio`**. `натяжной потолок` keyword saqlanadi (Cyrillic SEO).
 
 ## 1. Til qoidasi (Multilingual mix)
 
@@ -9,7 +11,7 @@ VashPotolok mijozi — Qarshi + Qashqadaryo aholisi. Ular **o'zbek + rus + kiril
 | Kontekst | Til | Misol |
 |---|---|---|
 | Xizmat nomi (asosiy keyword) | **Kirilcha rus** | `натяжной потолок` |
-| Brend nomi | **Lotin (uppercase)** | `VASH POTOLOK` |
+| Brend nomi | **Lotin (mixed-case wordmark)** | `PotolX` |
 | Sub-headerlar | **Kirilcha o'zbek** | `Қашқадарё бўйлаб` |
 | CTA tugmalari | **Lotin o'zbek** | `Telegram bot orqali hisoblash` |
 | Ishonch matnlari | **Lotin o'zbek** | `Toza montaj`, `Kafolat` |

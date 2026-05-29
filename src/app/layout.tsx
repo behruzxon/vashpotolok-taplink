@@ -17,41 +17,36 @@ const phoneRaw = links.phone.replace(/^tel:/, '')
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'VashPotolok — Qashqadaryoda натяжной потолок',
+  title: 'PotolX — Qashqadaryoda натяжной потолок',
   description:
-    'Qashqadaryo va Qarshi bo‘ylab zamonaviy натяжной потолок, LED yoritish, toza montaj va kafolatli xizmat. Telegram bot orqali 1 daqiqada narx hisoblang.',
-  applicationName: 'VashPotolok',
+    'PotolX — Qashqadaryo va Qarshi bo‘ylab zamonaviy натяжной потолок, premium interior dizayn, toza montaj va kafolat shartlari. Telegram bot orqali 1 daqiqada narx hisoblang.',
+  applicationName: 'PotolX',
   keywords: [
+    'PotolX',
     'натяжной потолок',
     'натяжной потолок Қарши',
     'натяжной потолок Қашқадарё',
     'Qashqadaryo natyajnoy potolok',
     'Karshi natyajnoy potolok',
     'LED yoritish potolok',
-    'VashPotolok',
+    'premium interior Qashqadaryo',
   ],
-  authors: [{ name: 'VashPotolok' }],
-  creator: 'VashPotolok',
+  authors: [{ name: 'PotolX' }],
+  creator: 'PotolX',
   alternates: { canonical: '/' },
-  // `app/opengraph-image.tsx` avtomatik aniqlanadi — `openGraph.images`
-  // shu fayldan generate bo'ladi (runtime, edge). Bu yerda faqat boshqa
-  // OG metalarni belgilaymiz.
   openGraph: {
     type: 'website',
     locale: 'uz_UZ',
     alternateLocale: ['ru_RU'],
     url: SITE_URL,
-    siteName: 'VashPotolok',
-    title: 'VashPotolok — натяжной потолок Qashqadaryo bo‘ylab',
-    description: 'O‘lchovdan montajgacha tayyor yechim. Toza montaj, kafolat shartlari, viloyat bo‘ylab xizmat.',
+    siteName: 'PotolX',
+    title: 'PotolX — натяжной потолок Qashqadaryo bo‘ylab',
+    description: 'O‘lchov · Dizayn · Montaj. Premium interior studio Qashqadaryo bo‘ylab.',
   },
-  // Twitter ham `app/opengraph-image.tsx`'ni qabul qiladi (alternative:
-  // `app/twitter-image.tsx` qo'shilsa, shu ishlatiladi). Hozircha OG bilan
-  // bir xil rasm.
   twitter: {
     card: 'summary_large_image',
-    title: 'VashPotolok — натяжной потолок Qashqadaryo',
-    description: 'O‘lchovdan montajgacha tayyor yechim. Telegram botda narx hisoblang.',
+    title: 'PotolX — натяжной потолок Qashqadaryo',
+    description: 'O‘lchov · Dizayn · Montaj. Telegram botda narx hisoblang.',
   },
   robots: {
     index: true,
@@ -59,22 +54,20 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
   formatDetection: { telephone: true, email: false, address: false },
-  // `app/icon.svg` avtomatik favicon sifatida ishlatiladi (Next.js conventional).
-  // Browser tab'da rasm ko'rinadi. Hech qanday metadata.icons kerak emas.
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0A0E1A',
+  themeColor: '#F5F7FB',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  colorScheme: 'dark',
+  colorScheme: 'light',
 }
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  name: 'VashPotolok',
+  name: 'PotolX',
   image: `${SITE_URL}/opengraph-image`,
   url: SITE_URL,
   telephone: `+${phoneRaw.replace(/^\+/, '')}`,

@@ -16,9 +16,9 @@ const levelLabel: Record<PremiumLevel, string> = {
 }
 
 const levelStyle: Record<PremiumLevel, string> = {
-  standard: 'bg-white/[0.06] text-ink-secondary border-line-soft',
-  comfort: 'bg-brand-accent-soft text-brand-accent-glow border-brand-accent/30',
-  premium: 'bg-gold-soft text-gold border-gold/40',
+  standard: 'bg-bg-base text-ink-secondary border-line-soft',
+  comfort: 'bg-brand-accent-soft text-brand-primary border-brand-accent/25',
+  premium: 'bg-gold-soft text-gold border-gold/30',
 }
 
 function CeilingPreview({ id }: { id: string }) {
@@ -162,14 +162,14 @@ export function CeilingStep({ selectedId, onSelect }: Props) {
                 'flex w-full items-center gap-3 rounded-2xl border p-3 text-left transition-all duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
                 active
-                  ? 'border-brand-accent-glow bg-brand-accent-soft shadow-[0_0_24px_-4px_rgba(91,155,255,0.45)]'
-                  : 'border-line-soft bg-white/[0.04] hover:border-line-strong',
+                  ? 'border-brand-accent bg-brand-accent-soft shadow-[0_8px_24px_-10px_rgba(47,107,255,0.45)]'
+                  : 'border-line-soft bg-bg-surface shadow-soft hover:border-line-strong hover:shadow-card',
               )}
             >
               <span
                 className={cn(
-                  'relative flex h-12 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl ring-1 transition-colors',
-                  active ? 'ring-brand-accent/40' : 'ring-white/10',
+                  'relative flex h-12 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-bg-base ring-1 transition-colors',
+                  active ? 'ring-brand-accent/30' : 'ring-line-soft',
                 )}
               >
                 <CeilingPreview id={c.id} />
@@ -197,8 +197,8 @@ export function CeilingStep({ selectedId, onSelect }: Props) {
                 className={cn(
                   'flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors',
                   active
-                    ? 'border-brand-accent-glow bg-grad-button shadow-[0_0_12px_rgba(91,155,255,0.6)]'
-                    : 'border-line-strong bg-white/[0.04]',
+                    ? 'border-brand-accent bg-grad-button shadow-[0_4px_12px_-2px_rgba(47,107,255,0.55)]'
+                    : 'border-line-strong bg-bg-base',
                 )}
               >
                 {active ? (

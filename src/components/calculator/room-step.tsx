@@ -103,8 +103,8 @@ export function RoomStep({ selectedId, onSelect }: Props) {
                 'group relative flex h-full min-h-[112px] w-full flex-col items-start gap-1.5 overflow-hidden rounded-2xl border p-3 text-left transition-all duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
                 active
-                  ? 'border-brand-accent-glow bg-brand-accent-soft shadow-[0_0_24px_-4px_rgba(91,155,255,0.45)]'
-                  : 'border-line-soft bg-white/[0.04] hover:border-line-strong',
+                  ? 'border-brand-accent bg-brand-accent-soft shadow-[0_8px_24px_-10px_rgba(47,107,255,0.45)]'
+                  : 'border-line-soft bg-bg-surface shadow-soft hover:border-line-strong hover:shadow-card',
               )}
             >
               <span
@@ -118,8 +118,8 @@ export function RoomStep({ selectedId, onSelect }: Props) {
                 className={cn(
                   'relative flex h-9 w-9 items-center justify-center rounded-xl ring-1 transition-colors',
                   active
-                    ? 'bg-brand-accent-soft text-brand-accent-glow ring-brand-accent/40'
-                    : 'bg-white/[0.05] text-ink-secondary ring-white/10',
+                    ? 'bg-bg-surface text-brand-accent ring-brand-accent/30'
+                    : 'bg-bg-base text-ink-secondary ring-line-soft',
                 )}
               >
                 <RoomIcon id={room.id} />
@@ -133,7 +133,7 @@ export function RoomStep({ selectedId, onSelect }: Props) {
               {active ? (
                 <span
                   aria-hidden
-                  className="absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-grad-button text-white shadow-[0_0_12px_rgba(91,155,255,0.6)]"
+                  className="absolute right-2.5 top-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-grad-button text-white shadow-[0_4px_12px_-2px_rgba(47,107,255,0.55)]"
                 >
                   <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12l4 4 10-10" />

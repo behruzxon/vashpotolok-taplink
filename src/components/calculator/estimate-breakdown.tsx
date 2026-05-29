@@ -15,7 +15,7 @@ const unitSuffix: Record<NonNullable<BreakdownItem['unit']>, string> = {
 export function EstimateBreakdown({ items }: Props) {
   if (items.length === 0) return null
   return (
-    <ul className="overflow-hidden rounded-2xl border border-line-soft bg-white/[0.03]">
+    <ul className="overflow-hidden rounded-2xl border border-line-soft bg-bg-base">
       {items.map((item, i) => (
         <li
           key={item.id}

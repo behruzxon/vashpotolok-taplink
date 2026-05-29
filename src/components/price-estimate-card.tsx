@@ -203,10 +203,10 @@ export function PriceEstimateCard() {
 
 function PriceAnchor() {
   return (
-    <div className="flex items-start gap-2.5 rounded-2xl border border-line-soft bg-white/[0.03] px-3.5 py-2.5">
+    <div className="flex items-start gap-2.5 rounded-2xl border border-line-soft bg-bg-surface px-3.5 py-2.5 shadow-soft">
       <svg
         viewBox="0 0 24 24"
-        className="mt-0.5 h-4 w-4 shrink-0 text-brand-accent-glow"
+        className="mt-0.5 h-4 w-4 shrink-0 text-brand-accent"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"

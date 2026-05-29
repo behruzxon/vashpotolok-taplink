@@ -184,6 +184,74 @@ Hozir bot **alohida proyektda** (yoki yaratilishi kerak) — bu repository ichid
 
 ---
 
+## Phase Brand-1 — PotolX rebrand (light premium)  ✅
+
+VashPotolok → **PotolX**. Dark navy → **clean premium light** theme. Mood: modern interior showroom, premium dizayn studio.
+
+### Brand
+
+- Brand name: **`PotolX`** (lowercase “otol”, capital P + X)
+- Monogram: **`PX`** (deep blue gradient card, white text)
+- Audience: Instagram bio traffic, uy egasi, oilaviy mijoz, interyerga e'tibor beradigan mijoz
+
+### Design system (light)
+
+Token nomlari saqlandi (`bg-base`, `ink-primary`, `brand-accent`, ...) — `tailwind.config.ts` ichida faqat qiymatlar yangilandi:
+
+| Token | Avval (dark) | Hozir (light) |
+|---|---|---|
+| `bg.base` | `#0A0E1A` | **`#F5F7FB`** off-white |
+| `bg.surface` | (new) | **`#FFFFFF`** card surface |
+| `bg.elevated` | `#111729` | `#FFFFFF` |
+| `ink.primary` | `#F4F7FF` | **`#0F172A`** slate-900 |
+| `ink.secondary` | `#B6C2DC` | **`#475569`** slate-600 |
+| `line.soft` | `rgba(255,255,255,0.08)` | **`#E2E8F0`** slate-200 |
+| `brand.primary` | `#0B1B3F` | **`#1E3A8A`** deep navy |
+| `brand.accent` | `#3D7EFF` | **`#2F6BFF`** electric cobalt |
+| `brand.accent-glow` | `#5B9BFF` | **`#60A5FA`** lighter blue |
+| `brand.accent-soft` | `rgba(61,126,255,0.18)` | **`rgba(47,107,255,0.10)`** |
+| `success` | `#3DD68C` | **`#16A34A`** |
+| `gold` | `#D9B872` | **`#B8954A`** |
+
+Shadows yangidan ishlandi (`soft`, `card`, `cta`, `glow`, `cta-green`, `cta-tg`) — light theme uchun ikki qatlamli yumshoq soyalar (`0 4px 14px rgba(15,23,42,0.06), 0 2px 6px rgba(15,23,42,0.04)` kabi).
+
+Gradients (`grad-hero`, `grad-glow`, `grad-button`, ...) — light variantlar (`radial-gradient(120% 80% at 50% -10%, #DBEAFE 0%, #F5F7FB 55%)` va h.k.).
+
+### Foundation
+
+- `tailwind.config.ts` — to'liq token rewrite (light palette + soft shadows + light gradients)
+- `src/app/globals.css` — `color-scheme: light`, body `#F5F7FB` bg + `#0F172A` text, range slider thumb cobalt accent
+- `src/app/layout.tsx` — metadata: title `PotolX — ...`, description PotolX bilan, OG `siteName: 'PotolX'`, JSON-LD `name: 'PotolX'`, viewport `themeColor: '#F5F7FB' + colorScheme: 'light'`
+- `src/app/icon.svg` — PX monogram (cobalt → deep blue gradient card, white text)
+- `src/app/opengraph-image.tsx` — light off-white background, PX monogram + “PotolX” gradient text, “Qashqadaryo bo‘ylab натяжной потолок”, badge'lar white pill on light
+
+### Komponentlar
+
+Barchasi light theme'ga ko'chirildi — `bg-glass-strong backdrop-blur` patterni `bg-bg-surface shadow-soft` ga aylantirildi, `text-brand-accent-glow` (light blue on dark) → `text-brand-accent` yoki `text-brand-primary` (cobalt/navy on light):
+
+- `primitives/glass-card.tsx` — white surface + subtle border + soft shadow + top edge highlight
+- `primitives/cta-button.tsx` — variant qayta yozildi (primary blue gradient, secondary green, tertiary cyan, ghost white card with subtle border + accent-soft icon wrap)
+- `premium-background.tsx` — off-white radial + dot grid + soft skylight blue accent (yarim quyosh effekti yo'q, particles olib tashlandi)
+- `hero-section.tsx` — PX monogram + “PotolX” gradient text + Qashqadaryo subtitle + light Showroom panel (bright ceiling + LED line + horizon)
+- Calculator: shell, room, size, ceiling (SVG palette to'g'rilandi), result (gradient invoice), breakdown — barchasi light
+- Content sections: services, trust, video, portfolio, testimonials, faq, process — chip header + white card + soft shadow + brand-accent icons
+- `footer-cta.tsx` — light luxury card, PotolX brand footer text
+- `sticky-bottom-cta.tsx` — light pill, subtle border, soft shadow
+
+### Saqlandi
+
+- Calculator 4-step flow (Phase Calc-3) + barcha narxlar (Phase Calc-2 + price update)
+- Payload format `pro_<room>_<area>_<ceiling>`
+- 5 ta ceiling type'lar: odnotonniy / gulli / naqsh / mramor / uv-pechat
+- Conditional render logic (Phase Bio-Ready) — Video / Portfolio / Testimonials hidden if no real content
+- FAQ section
+- Bot linklar, telefon, Instagram (faqat brand display nomi `VashPotolok` → `PotolX`)
+- SEO keywords (Cyrillic `натяжной потолок Қарши` + Latin `Qashqadaryo natyajnoy potolok`)
+
+**Deliverable:** PotolX — clean premium light brand identity, conversion mechanics o'zgarmadi, faqat visual + brand identity yangilangan. Mood: modern interior studio.
+
+---
+
 ## Phase Bio-Ready — Trust fix pack  ✅
 
 Audit topilgan trust gap'larini Instagram bio publish'idan oldin yopish: real-content gating, FAQ, safe copy, ceiling differentiation.

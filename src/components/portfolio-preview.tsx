@@ -17,8 +17,8 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
     <section aria-labelledby="portfolio-title">
       <div className="mb-3 flex items-end justify-between gap-3 px-1">
         <div className="min-w-0">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-glass-strong px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-accent-glow shadow-[0_0_8px_rgba(91,155,255,0.9)]" />
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-surface px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary shadow-soft">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-accent shadow-[0_0_8px_rgba(47,107,255,0.65)]" />
             Ish namunalari
           </div>
           <h2 id="portfolio-title" className="mt-2 text-[20px] font-bold leading-tight text-ink-primary">
@@ -34,15 +34,15 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track('click_instagram', { source: 'portfolio' })}
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-line-strong bg-bg-glass-strong px-3.5 py-2 text-[12px] font-semibold text-ink-primary backdrop-blur-md transition-colors hover:bg-white/[0.10] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-line-soft bg-bg-surface px-3.5 py-2 text-[12px] font-semibold text-ink-primary shadow-soft transition-colors hover:bg-bg-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
           >
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-brand-accent" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
               <rect x="3" y="3" width="18" height="18" rx="5" />
               <circle cx="12" cy="12" r="4" />
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
             </svg>
             Instagram
-            <span aria-hidden className="text-brand-accent-glow">→</span>
+            <span aria-hidden className="text-brand-accent">→</span>
           </a>
         ) : null}
       </div>
@@ -63,9 +63,9 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => track('click_telegram_bot', { source: 'portfolio' })}
-        className="mt-2 flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-line-soft bg-bg-glass-strong px-4 py-3 text-[14px] font-semibold text-ink-primary backdrop-blur-md transition-colors hover:bg-white/[0.10] active:scale-[0.98]"
+        className="mt-2 flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-line-soft bg-bg-surface px-4 py-3 text-[14px] font-semibold text-ink-primary shadow-soft transition-colors hover:bg-bg-base active:scale-[0.98]"
       >
-        <span className="text-brand-accent-glow">★</span>
+        <span className="text-brand-accent">★</span>
         Shunday yechim sizga ham — botda hisoblating
       </a>
     </section>
@@ -155,7 +155,7 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
   return (
     <li
       className={cn(
-        'group relative shrink-0 snap-start overflow-hidden rounded-3xl border border-line-strong shadow-card',
+        'group relative shrink-0 snap-start overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-card',
         isFeatured ? 'w-[82%]' : 'w-[70%]',
       )}
     >
@@ -227,8 +227,8 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-3 bg-bg-elevated/80 p-4 backdrop-blur-xl">
-          <p className="text-[12px] font-semibold uppercase tracking-wider text-brand-accent-glow">
+        <div className="flex flex-1 flex-col gap-3 bg-bg-surface p-4">
+          <p className="text-[12px] font-semibold uppercase tracking-wider text-brand-primary">
             {item.serviceType}
           </p>
           <p className="text-[13px] leading-snug text-ink-secondary">
@@ -240,7 +240,7 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
               {item.tags.map((tag) => (
                 <li
                   key={tag}
-                  className="rounded-full border border-line-soft bg-white/[0.04] px-2 py-0.5 text-[10px] font-medium text-ink-secondary"
+                  className="rounded-full border border-line-soft bg-bg-base px-2 py-0.5 text-[10px] font-medium text-ink-secondary"
                 >
                   #{tag}
                 </li>

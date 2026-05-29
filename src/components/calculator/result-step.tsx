@@ -27,21 +27,21 @@ export function ResultStep({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative overflow-hidden rounded-2xl border border-brand-accent/30 bg-gradient-to-br from-brand-accent-soft via-bg-base/60 to-bg-base/40 p-5 shadow-[0_0_40px_-12px_rgba(91,155,255,0.5)]">
+      <div className="relative overflow-hidden rounded-2xl border border-brand-accent/25 bg-gradient-to-br from-brand-accent-soft via-bg-surface to-bg-surface p-5 shadow-[0_12px_40px_-16px_rgba(47,107,255,0.45)]">
         <span
           aria-hidden
           className="pointer-events-none absolute -right-10 -top-12 h-40 w-40 rounded-full bg-brand-accent-soft blur-3xl"
         />
         <div className="relative">
           <div className="flex items-center justify-between gap-2">
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-accent-glow">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-primary">
               Taxminiy diapazon
             </p>
-            <span className="rounded-full border border-success/30 bg-success/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-success">
+            <span className="rounded-full border border-success/30 bg-success/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-success">
               Tayyor
             </span>
           </div>
-          <p className="mt-2 bg-gradient-to-br from-white via-brand-accent-glow to-ink-secondary bg-clip-text text-[30px] font-extrabold leading-tight text-transparent tabular-nums sm:text-[34px]">
+          <p className="mt-2 bg-gradient-to-br from-brand-primary via-brand-accent to-ink-primary bg-clip-text text-[30px] font-extrabold leading-tight text-transparent tabular-nums sm:text-[34px]">
             {formatPriceRange(result.totalMin, result.totalMax)}
           </p>
           <p className="mt-1.5 text-[12px] text-ink-secondary">
@@ -52,7 +52,7 @@ export function ResultStep({
         </div>
       </div>
 
-      <dl className="grid grid-cols-2 gap-2 rounded-2xl border border-line-soft bg-white/[0.03] p-3 text-[12px]">
+      <dl className="grid grid-cols-2 gap-2 rounded-2xl border border-line-soft bg-bg-base p-3 text-[12px]">
         <SummaryRow label="Xona" value={room?.label ?? '—'} />
         <SummaryRow label="Maydon" value={`${result.areaM2} m²`} />
         <SummaryRow label="Potolok" value={ceiling?.label ?? '—'} full />
@@ -93,7 +93,7 @@ export function ResultStep({
           'group flex min-h-[56px] items-center justify-center gap-2 rounded-2xl px-4 py-3 text-[15px] font-semibold transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base',
           isValid
             ? 'bg-grad-button text-white shadow-cta'
-            : 'cursor-not-allowed bg-white/[0.05] text-ink-muted',
+            : 'cursor-not-allowed bg-line-soft text-ink-muted',
         ].join(' ')}
       >
         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
@@ -105,7 +105,7 @@ export function ResultStep({
       <button
         type="button"
         onClick={onRestart}
-        className="text-center text-[12px] font-semibold text-ink-secondary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base rounded"
+        className="rounded text-center text-[12px] font-semibold text-ink-secondary underline-offset-4 hover:text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
       >
         Qayta hisoblash
       </button>

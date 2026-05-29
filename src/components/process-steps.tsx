@@ -16,8 +16,8 @@ export function ProcessSteps() {
   return (
     <section aria-labelledby="process-title">
       <div className="mb-3 px-1">
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-glass-strong px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary backdrop-blur-md">
-          <span className="h-1.5 w-1.5 rounded-full bg-brand-accent-glow shadow-[0_0_8px_rgba(91,155,255,0.9)]" />
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-line-soft bg-bg-surface px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-secondary shadow-soft">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-accent shadow-[0_0_8px_rgba(47,107,255,0.65)]" />
           5 qadam
         </div>
         <h2 id="process-title" className="mt-2 text-[20px] font-bold leading-tight text-ink-primary">
@@ -26,16 +26,16 @@ export function ProcessSteps() {
         <p className="text-[12px] text-ink-muted">Buyurtmadan kafolat shartlarigacha</p>
       </div>
 
-      <ol className="relative space-y-3.5 rounded-3xl border border-line-soft bg-bg-glass-strong p-5 backdrop-blur-md">
+      <ol className="relative space-y-3.5 rounded-3xl border border-line-soft bg-bg-surface p-5 shadow-card">
         <span
           aria-hidden
-          className="absolute left-[39px] top-9 bottom-9 w-px bg-gradient-to-b from-brand-accent-glow/70 via-brand-accent/30 to-transparent"
+          className="absolute left-[39px] top-9 bottom-9 w-px bg-gradient-to-b from-brand-accent/60 via-brand-accent/25 to-transparent"
         />
         {steps.map((step, i) => (
           <li key={step.id} className="relative flex items-start gap-3.5 pl-1">
             <span
               aria-hidden
-              className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-accent to-brand-primary-700 text-[13px] font-bold text-white shadow-[0_0_0_4px_rgba(91,155,255,0.14),0_0_18px_-4px_rgba(91,155,255,0.6)] ring-1 ring-white/20"
+              className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-accent to-brand-primary-700 text-[13px] font-bold text-white shadow-[0_8px_18px_-4px_rgba(47,107,255,0.45)] ring-2 ring-white"
             >
               {i + 1}
             </span>

@@ -33,12 +33,12 @@ export function StickyBottomCTA({ phone }: Props) {
     >
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-bg-base via-bg-base/85 to-transparent"
+        className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-bg-base via-bg-base/80 to-transparent"
       />
-      <div className="pointer-events-auto relative flex w-full max-w-[480px] items-center gap-2 rounded-full border border-line-strong bg-bg-elevated/90 p-1.5 shadow-card backdrop-blur-2xl">
+      <div className="pointer-events-auto relative flex w-full max-w-[480px] items-center gap-2 rounded-full border border-line-soft bg-bg-surface p-1.5 shadow-card">
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-12 -top-px h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"
+          className="pointer-events-none absolute inset-x-12 -top-px h-px bg-gradient-to-r from-transparent via-line-strong to-transparent"
         />
         <a
           href={stickyBotLink}
