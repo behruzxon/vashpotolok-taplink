@@ -33,6 +33,7 @@ export const portfolio: PortfolioItem[] = [
     areaM2: 24,
     serviceType: 'LED yoritish + natijnoy potolok',
     result: 'Xona yorug‘ligi va ko‘rinishi premium darajaga chiqdi.',
+    image: '/portfolio/qarshi-zal-gulli.jpg',
     gradient:
       'radial-gradient(120% 80% at 30% 0%, #8FB3FF 0%, #2E4A9A 35%, #0E1428 90%)',
     tags: ['zal', 'led', 'premium'],
@@ -45,6 +46,7 @@ export const portfolio: PortfolioItem[] = [
     areaM2: 18,
     serviceType: 'Matoviy natijnoy potolok',
     result: 'Minimal, toza va sokin ko‘rinish.',
+    image: '/portfolio/qarshi-yotoqxona-odnotonniy.jpg',
     gradient:
       'linear-gradient(140deg, #1A2244 0%, #0A0E1A 55%, #2A3464 100%)',
     tags: ['yotoqxona', 'matoviy'],
@@ -56,6 +58,7 @@ export const portfolio: PortfolioItem[] = [
     areaM2: 14,
     serviceType: 'Oson tozalanadigan potolok',
     result: 'Oshxona uchun yorug‘ va toza muhit.',
+    image: '/portfolio/qarshi-oshxona-mramor.jpg',
     gradient:
       'radial-gradient(120% 80% at 80% 10%, #E9CE89 0%, #5C4422 35%, #0A0E1A 95%)',
     tags: ['oshxona', 'amaliy'],
@@ -67,6 +70,7 @@ export const portfolio: PortfolioItem[] = [
     areaM2: 10,
     serviceType: 'LED liniya + potolok',
     result: 'Kichik joy kengroq va zamonaviy ko‘rindi.',
+    image: '/portfolio/qarshi-koridor-uv-pechat.jpg',
     gradient:
       'radial-gradient(120% 80% at 50% 0%, #B7CCFF 0%, #3A5BA8 35%, #0E1428 100%)',
     tags: ['koridor', 'led'],
