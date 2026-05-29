@@ -3,6 +3,7 @@ export type AnalyticsEvent =
   | { name: 'click_telegram_bot'; payload: { source: 'hero' | 'price' | 'portfolio' | 'sticky' | 'footer' | 'trust' } }
   | { name: 'click_call'; payload: { source: 'hero' | 'sticky' | 'footer' } }
   | { name: 'click_telegram_profile'; payload: { source: 'hero' } }
+  | { name: 'click_catalog'; payload: { source: 'hero' } }
   | { name: 'click_instagram'; payload: { source: 'cta' | 'portfolio' | 'video' } }
   | { name: 'click_portfolio'; payload: { itemId: string } }
   | { name: 'click_video'; payload: { id: string; destination: 'instagram' | 'video' } }

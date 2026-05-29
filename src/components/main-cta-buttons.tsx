@@ -5,7 +5,7 @@ import { track } from '@/lib/analytics'
 import type { Links } from '@/data/links'
 
 type Props = {
-  links: Pick<Links, 'telegramBot' | 'phone' | 'telegramProfile' | 'instagram' | 'phoneDisplay'>
+  links: Pick<Links, 'telegramBot' | 'phone' | 'catalog' | 'instagram' | 'phoneDisplay'>
 }
 
 export function MainCTAButtons({ links }: Props) {
@@ -42,17 +42,20 @@ export function MainCTAButtons({ links }: Props) {
         />
 
         <CtaButton
-          href={links.telegramProfile}
+          href={links.catalog}
           variant="tertiary"
           compact
-          label="Operator"
-          ariaLabel="Telegramda operatorga yozish"
+          label="Katalog"
+          ariaLabel="Katalogni Telegramda ochish"
           icon={
-            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden>
-              <path d="M21.5 4.2 2.8 11.4c-1 .4-.9 1.8.1 2l4.8 1.4 1.8 5.5c.2.6 1 .8 1.4.3l2.7-3 5 3.7c.8.6 2 .2 2.2-.8l3.4-14.6c.3-1.1-.8-2-1.8-1.6Z"/>
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
+              <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
+              <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
+              <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
             </svg>
           }
-          onClick={() => track('click_telegram_profile', { source: 'hero' })}
+          onClick={() => track('click_catalog', { source: 'hero' })}
         />
       </div>
 

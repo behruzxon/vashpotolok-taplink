@@ -1,6 +1,7 @@
 export type Links = {
   telegramBot: string
   telegramProfile: string
+  catalog: string
   instagram: string
   phone: string
   phoneDisplay: string
@@ -29,6 +30,7 @@ export function createTelegramBotLink(source?: TelegramSource | string): string 
 export const links: Links = {
   telegramBot: createTelegramBotLink('hero'),
   telegramProfile: 'https://t.me/vashpotolok',
+  catalog: 'https://t.me/vashpotolokuz',
   instagram: 'https://instagram.com/vashpotolok',
   phone: 'tel:+998908866666',
   phoneDisplay: '+998 90 886 66 66',
