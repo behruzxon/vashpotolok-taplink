@@ -22,14 +22,14 @@ export function HeroSection() {
 
       {/* Logo + wordmark — 60px, contain, light premium card */}
       <div className="relative mx-auto mt-4 flex items-center justify-center gap-3">
-        <span className="relative flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-line-soft bg-bg-surface p-1.5 shadow-[0_10px_28px_-10px_rgba(15,23,42,0.22)]">
+        <span className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-line-soft bg-bg-surface p-0.5 shadow-[0_10px_28px_-10px_rgba(15,23,42,0.22)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/brand/potolok-x-logo.jpg"
             alt="Potolok X logo"
             loading="eager"
             decoding="async"
-            className="h-full w-full scale-110 object-contain object-center"
+            className="h-full w-full scale-150 object-contain object-center"
           />
         </span>
         <h1 className="text-[34px] font-extrabold leading-[1.0] tracking-tight text-ink-primary sm:text-[42px]">
