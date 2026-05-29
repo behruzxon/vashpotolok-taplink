@@ -1,6 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { heroSlides } from '@/data/hero-slides'
+import { cn } from '@/lib/cn'
+
+const AUTO_ROTATE_MS = 4000
 
 export function HeroSection() {
   return (
@@ -81,45 +85,98 @@ export function HeroSection() {
 
 function HeroVisual() {
   const [failed, setFailed] = useState(false)
+  const [index, setIndex] = useState(0)
+  const slides = heroSlides
 
-  if (failed) {
+  useEffect(() => {
+    if (slides.length <= 1) return
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length)
+    }, AUTO_ROTATE_MS)
+    return () => window.clearInterval(id)
+  }, [slides.length])
+
+  if (failed || slides.length === 0) {
     return <ShowroomPanel />
   }
 
   return (
     <div className="relative mx-auto mt-5 w-full max-w-[340px] overflow-hidden rounded-3xl border border-line-strong bg-bg-surface shadow-[0_14px_38px_-14px_rgba(15,23,42,0.22),0_2px_8px_rgba(15,23,42,0.06)] ring-1 ring-brand-accent-soft">
-      <div className="relative aspect-[16/10] overflow-hidden bg-bg-base">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/hero/potolok-x-hero-minimal.webp"
-          alt="Potolok X minimal natijnoy potolok interyer dizayni"
-          loading="eager"
-          decoding="async"
-          onError={() => setFailed(true)}
-          className="h-full w-full object-cover object-center"
-        />
+      <div
+        className="relative aspect-[16/10] overflow-hidden bg-bg-base"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Potolok X dizayn namunalari"
+      >
+        {slides.map((slide, i) => {
+          const active = i === index
+          return (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={slide.id}
+              src={slide.src}
+              alt={slide.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              onError={i === 0 ? () => setFailed(true) : undefined}
+              aria-hidden={!active}
+              className={cn(
+                'absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ease-out motion-reduce:transition-none',
+                active ? 'opacity-100' : 'opacity-0',
+              )}
+            />
+          )
+        })}
 
-        {/* Very soft top fade — preserves photo clarity */}
+        {/* Soft top fade — preserves photo clarity behind badges */}
         <span
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-16"
           style={{
             background:
-              'linear-gradient(180deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0) 100%)',
+              'linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0) 100%)',
           }}
         />
 
-        {/* Top-left: Dizayn namunasi badge */}
-        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-bg-surface px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-primary shadow-[0_4px_10px_rgba(15,23,42,0.12)] ring-1 ring-line-soft">
+        {/* Top-left: dynamic badge for current slide */}
+        <span
+          aria-live="polite"
+          className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-bg-surface px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-primary shadow-[0_4px_10px_rgba(15,23,42,0.12)] ring-1 ring-line-soft"
+        >
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand-accent" />
-          Dizayn namunasi
+          {slides[index]?.badge ?? ''}
         </span>
 
-        {/* Top-right: Potolok X badge */}
+        {/* Top-right: brand */}
         <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-bg-surface px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-ink-primary shadow-[0_4px_10px_rgba(15,23,42,0.12)] ring-1 ring-line-soft">
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold" />
           Potolok X
         </span>
+
+        {/* Dots indicator */}
+        {slides.length > 1 ? (
+          <div className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-1.5">
+            {slides.map((slide, i) => {
+              const active = i === index
+              return (
+                <button
+                  key={slide.id}
+                  type="button"
+                  onClick={() => setIndex(i)}
+                  aria-label={`Slide ${i + 1}: ${slide.badge}`}
+                  aria-current={active}
+                  className={cn(
+                    'h-1.5 rounded-full bg-bg-surface/95 shadow-[0_2px_4px_rgba(15,23,42,0.18)] ring-1 ring-line-soft transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-1 focus-visible:ring-offset-bg-base',
+                    active ? 'w-6 bg-brand-accent' : 'w-1.5 hover:bg-bg-surface',
+                  )}
+                />
+              )
+            })}
+          </div>
+        ) : null}
       </div>
     </div>
   )
