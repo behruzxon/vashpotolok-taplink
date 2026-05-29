@@ -14,9 +14,9 @@ export function MainCTAButtons({ links }: Props) {
       <CtaButton
         href={links.telegramBot}
         variant="primary"
-        label="Telegram bot orqali hisoblash"
-        sublabel="1 daqiqada taxminiy hisob"
-        ariaLabel="Telegram bot orqali narx hisoblash"
+        label="Narxni hisoblash"
+        sublabel="Telegram bot orqali 1 daqiqada"
+        ariaLabel="Narxni Telegram bot orqali hisoblash"
         icon={
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
             <path d="M21.5 4.2 2.8 11.4c-1 .4-.9 1.8.1 2l4.8 1.4 1.8 5.5c.2.6 1 .8 1.4.3l2.7-3 5 3.7c.8.6 2 .2 2.2-.8l3.4-14.6c.3-1.1-.8-2-1.8-1.6Zm-3.4 4-7.4 6.7-.3 3.2-1.5-4.6 9.2-5.3Z"/>
