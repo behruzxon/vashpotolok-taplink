@@ -118,8 +118,8 @@ export function RoomStep({ selectedId, onSelect }: Props) {
                 className={cn(
                   'relative flex h-9 w-9 items-center justify-center rounded-xl ring-1 transition-colors',
                   active
-                    ? 'bg-bg-surface text-brand-accent ring-brand-accent/30'
-                    : 'bg-bg-base text-ink-secondary ring-line-soft',
+                    ? 'bg-bg-surface text-brand-primary ring-brand-accent/40 shadow-[0_2px_6px_-2px_rgba(47,107,255,0.35)]'
+                    : 'bg-brand-accent-soft text-brand-accent ring-brand-accent/15',
                 )}
               >
                 <RoomIcon id={room.id} />
