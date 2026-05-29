@@ -7,18 +7,26 @@ import { TrustBadges } from '@/components/trust-badges'
 import { VideoShowcase } from '@/components/video-showcase'
 import { PortfolioPreview } from '@/components/portfolio-preview'
 import { TestimonialsSection } from '@/components/testimonials-section'
+import { FAQSection } from '@/components/faq-section'
 import { ProcessSteps } from '@/components/process-steps'
 import { StickyBottomCTA } from '@/components/sticky-bottom-cta'
 import { FooterCTA } from '@/components/footer-cta'
 import { RevealOnScroll } from '@/components/primitives/reveal-on-scroll'
 import { links } from '@/data/links'
 import { services } from '@/data/services'
-import { portfolio } from '@/data/portfolio'
+import { portfolio, hasRealPortfolioImages } from '@/data/portfolio'
 import { trust } from '@/data/trust'
-import { videos } from '@/data/videos'
-import { testimonials } from '@/data/testimonials'
+import { videos, hasRealVideoContent } from '@/data/videos'
+import { testimonials, hasRealTestimonials } from '@/data/testimonials'
+import { faq } from '@/data/faq'
 
 export default function Page() {
+  // Phase Bio-Ready: Video/Portfolio/Testimonials sectionlari faqat real
+  // kontent bo'lganida ko'rinadi. Aks holda "demo" taassurot oldi olinadi.
+  const showVideos = hasRealVideoContent(videos)
+  const showPortfolio = hasRealPortfolioImages(portfolio)
+  const showTestimonials = hasRealTestimonials(testimonials)
+
   return (
     <>
       <PremiumBackground />
@@ -42,23 +50,33 @@ export default function Page() {
           <TrustBadges items={trust} />
         </RevealOnScroll>
 
-        <RevealOnScroll delay={320}>
-          <VideoShowcase items={videos} instagramLink={links.instagram} />
+        {showVideos ? (
+          <RevealOnScroll delay={320}>
+            <VideoShowcase items={videos} instagramLink={links.instagram} />
+          </RevealOnScroll>
+        ) : null}
+
+        {showPortfolio ? (
+          <RevealOnScroll delay={380}>
+            <PortfolioPreview items={portfolio} portfolioLink={links.instagram} />
+          </RevealOnScroll>
+        ) : null}
+
+        <RevealOnScroll delay={440}>
+          <FAQSection items={faq} />
         </RevealOnScroll>
 
-        <RevealOnScroll delay={400}>
-          <PortfolioPreview items={portfolio} portfolioLink={links.instagram} />
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={480}>
-          <TestimonialsSection items={testimonials} />
-        </RevealOnScroll>
+        {showTestimonials ? (
+          <RevealOnScroll delay={500}>
+            <TestimonialsSection items={testimonials} />
+          </RevealOnScroll>
+        ) : null}
 
         <RevealOnScroll delay={560}>
           <ProcessSteps />
         </RevealOnScroll>
 
-        <RevealOnScroll delay={640}>
+        <RevealOnScroll delay={620}>
           <FooterCTA phone={links.phone} phoneDisplay={links.phoneDisplay} />
         </RevealOnScroll>
       </main>

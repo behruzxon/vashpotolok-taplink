@@ -70,6 +70,26 @@ Eslatma: emoji'lar **icon component** sifatida ham renderlanishi mumkin (lucide-
 - Yakuniy CTA — Telegram bot'ga olib boradi.
 - "Aniq narx" so'zi muhim — bu narx faqat orientir ekanligini bildiradi.
 
+## 5a. Conditional render — real content rule (Phase Bio-Ready)
+
+Demo placeholder vibe oldini olish uchun quyidagi sectionlar **faqat real kontent** bo'lganida ko'rinadi:
+
+| Section | Helper | Real content sharti |
+|---|---|---|
+| `VideoShowcase` | `hasRealVideoContent(videos)` | `videoUrl` yoki `thumbnail` mavjud, yoki `instagramUrl` ichida `/reel/`, `/reels/`, `/p/` |
+| `PortfolioPreview` | `hasRealPortfolioImages(items)` | Kamida 1 ta item'da `image: '/portfolio/<id>.webp'` |
+| `TestimonialsSection` | `hasRealTestimonials(items)` | Kamida 1 ta item `source: 'real'` |
+
+**Maqsad:** Instagram'dan kelgan mijoz uchun “bu firma demo holatida” taassuroti tug'ilmasligi.
+
+**Real kontent kelganda:** data file (`videos.ts` / `portfolio.ts` / `testimonials.ts`) ichida tegishli item'larni yangilash yetadi. Page kodi avtomatik conditional render qiladi.
+
+**Fake proof qat'iy taqiqlangan:**
+- Fake mijoz ismi yoki yuzi
+- Fake raqamlar (“150+ buyurtma”, “3 yil tajriba”)
+- Yolg'on kafolat muddati
+- Fake Telegram/Instagram screenshot
+
 ## 5b. Video va mijoz fikrlari (Phase Trust-1)
 
 ### VideoShowcase
@@ -106,6 +126,18 @@ Eslatma: emoji'lar **icon component** sifatida ham renderlanishi mumkin (lucide-
 **Privacy:** Bola, yosh oilaviy a'zo, mijoz yuzi yoki shaxsiy buyumi videoda ko'rinmasin. Mijoz ruxsatini olib tashlash so'rovi kelsa 24 soat ichida data file'dan o'chiriladi.
 
 Batafsil workflow: [`VIDEOS_AND_TESTIMONIALS_GUIDE.md`](./VIDEOS_AND_TESTIMONIALS_GUIDE.md).
+
+## 5c. FAQ section (Phase Bio-Ready)
+
+`src/data/faq.ts` — 6 ta savol-javob, xavfsiz copy. Hech qanday yolg'on muddat, raqam yoki “100% kafolat” da'vosi yo'q.
+
+**Copy qoidalari:**
+- Savol — mijozning real Telegram chat'ida uchragan savollardan
+- Javob — operator yoki usta tomondan tasdiqlangan matn
+- “Tushuntiriladi”, “kelishiladi”, “aytadi” kabi yumshoq fe'llar — aniq son/muddat berib mijozni cheklamasdan, operatorga rishta beradi
+- Botga olib boruvchi CTA pastida (`source: 'trust'`) — savol qoldirilsa, real javob mijozga botda kelsin
+
+Yangi FAQ qo'shilsa: `id` lotin kebab-case, `question` qisqa (max 60 belgi), `answer` 1-2 jumla (max 180 belgi).
 
 ## 6. Xizmatlar (ServicesGrid)
 

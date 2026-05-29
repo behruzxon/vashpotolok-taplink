@@ -48,7 +48,7 @@ export function HeroSection() {
 
       <ul className="mx-auto mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink-secondary">
         <li className="inline-flex items-center gap-1.5">
-          <Dot /> Bepul maslahat
+          <Dot /> Taxminiy hisob
         </li>
         <li className="text-ink-muted/60">·</li>
         <li className="inline-flex items-center gap-1.5">
@@ -56,7 +56,7 @@ export function HeroSection() {
         </li>
         <li className="text-ink-muted/60">·</li>
         <li className="inline-flex items-center gap-1.5">
-          <Dot /> Qarshi va viloyat
+          <Dot /> Telegram orqali maslahat
         </li>
       </ul>
     </header>

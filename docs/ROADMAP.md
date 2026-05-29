@@ -184,6 +184,39 @@ Hozir bot **alohida proyektda** (yoki yaratilishi kerak) — bu repository ichid
 
 ---
 
+## Phase Bio-Ready — Trust fix pack  ✅
+
+Audit topilgan trust gap'larini Instagram bio publish'idan oldin yopish: real-content gating, FAQ, safe copy, ceiling differentiation.
+
+### Bajarilgani
+
+- **Conditional render helpers:**
+  - `hasRealVideoContent(videos)` — `videoUrl` yoki `thumbnail` mavjud bo'lsa, yoki `instagramUrl` ichida `/reel/` / `/reels/` / `/p/` segmenti bo'lsa real. Umumiy profile linki real emas.
+  - `hasRealPortfolioImages(items)` — kamida 1 ta item'da `image` field bo'lsa real.
+  - `hasRealTestimonials(items)` — kamida 1 ta item `source: 'real'` bo'lsa real.
+- **Page flow:** `VideoShowcase`, `PortfolioPreview`, `TestimonialsSection` faqat real kontent bo'lganida ko'rinadi. Aks holda demo placeholder vibe oldi olinadi.
+- **TestimonialItem'da `source?: 'real' | 'sample'`** field qo'shildi. Joriy 3 ta sample sifatida belgilangan — section hozircha hidden.
+- **FAQ section qo'shildi:** `src/data/faq.ts` (6 ta savol-javob, xavfsiz copy) + `src/components/faq-section.tsx` (native `<details>/<summary>` accordion, focus-visible, bot CTA pastida — `source: 'trust'`).
+- **Ceiling type hint'lari yangilandi:**
+  - `odnotonniy`: “Sodda, toza va hamyonbop bir rangli потолок”
+  - `gulli`: “Gul naqshli bezakli ko‘rinish” (differentsiya)
+  - `naqsh`: “Geometrik yoki dekorativ naqshli yechim” (differentsiya)
+  - `mramor`: saqlandi
+  - `uv-pechat`: “Rasm yoki maxsus print bilan individual dizayn”
+- **Ceiling SVG pattern preview qayta dizayn qilindi** — ko'p distinctiv:
+  - Однотонный — silliq gradient + soft glow
+  - Gulli — 4 petalli gul + dekorativ nuqtalar
+  - Naqsh — overlap rhombus geometric ornament + central diamond
+  - Mramor — 5 qatlamli marble veins (gold accent)
+  - UV pechat — photo frame + tog' silueti + quyosh
+- **Hero trust chip safe copy:** `Bepul maslahat · Toza montaj · Qarshi va viloyat` → `Taxminiy hisob · Toza montaj · Telegram orqali maslahat` (action-oriented, hech qanday raqamli da'vo yo'q).
+- **Section flow yangilandi:** Hero → CTA → Calculator → Services → Trust → **(Videos if real)** → **(Portfolio if real)** → **FAQ** → **(Testimonials if real)** → Process → Footer.
+- **DEPLOY_CHECKLIST.md** §0 Bio Publish Minimum bo'limi qo'shildi.
+
+**Deliverable:** real content yetilmagunicha demo vibe yo'q, FAQ trust qatlam beradi, ceiling type'lar mijozga aniqroq tushuntiriladi, Instagram bio publish'idan oldin “bio-ready” barcha pre-conditions hujjatlangan.
+
+---
+
 ## Phase Calc-3 — District step olib tashlash  ✅
 
 Calculator yana soddalashtirildi: tuman/shahar tanlash stepi olib tashlandi.

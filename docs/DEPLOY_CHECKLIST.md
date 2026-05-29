@@ -4,6 +4,31 @@ Production deploy uchun yagona to'liq qo'llanma. Birinchi deploy paytida — har
 
 ---
 
+## 0. Bio Publish Minimum (Phase Bio-Ready)
+
+Instagram bio'ga link qo'yishdan oldin **barchasi ✓ bo'lishi shart**:
+
+- [ ] **Custom domain ulangan:** `vashpotolok.uz` yoki `link.vashpotolok.uz` (Vercel `.vercel.app` URL bio uchun professional emas)
+- [ ] **`NEXT_PUBLIC_SITE_URL`** custom domen bilan yangilangan va redeploy qilingan
+- [ ] **Telegram bot `@vashpotolokbot`** mavjud va `/start` ga javob beradi
+- [ ] **`?start=pro_<...>` payload handler** bot tomonida ishlaydi (Phase 4.5 bot loyihasi)
+- [ ] **Phone CTA** `tel:+998908866666` ko'tariladi (real raqam)
+- [ ] **Telegram profile** `t.me/vashpotolok` mavjud
+- [ ] **Instagram profile** `instagram.com/vashpotolok` mavjud
+- [ ] **Real portfolio foto** — kamida 1 ta `image` field bilan (ideal 3-6 ta). Aks holda Portfolio section avtomatik hidden.
+- [ ] **Real video kontent** — kamida 1 ta `instagramUrl` Reels link (`/reel/...`) bilan, yoki `thumbnail`. Aks holda Video section hidden.
+- [ ] **Real testimonial** — kamida 1 ta `source: 'real'`. Aks holda Testimonials section hidden.
+- [ ] **FAQ section** mavjud (Phase Bio-Ready: avtomatik ulangan)
+- [ ] **Calculator 4-step + result** ishlaydi (Phase Calc-3)
+- [ ] **OG preview** test qilingan (`opengraph.xyz` yoki Telegram link preview)
+- [ ] **Lighthouse mobile ≥ 90** (Performance, Accessibility, SEO)
+
+**Conditional render mexanikasi:** real kontent yetilmagan vaqtda demo placeholder ko'rsatish o'rniga **section hidden** bo'ladi (`hasRealVideoContent` / `hasRealPortfolioImages` / `hasRealTestimonials`). “Demo firma” taassuroti oldi olinadi.
+
+> **Cheklov:** ushbu blokdan biri ham FAIL bo'lsa, Instagram bio'ga link qo'yish ROI past — mijoz CTA bossa boshi berk ko'chaga kiradi yoki “real ishlar yo'q” deb chiqib ketadi.
+
+---
+
 ## 1. Pre-deploy checklist (lokalda)
 
 Quyidagilarni mahalliy mashinangizda tekshiring:

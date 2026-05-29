@@ -24,79 +24,118 @@ const levelStyle: Record<PremiumLevel, string> = {
 function CeilingPreview({ id }: { id: string }) {
   switch (id) {
     case 'odnotonniy':
+      // Tekis silliq gradient — bir rangli sodda yuza
       return (
         <svg viewBox="0 0 48 48" className="h-10 w-12" aria-hidden>
           <defs>
             <linearGradient id="cp-odno" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.95)" />
-              <stop offset="100%" stopColor="rgba(255,255,255,0.6)" />
+              <stop offset="0%" stopColor="rgba(255,255,255,0.32)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0.10)" />
             </linearGradient>
+            <radialGradient id="cp-odno-glow" cx="0.3" cy="0.2" r="0.7">
+              <stop offset="0%" stopColor="rgba(255,255,255,0.35)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+            </radialGradient>
           </defs>
-          <rect x="2" y="2" width="44" height="44" rx="8" fill="url(#cp-odno)" opacity="0.18" />
-          <rect x="2" y="2" width="44" height="44" rx="8" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+          <rect x="2" y="2" width="44" height="44" rx="8" fill="url(#cp-odno)" />
+          <rect x="2" y="2" width="44" height="44" rx="8" fill="url(#cp-odno-glow)" />
+          <rect x="2" y="2" width="44" height="44" rx="8" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
         </svg>
       )
     case 'gulli':
+      // Gul petali (4 ta yaproq + markaz)
       return (
         <svg viewBox="0 0 48 48" className="h-10 w-12" aria-hidden>
           <rect x="2" y="2" width="44" height="44" rx="8" fill="rgba(91,155,255,0.10)" />
-          {[12, 24, 36].map((cx) =>
-            [12, 24, 36].map((cy) => (
-              <g key={`${cx}-${cy}`} transform={`translate(${cx} ${cy})`}>
-                <circle r="2" fill="rgba(91,155,255,0.85)" />
-                <circle r="0.8" fill="rgba(255,255,255,0.9)" />
-              </g>
-            )),
-          )}
+          <g transform="translate(24 24)">
+            {[0, 90, 180, 270].map((deg) => (
+              <ellipse
+                key={deg}
+                cx="0"
+                cy="-9"
+                rx="3.4"
+                ry="6.8"
+                fill="rgba(91,155,255,0.78)"
+                transform={`rotate(${deg})`}
+              />
+            ))}
+            <circle r="3" fill="rgba(255,255,255,0.95)" />
+            <circle r="1.4" fill="rgba(91,155,255,0.95)" />
+          </g>
+          {/* 4 ta kichik dekorativ nuqta burchaklarda */}
+          {[
+            [8, 8], [40, 8], [8, 40], [40, 40],
+          ].map(([cx, cy], i) => (
+            <circle key={i} cx={cx} cy={cy} r="1.4" fill="rgba(91,155,255,0.55)" />
+          ))}
           <rect x="2" y="2" width="44" height="44" rx="8" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
         </svg>
       )
     case 'naqsh':
+      // Geometrik ornament — 2 ta overlap rhombus + sharqona accent
       return (
         <svg viewBox="0 0 48 48" className="h-10 w-12" aria-hidden>
           <rect x="2" y="2" width="44" height="44" rx="8" fill="rgba(91,155,255,0.10)" />
-          <g fill="none" stroke="rgba(91,155,255,0.85)" strokeWidth="1.2" strokeLinecap="round">
-            <path d="M8 24 L24 8 L40 24 L24 40 Z" />
-            <path d="M16 24 L24 16 L32 24 L24 32 Z" />
-            <circle cx="24" cy="24" r="3" />
+          <g fill="none" stroke="rgba(91,155,255,0.9)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+            {/* tashqi rhombus */}
+            <path d="M24 7 L41 24 L24 41 L7 24 Z" />
+            {/* o'rta rhombus 45° aylantirilgan kvadrat */}
+            <path d="M14 14 L34 14 L34 34 L14 34 Z" opacity="0.6" />
+            {/* ichki rhombus */}
+            <path d="M24 14 L34 24 L24 34 L14 24 Z" />
+            {/* markaz to'rt cho'qqi */}
+            <path d="M21 24 L24 21 L27 24 L24 27 Z" fill="rgba(91,155,255,0.85)" />
           </g>
           <rect x="2" y="2" width="44" height="44" rx="8" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
         </svg>
       )
     case 'mramor':
+      // Mramor tomirlari — kuchaytirilgan ko'p qatlamli wavy veins
       return (
         <svg viewBox="0 0 48 48" className="h-10 w-12" aria-hidden>
           <defs>
             <linearGradient id="cp-mra" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.18)" />
-              <stop offset="50%" stopColor="rgba(217,184,114,0.18)" />
-              <stop offset="100%" stopColor="rgba(255,255,255,0.10)" />
+              <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
+              <stop offset="45%" stopColor="rgba(217,184,114,0.22)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0.12)" />
             </linearGradient>
           </defs>
           <rect x="2" y="2" width="44" height="44" rx="8" fill="url(#cp-mra)" />
-          <g fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="0.8" strokeLinecap="round">
-            <path d="M4 14 C 14 10, 22 22, 30 14 S 44 18, 44 18" />
-            <path d="M4 30 C 12 26, 20 36, 30 30 S 44 36, 44 36" opacity="0.7" />
-            <path d="M6 22 C 14 18, 20 26, 28 22 S 42 26, 42 26" opacity="0.5" />
+          <g fill="none" strokeLinecap="round">
+            {/* asosiy tomir — qalin */}
+            <path d="M3 12 C 14 7, 22 22, 30 14 S 44 18, 47 12" stroke="rgba(255,255,255,0.75)" strokeWidth="1.1" />
+            {/* ikkinchi tomir — yumshoq */}
+            <path d="M2 28 C 12 22, 20 36, 30 28 S 44 36, 47 30" stroke="rgba(255,255,255,0.55)" strokeWidth="0.9" opacity="0.85" />
+            {/* uchinchi tomir — eng nozik */}
+            <path d="M4 38 C 14 34, 22 44, 30 38 S 44 42, 47 38" stroke="rgba(217,184,114,0.55)" strokeWidth="0.7" opacity="0.7" />
+            {/* qisqa accent tomirlari */}
+            <path d="M10 6 C 14 10, 16 16, 18 22" stroke="rgba(255,255,255,0.4)" strokeWidth="0.6" opacity="0.6" />
+            <path d="M36 18 C 40 22, 41 28, 42 34" stroke="rgba(255,255,255,0.4)" strokeWidth="0.6" opacity="0.6" />
           </g>
-          <rect x="2" y="2" width="44" height="44" rx="8" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
+          <rect x="2" y="2" width="44" height="44" rx="8" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
         </svg>
       )
     case 'uv-pechat':
+      // Photo frame + tog' va quyosh — print/rasm signali
       return (
         <svg viewBox="0 0 48 48" className="h-10 w-12" aria-hidden>
           <defs>
-            <linearGradient id="cp-uv" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="rgba(91,155,255,0.6)" />
-              <stop offset="60%" stopColor="rgba(217,184,114,0.45)" />
-              <stop offset="100%" stopColor="rgba(91,155,255,0.25)" />
+            <linearGradient id="cp-uv-sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="rgba(91,155,255,0.55)" />
+              <stop offset="100%" stopColor="rgba(217,184,114,0.45)" />
             </linearGradient>
           </defs>
-          <rect x="2" y="2" width="44" height="44" rx="8" fill="url(#cp-uv)" opacity="0.7" />
-          <g fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M8 34 L18 22 L26 30 L32 24 L40 34 Z" fill="rgba(255,255,255,0.18)" />
-            <circle cx="34" cy="14" r="2.4" fill="rgba(255,255,255,0.9)" />
-          </g>
+          {/* photo frame outer */}
+          <rect x="2" y="2" width="44" height="44" rx="8" fill="rgba(91,155,255,0.10)" />
+          {/* inner photo area */}
+          <rect x="7" y="8" width="34" height="32" rx="3" fill="url(#cp-uv-sky)" />
+          {/* sun */}
+          <circle cx="32" cy="16" r="3" fill="rgba(255,255,255,0.95)" />
+          {/* mountains */}
+          <path d="M7 32 L15 22 L21 28 L28 20 L35 28 L41 24 L41 40 L7 40 Z" fill="rgba(255,255,255,0.30)" />
+          <path d="M7 36 L13 28 L20 33 L26 26 L34 33 L41 28 L41 40 L7 40 Z" fill="rgba(91,155,255,0.65)" opacity="0.75" />
+          {/* frame border */}
+          <rect x="7" y="8" width="34" height="32" rx="3" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1" />
           <rect x="2" y="2" width="44" height="44" rx="8" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="1" />
         </svg>
       )

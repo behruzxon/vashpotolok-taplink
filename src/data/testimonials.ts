@@ -6,14 +6,22 @@ export type TestimonialItem = {
   areaM2?: number
   rating?: number
   customerLabel: string
+  /**
+   * Phase Bio-Ready: `'real'` faqat mijozdan yozma ruxsat olingan va
+   * matn so'zma-so'z ko'chirilgan fikrlar uchun. `'sample'` — placeholder
+   * matn. Agar massivda hech qaysisi `'real'` bo'lmasa, TestimonialsSection
+   * butun section'i **hidden** bo'ladi (`hasRealTestimonials` orqali).
+   */
+  source?: 'real' | 'sample'
 }
 
 /**
  * Mijoz fikrlari. **Fake ism ishlatma** — real mijoz ruxsati bo'lmasa,
  * `customerLabel` faqat xona turi + joy bo'lsin ("Qarshi · Zal").
  *
- * Real ism qo'shilsa: mijozdan yozma ruxsat (Telegram chat screenshot)
- * va `customerLabel` ga ko'chiriladi.
+ * Joriy 3 ta item — sample (`source: 'sample'`). Real fikr kelgach
+ * `source: 'real'` qilib belgilanadi va Telegram chat screenshot
+ * saqlanadi.
  *
  *   → docs/VIDEOS_AND_TESTIMONIALS_GUIDE.md §5
  */
@@ -27,6 +35,7 @@ export const testimonials: TestimonialItem[] = [
     areaM2: 24,
     rating: 5,
     customerLabel: 'Qarshi · Zal',
+    source: 'sample',
   },
   {
     id: 'qashqadaryo-yotoqxona-matoviy',
@@ -37,6 +46,7 @@ export const testimonials: TestimonialItem[] = [
     areaM2: 18,
     rating: 5,
     customerLabel: 'Qashqadaryo · Yotoqxona',
+    source: 'sample',
   },
   {
     id: 'qarshi-oshxona-glyans',
@@ -47,5 +57,10 @@ export const testimonials: TestimonialItem[] = [
     areaM2: 14,
     rating: 5,
     customerLabel: 'Qarshi · Oshxona',
+    source: 'sample',
   },
 ]
+
+export function hasRealTestimonials(items: TestimonialItem[]): boolean {
+  return items.some((t) => t.source === 'real')
+}

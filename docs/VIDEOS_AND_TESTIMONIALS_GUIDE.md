@@ -6,6 +6,16 @@ VashPotolok taplink Phase Trust-1 ikkita yangi trust bo'limini qo'shdi:
 
 Hozircha real video fayllar yo'q — UI Instagram Reels link orqali ishlaydi va thumbnail bo'lmaganda **abstrakt LED ceiling fallback** ko'rsatadi.
 
+> **Phase Bio-Ready conditional render:** ikkala section ham faqat real kontent bo'lganida ko'rinadi:
+> - **Videos**: `videoUrl`, `thumbnail`, yoki `instagramUrl` ichida `/reel/`/`/reels/`/`/p/` segmenti bo'lsa real.
+> - **Testimonials**: `source: 'real'` field belgilangan bo'lsa real.
+>
+> Umumiy Instagram profil linki (masalan `https://instagram.com/vashpotolok`) **real kontent emas** — Video section yashirinadi. Joriy 3 ta testimonial sample sifatida belgilangan, section hidden.
+>
+> **Bio-ready threshold:**
+> - Video: 1 ta real Reels linki section'ni yoqadi. Ideal 3+ video.
+> - Testimonial: 1 ta `source: 'real'` testimonial section'ni yoqadi. Ideal 3+ real fikr.
+
 ---
 
 ## 1. Tezkor jadval

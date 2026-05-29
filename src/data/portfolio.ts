@@ -13,6 +13,18 @@ export type PortfolioItem = {
   featured?: boolean
 }
 
+/**
+ * Phase Bio-Ready: agar hech qaysi item'da `image` field bo'lmasa,
+ * Portfolio section avtomatik **hidden** bo'ladi. Real foto'lar
+ * `public/portfolio/<id>.webp` ga qo'yiladi va item'lar `image: '/portfolio/<id>.webp'`
+ * field bilan ulanadi.
+ *
+ *   → docs/PORTFOLIO_PHOTO_GUIDE.md
+ */
+export function hasRealPortfolioImages(items: PortfolioItem[]): boolean {
+  return items.some((item) => typeof item.image === 'string' && item.image.length > 0)
+}
+
 export const portfolio: PortfolioItem[] = [
   {
     id: 'zal-led-24',

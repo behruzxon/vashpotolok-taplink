@@ -73,7 +73,7 @@ export const ceilingTypes: CeilingType[] = [
   {
     id: 'odnotonniy',
     label: 'Однотонный',
-    hint: 'Sodda va toza ko‘rinish',
+    hint: 'Sodda, toza va hamyonbop bir rangli потолок',
     pricePerM2Min: 80000,
     pricePerM2Max: 90000,
     premiumLevel: 'standard',
@@ -81,7 +81,7 @@ export const ceilingTypes: CeilingType[] = [
   {
     id: 'gulli',
     label: 'Gulli',
-    hint: 'Naqshli va bezakli ko‘rinish',
+    hint: 'Gul naqshli bezakli ko‘rinish',
     pricePerM2Min: 120000,
     pricePerM2Max: 135000,
     premiumLevel: 'comfort',
@@ -89,7 +89,7 @@ export const ceilingTypes: CeilingType[] = [
   {
     id: 'naqsh',
     label: 'Naqsh',
-    hint: 'Dekorativ naqshli yechim',
+    hint: 'Geometrik yoki dekorativ naqshli yechim',
     pricePerM2Min: 120000,
     pricePerM2Max: 135000,
     premiumLevel: 'comfort',
@@ -105,7 +105,7 @@ export const ceilingTypes: CeilingType[] = [
   {
     id: 'uv-pechat',
     label: 'UV pechat',
-    hint: 'Rasm va maxsus print bilan yechim',
+    hint: 'Rasm yoki maxsus print bilan individual dizayn',
     pricePerM2Min: 140000,
     pricePerM2Max: 160000,
     premiumLevel: 'premium',

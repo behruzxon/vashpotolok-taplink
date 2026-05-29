@@ -2,6 +2,10 @@
 
 VashPotolok taplink Portfolio bo'limi real fotosuratlarga tayyor. Hozircha har card abstrakt ceiling render bilan ko'rinadi (gradient + LED line + horizon). Real foto qo'shilsa, render avtomatik almashtiriladi.
 
+> **Phase Bio-Ready conditional render:** agar hech qaysi item'da `image` field bo'lmasa, **Portfolio section butunlay hidden** bo'ladi (`hasRealPortfolioImages` helper orqali). Demo placeholder vibe oldi olinadi.
+>
+> **Bio-ready threshold:** 1 ta real foto ham section'ni jonlantiradi. Lekin **ideal 4–6 ta** — featured card + 3-5 ta regular card ko'rinishi. 3 ta minimum mijozga “yetarli ish ko'rsatma” taassuroti beradi.
+
 ---
 
 ## 1. Qanday foto tanlash

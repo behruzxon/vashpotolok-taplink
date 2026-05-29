@@ -16,8 +16,9 @@ components/
 ├── services-grid.tsx           (5 services with icons)
 ├── trust-badges.tsx            (4 trust badges, 2×2 grid)
 ├── portfolio-preview.tsx       (horizontal scroll cards)
-├── video-showcase.tsx          (Phase Trust-1 — Reels horizontal scroll)
-├── testimonials-section.tsx    (Phase Trust-1 — mijoz fikrlari)
+├── video-showcase.tsx          (Phase Trust-1 — Reels horizontal scroll, Phase Bio-Ready: conditional render)
+├── testimonials-section.tsx    (Phase Trust-1 — mijoz fikrlari, Phase Bio-Ready: real source flag)
+├── faq-section.tsx             (Phase Bio-Ready — native details/summary accordion + bot CTA)
 ├── process-steps.tsx           (5-step timeline)
 ├── sticky-bottom-cta.tsx       (always-visible CTA bar)
 ├── footer-cta.tsx              (phone + caption)
@@ -35,8 +36,9 @@ data/
 ├── services.ts         (5 services array)
 ├── portfolio.ts        (placeholder portfolio items)
 ├── trust.ts            (5 trust badges — Phase UI-1)
-├── videos.ts           (Phase Trust-1 — VideoItem array)
-├── testimonials.ts     (Phase Trust-1 — TestimonialItem array)
+├── videos.ts           (Phase Trust-1 — VideoItem array + hasRealVideoContent helper)
+├── testimonials.ts     (Phase Trust-1 — TestimonialItem array + source flag + hasRealTestimonials)
+├── faq.ts              (Phase Bio-Ready — FAQItem array)
 └── price-options.ts    (Phase Calc-3 — RoomType / CeilingType, district olib tashlangan)
 
 lib/
