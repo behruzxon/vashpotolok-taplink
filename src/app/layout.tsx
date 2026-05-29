@@ -106,7 +106,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="uz" className={inter.variable}>
       <head>
         <link rel="dns-prefetch" href="https://t.me" />
-        <link rel="dns-prefetch" href="https://instagram.com" />
+        <link rel="dns-prefetch" href="https://www.instagram.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"

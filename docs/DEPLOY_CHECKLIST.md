@@ -14,7 +14,7 @@ Instagram bio'ga link qo'yishdan oldin **barchasi ✓ bo'lishi shart**:
 - [ ] **`?start=pro_<...>` payload handler** bot tomonida ishlaydi (Phase 4.5 bot loyihasi)
 - [ ] **Phone CTA** `tel:+998908866666` ko'tariladi (real raqam)
 - [ ] **Telegram profile** `t.me/vashpotolok` mavjud
-- [ ] **Instagram profile** `instagram.com/vashpotolok` mavjud
+- [ ] **Instagram profile** `instagram.com/potolok_x` mavjud
 - [ ] **Real portfolio foto** — kamida 1 ta `image` field bilan (ideal 3-6 ta). Aks holda Portfolio section avtomatik hidden.
 - [ ] **Real video kontent** — kamida 1 ta `instagramUrl` Reels link (`/reel/...`) bilan, yoki `thumbnail`. Aks holda Video section hidden.
 - [ ] **Real testimonial** — kamida 1 ta `source: 'real'`. Aks holda Testimonials section hidden.
@@ -170,7 +170,7 @@ Production URL'da bularni manual tekshiring:
 | 5 | Hero "📲 Telegram bot orqali hisoblash" bosildi | Telegram bot ochiladi: `https://t.me/vashpotolokbot?start=hero` |
 | 6 | "📞 Qo'ng'iroq qilish" bosildi | Telefon dialer ochiladi (`+998908866666`) |
 | 7 | "💬 Telegramda yozish" bosildi | Telegram profil ochiladi: `https://t.me/vashpotolok` |
-| 8 | "📸 Instagram profil" bosildi | Instagram profil yangi tab'da: `https://instagram.com/vashpotolok` |
+| 8 | "📸 Instagram profil" bosildi | Instagram profil yangi tab'da: `https://www.instagram.com/potolok_x` |
 | 9 | Sticky CTA "Telegram bot" bosildi | Bot ochiladi: `?start=sticky` |
 | 10 | Sticky CTA telefon (yashil) bosildi | Dialer ochiladi |
 | 11 | Footer phone bosildi | Dialer ochiladi |
@@ -241,7 +241,7 @@ Bio link Instagram'ga qo'yilgach mijozlar haqiqiy CTA'larni bossa — har bittas
 | E6 | Sticky CTA Telegram bosildi | `?start=sticky` welcome |
 | E7 | `+998 90 886 66 66` raqamiga qo'ng'iroq qilindi | Telefon ko'tariladi, javob beradi |
 | E8 | `t.me/vashpotolok` (operator profile) ochildi | Profil mavjud va xabar yozish imkoniyati bor |
-| E9 | `instagram.com/vashpotolok` ochildi | Profil mavjud, real ishlar postlari ko'rinadi |
+| E9 | `instagram.com/potolok_x` ochildi | Profil mavjud, real ishlar postlari ko'rinadi |
 | E10 | Footer CTA telefon raqami `+998 90 886 66 66` formatida | Display format to'g'ri (xom `tel:...` ko'rinmaydi) |
 
 **Agar E1–E9 dan biri ham FAIL bo'lsa:** Instagram bio'ga link qo'ymang. Avval shu xizmatni jonli ishlaydigan qiling. Yo'qsa mijoz CTA bossa boshi berk ko'chaga kiradi va lead yo'qoladi.

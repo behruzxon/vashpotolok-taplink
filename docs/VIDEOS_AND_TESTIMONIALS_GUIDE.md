@@ -10,7 +10,7 @@ Hozircha real video fayllar yo'q — UI Instagram Reels link orqali ishlaydi va 
 > - **Videos**: `videoUrl`, `thumbnail`, yoki `instagramUrl` ichida `/reel/`/`/reels/`/`/p/` segmenti bo'lsa real.
 > - **Testimonials**: `source: 'real'` field belgilangan bo'lsa real.
 >
-> Umumiy Instagram profil linki (masalan `https://instagram.com/vashpotolok`) **real kontent emas** — Video section yashirinadi. Joriy 3 ta testimonial sample sifatida belgilangan, section hidden.
+> Umumiy Instagram profil linki (masalan `https://www.instagram.com/potolok_x`) **real kontent emas** — Video section yashirinadi. Joriy 3 ta testimonial sample sifatida belgilangan, section hidden.
 >
 > **Bio-ready threshold:**
 > - Video: 1 ta real Reels linki section'ni yoqadi. Ideal 3+ video.
@@ -129,7 +129,7 @@ Agar mijoz ruxsat bersa:
 1. **Zal · LED · Qarshi** — featured (78–82% snap)
    - Duration `0:18`
    - Tags `LED, Zal, Qarshi`
-   - Instagram link `https://instagram.com/vashpotolok` (umumiy profil — Reels link kelganda yangilanadi)
+   - Instagram link `https://www.instagram.com/potolok_x` (umumiy profil — Reels link kelganda yangilanadi)
 
 2. **Yotoqxona · Matoviy · Qashqadaryo**
    - Duration `0:15`

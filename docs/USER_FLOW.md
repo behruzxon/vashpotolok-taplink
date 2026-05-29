@@ -182,7 +182,7 @@ User scrolls to PriceEstimateCard
 ```
 User taps "📸 Instagram profil"
     └─→ analytics.track("click_instagram")
-        └─→ window.location = "https://instagram.com/vashpotolok"
+        └─→ window.location = "https://www.instagram.com/potolok_x"
 ```
 
 ## 10. Sticky CTA flow

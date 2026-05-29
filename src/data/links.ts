@@ -31,7 +31,7 @@ export const links: Links = {
   telegramBot: createTelegramBotLink('hero'),
   telegramProfile: 'https://t.me/vashpotolok',
   catalog: 'https://t.me/vashpotolokuz',
-  instagram: 'https://instagram.com/vashpotolok',
+  instagram: 'https://www.instagram.com/potolok_x',
   phone: 'tel:+998908866666',
   phoneDisplay: '+998 90 886 66 66',
 }
