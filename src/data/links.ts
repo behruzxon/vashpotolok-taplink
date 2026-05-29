@@ -3,6 +3,7 @@ export type Links = {
   telegramProfile: string
   catalog: string
   instagram: string
+  youtube: string
   phone: string
   phoneDisplay: string
 }
@@ -32,6 +33,7 @@ export const links: Links = {
   telegramProfile: 'https://t.me/vashpotolok',
   catalog: 'https://t.me/vashpotolokuz',
   instagram: 'https://www.instagram.com/potolok_x',
+  youtube: 'https://www.youtube.com/@Behruzxonusta',
   phone: 'tel:+998908866666',
   phoneDisplay: '+998 90 886 66 66',
 }

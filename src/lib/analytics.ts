@@ -5,6 +5,7 @@ export type AnalyticsEvent =
   | { name: 'click_telegram_profile'; payload: { source: 'hero' } }
   | { name: 'click_catalog'; payload: { source: 'hero' } }
   | { name: 'click_instagram'; payload: { source: 'cta' | 'portfolio' | 'video' } }
+  | { name: 'click_youtube'; payload: { source: 'hero' } }
   | { name: 'click_portfolio'; payload: { itemId: string } }
   | { name: 'click_video'; payload: { id: string; destination: 'instagram' | 'video' } }
   | { name: 'click_price_estimate'; payload: { area: number; estimate: number } }

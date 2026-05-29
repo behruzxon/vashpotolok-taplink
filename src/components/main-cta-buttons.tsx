@@ -5,7 +5,7 @@ import { track } from '@/lib/analytics'
 import type { Links } from '@/data/links'
 
 type Props = {
-  links: Pick<Links, 'telegramBot' | 'phone' | 'catalog' | 'instagram' | 'phoneDisplay'>
+  links: Pick<Links, 'telegramBot' | 'phone' | 'catalog' | 'instagram' | 'youtube' | 'phoneDisplay'>
 }
 
 export function MainCTAButtons({ links }: Props) {
@@ -59,21 +59,38 @@ export function MainCTAButtons({ links }: Props) {
         />
       </div>
 
-      <CtaButton
-        href={links.instagram}
-        variant="ghost"
-        compact
-        label="Instagram · Real ishlar"
-        ariaLabel="Instagram profil"
-        icon={
-          <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-            <rect x="3" y="3" width="18" height="18" rx="5" />
-            <circle cx="12" cy="12" r="4" />
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-          </svg>
-        }
-        onClick={() => track('click_instagram', { source: 'cta' })}
-      />
+      <div className="grid grid-cols-2 gap-2.5">
+        <CtaButton
+          href={links.instagram}
+          variant="ghost"
+          compact
+          label="Instagram"
+          ariaLabel="Instagram profil"
+          icon={
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
+          }
+          onClick={() => track('click_instagram', { source: 'cta' })}
+        />
+
+        <CtaButton
+          href={links.youtube}
+          variant="ghost"
+          compact
+          label="YouTube"
+          ariaLabel="YouTube kanalini ochish"
+          icon={
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <rect x="2.5" y="5" width="19" height="14" rx="3.5" />
+              <path d="M10.5 9.2v5.6l4.5-2.8z" fill="currentColor" stroke="none" />
+            </svg>
+          }
+          onClick={() => track('click_youtube', { source: 'hero' })}
+        />
+      </div>
     </nav>
   )
 }
