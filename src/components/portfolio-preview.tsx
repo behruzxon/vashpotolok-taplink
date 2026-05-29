@@ -46,11 +46,16 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
         ) : null}
       </div>
 
-      <ul className="flex flex-col gap-4" role="list">
-        {items.map((item) => (
-          <PortfolioCard key={item.id} item={item} />
-        ))}
-      </ul>
+      <div className="-mx-5 px-5">
+        <ul
+          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 pr-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          role="list"
+        >
+          {items.map((item) => (
+            <PortfolioCard key={item.id} item={item} />
+          ))}
+        </ul>
+      </div>
 
       <a
         href={portfolioBotLink}
@@ -146,22 +151,22 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
   const href = createTelegramBotLink('portfolio')
 
   return (
-    <li className="group relative w-full overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-card">
+    <li className="group relative w-[86%] max-w-[360px] shrink-0 snap-start overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-card">
       <article className="relative flex h-full flex-col">
-        {/* Image zone — pure photo, no overlay text/badges/gradient */}
+        {/* Image zone — pure photo, 9:16 portrait, full-bleed cover */}
         {item.image ? (
-          <div className="relative aspect-[3/4] overflow-hidden bg-bg-base">
+          <div className="relative aspect-[9/16] overflow-hidden bg-bg-base">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.image}
               alt={item.title}
               loading="lazy"
-              className="h-full w-full object-contain object-center"
+              className="h-full w-full object-cover object-center"
             />
           </div>
         ) : (
           // Fallback placeholder (no real image): keep abstract render
-          <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="relative aspect-[9/16] overflow-hidden">
             <RenderPlaceholder gradient={item.gradient} />
           </div>
         )}
