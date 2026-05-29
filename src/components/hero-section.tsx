@@ -91,8 +91,8 @@ function HeroVisual() {
       <div className="relative aspect-[16/10] overflow-hidden bg-bg-base">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/portfolio/qarshi-zal-gulli.jpg"
-          alt="Potolok X — Qarshida bajarilgan natijnoy potolok ishi"
+          src="/hero/potolok-x-hero-minimal.webp"
+          alt="Potolok X minimal natijnoy potolok interyer dizayni"
           loading="eager"
           decoding="async"
           onError={() => setFailed(true)}
@@ -109,16 +109,16 @@ function HeroVisual() {
           }}
         />
 
-        {/* Top-left: Real ish badge */}
+        {/* Top-left: Dizayn namunasi badge */}
         <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-bg-surface px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-primary shadow-[0_4px_10px_rgba(15,23,42,0.12)] ring-1 ring-line-soft">
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brand-accent" />
-          Real ish
+          Dizayn namunasi
         </span>
 
-        {/* Top-right: Qarshi · Potolok X badge */}
+        {/* Top-right: Potolok X badge */}
         <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-bg-surface px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-ink-primary shadow-[0_4px_10px_rgba(15,23,42,0.12)] ring-1 ring-line-soft">
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold" />
-          Qarshi · Potolok X
+          Potolok X
         </span>
       </div>
     </div>
@@ -190,11 +190,11 @@ function ShowroomPanel() {
       />
       <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-bg-surface px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-primary shadow-[0_4px_10px_rgba(15,23,42,0.10)] ring-1 ring-line-soft">
         <span className="h-1.5 w-1.5 rounded-full bg-brand-accent" />
-        Real ish
+        Dizayn namunasi
       </span>
       <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-bg-surface px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-ink-primary shadow-[0_4px_10px_rgba(15,23,42,0.10)] ring-1 ring-line-soft">
         <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-        Qarshi · Potolok X
+        Potolok X
       </span>
     </div>
   )
