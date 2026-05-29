@@ -25,7 +25,7 @@ export function HeroSection() {
         <span className="sr-only">Potolok X</span>
         <span
           aria-hidden
-          className="relative flex h-[84px] w-[260px] items-center justify-center overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-[0_14px_38px_-14px_rgba(15,23,42,0.22),0_2px_8px_rgba(15,23,42,0.06)] sm:h-[96px] sm:w-[300px]"
+          className="relative flex h-[76px] w-[240px] items-center justify-center overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-[0_14px_38px_-14px_rgba(15,23,42,0.22),0_2px_8px_rgba(15,23,42,0.06)] sm:h-[90px] sm:w-[280px]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
