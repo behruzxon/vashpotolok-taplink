@@ -1,4 +1,4 @@
-export type TrustIcon = 'shield' | 'sparkles' | 'check' | 'pin' | 'compass'
+export type TrustIcon = 'shield' | 'sparkles' | 'check' | 'pin' | 'compass' | 'award'
 
 export type TrustItem = {
   id: string
@@ -8,6 +8,13 @@ export type TrustItem = {
 }
 
 export const trust: TrustItem[] = [
+  {
+    id: 'experience',
+    title: '6+ yillik tajriba',
+    description:
+      'Qashqadaryo bo‘ylab natijnoy potolok bo‘yicha tajriba va amaliy yechimlar.',
+    icon: 'award',
+  },
   {
     id: 'consult',
     title: 'Bepul maslahat',

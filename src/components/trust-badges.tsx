@@ -50,6 +50,14 @@ function Icon({ name }: { name: TrustIcon }) {
           <path d="m15.5 8.5-2.5 5-5 2.5 2.5-5 5-2.5z" />
         </svg>
       )
+    case 'award':
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <circle cx="12" cy="9" r="6" />
+          <path d="M9 14.5 7.5 21l4.5-2.5 4.5 2.5L15 14.5" />
+          <path d="m10 9 1.5 1.5L14 8" />
+        </svg>
+      )
   }
 }
 

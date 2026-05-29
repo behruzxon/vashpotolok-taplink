@@ -63,9 +63,9 @@ export function HeroSection() {
       {/* Trust pills — compact */}
       <ul className="mx-auto mt-3.5 flex flex-wrap items-center justify-center gap-1">
         {[
+          '6+ yillik tajriba',
           'Taxminiy hisob',
           'Toza montaj',
-          'Telegram maslahat',
         ].map((label) => (
           <li
             key={label}
