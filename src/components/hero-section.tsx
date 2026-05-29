@@ -12,17 +12,15 @@ export function HeroSection() {
       </div>
 
       <div className="relative mx-auto mt-4 flex items-center justify-center gap-3">
-        <span
-          aria-hidden
-          className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-accent to-brand-primary-700 shadow-[0_10px_28px_-8px_rgba(47,107,255,0.55)]"
-        >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-white/30 to-transparent opacity-60"
+        <span className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-line-soft bg-bg-surface shadow-[0_8px_22px_-8px_rgba(15,23,42,0.18)]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/potolok-x-logo.jpg"
+            alt="Potolok X logo"
+            loading="eager"
+            decoding="async"
+            className="h-full w-full object-cover object-center"
           />
-          <span className="relative text-[16px] font-extrabold tracking-tight text-white">
-            PX
-          </span>
         </span>
         <h1 className="text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink-primary sm:text-[40px]">
           <span className="block bg-gradient-to-br from-ink-primary via-brand-primary to-brand-accent bg-clip-text text-transparent">
