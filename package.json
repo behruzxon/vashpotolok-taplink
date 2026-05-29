@@ -1,8 +1,8 @@
 {
-  "name": "vashpotolok-taplink",
+  "name": "potolok-x-taplink",
   "version": "0.1.0",
   "private": true,
-  "description": "VashPotolok — premium mini-landing (Qashqadaryoda натяжной потолок)",
+  "description": "Potolok X — premium mini-landing (Qashqadaryoda natijnoy potolok)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -12,9 +12,9 @@ Bog'liq hujjatlar:
 
 | Joy | Til |
 |---|---|
-| Asosiy xizmat nomi | Kirilcha rus: **натяжной потолок** |
+| Asosiy xizmat nomi | Kirilcha rus: **natijnoy potolok** |
 | Brend nomi | Lotin uppercase: **VASH POTOLOK** |
-| Geografiya | Kirilcha o'zbek: **Қашқадарё** |
+| Geografiya | Kirilcha o'zbek: **Qashqadaryo** |
 | Bot UI matnlari | Lotin o'zbek: **Xonangiz maydoni**, **Aniq narx** |
 | Emoji | CTA va welcome'larda ✓, sarlavhada ✗ |
 
@@ -26,7 +26,7 @@ Trigger: `parsed.kind === 'source'` va `source ∈ {hero, sticky, footer}`.
 
 ```
 Assalomu alaykum! VASH POTOLOK botiga xush kelibsiz 😊
-Қашқадарё бўйлаб натяжной потолок bo‘yicha tezkor maslahat beramiz.
+Qashqadaryo bo‘ylab natijnoy potolok bo‘yicha tezkor maslahat beramiz.
 
 Xonangiz maydoni necha m²?
 Masalan: 18 m²
@@ -52,7 +52,7 @@ Trigger: `parsed.kind === 'source'` va `source === 'portfolio'`.
 
 ```
 Assalomu alaykum! Ishlarimiz namunasidan keldingiz 😊
-Sizga ham shunga o‘xshash натяжной потолок yechimini hisoblab beramiz.
+Sizga ham shunga o‘xshash natijnoy potolok yechimini hisoblab beramiz.
 
 Qaysi xona uchun kerak?
 1) Zal
@@ -155,7 +155,7 @@ Trigger: `parsed.kind === 'unknown'` yoki `/start` bo'sh payload bilan.
 
 ```
 Assalomu alaykum! VASH POTOLOK botiga xush kelibsiz 😊
-Sizga натяжной потолок bo‘yicha yordam beramiz.
+Sizga natijnoy potolok bo‘yicha yordam beramiz.
 
 Xonangiz maydoni necha m²?
 ```

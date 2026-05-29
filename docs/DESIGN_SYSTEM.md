@@ -1,4 +1,4 @@
-# PotolX — Design System (Phase Brand-1 light premium)
+# Potolok X — Design System (Phase Brand-1 light premium)
 
 ## 1. Visual Direction
 
@@ -6,7 +6,7 @@
 
 Vizual metafora — quyosh nuri ostidagi premium interior studio. Bright white card'lar yumshoq off-white fonda turadi, har element subtle cobalt aksent bilan ajraladi. “Magazin/jurnal” feel — Instagram'dan kirgan oilaviy/uy egasi mijozga **toza, qimmatbaho, ishonchli** taassurot beradi.
 
-Hech qanday dark navy yo'q — yangi PotolX **light premium**.
+Hech qanday dark navy yo'q — yangi Potolok X **light premium**.
 
 ## 2. Color Tokens (Tailwind config)
 
@@ -74,7 +74,7 @@ backgroundImage: {
 
 ## 5. Brand
 
-- **Brand name:** `PotolX` (P + lowercase otol + X)
+- **Brand name:** `Potolok X` (P + lowercase otol + X)
 - **Monogram:** `PX` — deep blue gradient card, white text, gentle white-to-transparent sheen overlay
 - **Logo treatment:** monogram + wordmark side-by-side on hero
 - **Wordmark gradient:** `from-ink-primary via-brand-primary to-brand-accent` bg-clip-text
@@ -98,7 +98,7 @@ The earlier dark navy palette was retired in Phase Brand-1.
 | Button | Inter | 16px | 600 | 1.0 |
 
 - Brend nomi (`VASH POTOLOK`) — **tracking-widest, uppercase, semibold**.
-- "натяжной потолок" — kirilcha qoladi (mahalliy SEO + intent).
+- "natijnoy potolok" — kirilcha qoladi (mahalliy SEO + intent).
 - Headerlar **qisqa**: maksimum 3 so'z.
 - Body **15px** — mobile o'qish uchun optimal.
 - Hech qachon **3 qatordan ko'p** bir tugmada.

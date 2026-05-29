@@ -109,7 +109,7 @@ Endi narx kalkulyatori **6 qadamli professional kalkulyator**. Mijoz har bosqich
 ```
 User scrolls to PriceEstimateCard
     └─→ Mount: track("pro_calculator_started")
-        └─→ Header: "1/6 · Qaysi xona uchun ҳисоблаймиз?"
+        └─→ Header: "1/4 · Qaysi xona uchun?"
             ↓
 [Step 1 — Room]   2×2 icon card grid
     Zal · Yotoqxona · Oshxona · Koridor

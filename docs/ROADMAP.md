@@ -184,13 +184,13 @@ Hozir bot **alohida proyektda** (yoki yaratilishi kerak) — bu repository ichid
 
 ---
 
-## Phase Brand-1 — PotolX rebrand (light premium)  ✅
+## Phase Brand-1 — Potolok X rebrand (light premium)  ✅
 
-VashPotolok → **PotolX**. Dark navy → **clean premium light** theme. Mood: modern interior showroom, premium dizayn studio.
+VashPotolok → **Potolok X**. Dark navy → **clean premium light** theme. Mood: modern interior showroom, premium dizayn studio.
 
 ### Brand
 
-- Brand name: **`PotolX`** (lowercase “otol”, capital P + X)
+- Brand name: **`Potolok X`** (lowercase “otol”, capital P + X)
 - Monogram: **`PX`** (deep blue gradient card, white text)
 - Audience: Instagram bio traffic, uy egasi, oilaviy mijoz, interyerga e'tibor beradigan mijoz
 
@@ -221,9 +221,9 @@ Gradients (`grad-hero`, `grad-glow`, `grad-button`, ...) — light variantlar (`
 
 - `tailwind.config.ts` — to'liq token rewrite (light palette + soft shadows + light gradients)
 - `src/app/globals.css` — `color-scheme: light`, body `#F5F7FB` bg + `#0F172A` text, range slider thumb cobalt accent
-- `src/app/layout.tsx` — metadata: title `PotolX — ...`, description PotolX bilan, OG `siteName: 'PotolX'`, JSON-LD `name: 'PotolX'`, viewport `themeColor: '#F5F7FB' + colorScheme: 'light'`
+- `src/app/layout.tsx` — metadata: title `Potolok X — ...`, description Potolok X bilan, OG `siteName: 'Potolok X'`, JSON-LD `name: 'Potolok X'`, viewport `themeColor: '#F5F7FB' + colorScheme: 'light'`
 - `src/app/icon.svg` — PX monogram (cobalt → deep blue gradient card, white text)
-- `src/app/opengraph-image.tsx` — light off-white background, PX monogram + “PotolX” gradient text, “Qashqadaryo bo‘ylab натяжной потолок”, badge'lar white pill on light
+- `src/app/opengraph-image.tsx` — light off-white background, PX monogram + “Potolok X” gradient text, “Qashqadaryo bo‘ylab natijnoy potolok”, badge'lar white pill on light
 
 ### Komponentlar
 
@@ -232,10 +232,10 @@ Barchasi light theme'ga ko'chirildi — `bg-glass-strong backdrop-blur` patterni
 - `primitives/glass-card.tsx` — white surface + subtle border + soft shadow + top edge highlight
 - `primitives/cta-button.tsx` — variant qayta yozildi (primary blue gradient, secondary green, tertiary cyan, ghost white card with subtle border + accent-soft icon wrap)
 - `premium-background.tsx` — off-white radial + dot grid + soft skylight blue accent (yarim quyosh effekti yo'q, particles olib tashlandi)
-- `hero-section.tsx` — PX monogram + “PotolX” gradient text + Qashqadaryo subtitle + light Showroom panel (bright ceiling + LED line + horizon)
+- `hero-section.tsx` — PX monogram + “Potolok X” gradient text + Qashqadaryo subtitle + light Showroom panel (bright ceiling + LED line + horizon)
 - Calculator: shell, room, size, ceiling (SVG palette to'g'rilandi), result (gradient invoice), breakdown — barchasi light
 - Content sections: services, trust, video, portfolio, testimonials, faq, process — chip header + white card + soft shadow + brand-accent icons
-- `footer-cta.tsx` — light luxury card, PotolX brand footer text
+- `footer-cta.tsx` — light luxury card, Potolok X brand footer text
 - `sticky-bottom-cta.tsx` — light pill, subtle border, soft shadow
 
 ### Saqlandi
@@ -245,10 +245,10 @@ Barchasi light theme'ga ko'chirildi — `bg-glass-strong backdrop-blur` patterni
 - 5 ta ceiling type'lar: odnotonniy / gulli / naqsh / mramor / uv-pechat
 - Conditional render logic (Phase Bio-Ready) — Video / Portfolio / Testimonials hidden if no real content
 - FAQ section
-- Bot linklar, telefon, Instagram (faqat brand display nomi `VashPotolok` → `PotolX`)
-- SEO keywords (Cyrillic `натяжной потолок Қарши` + Latin `Qashqadaryo natyajnoy potolok`)
+- Bot linklar, telefon, Instagram (faqat brand display nomi `VashPotolok` → `Potolok X`)
+- SEO keywords (Cyrillic `natijnoy potolok Qarshi` + Latin `Qashqadaryo natyajnoy potolok`)
 
-**Deliverable:** PotolX — clean premium light brand identity, conversion mechanics o'zgarmadi, faqat visual + brand identity yangilangan. Mood: modern interior studio.
+**Deliverable:** Potolok X — clean premium light brand identity, conversion mechanics o'zgarmadi, faqat visual + brand identity yangilangan. Mood: modern interior studio.
 
 ---
 
@@ -266,13 +266,13 @@ Audit topilgan trust gap'larini Instagram bio publish'idan oldin yopish: real-co
 - **TestimonialItem'da `source?: 'real' | 'sample'`** field qo'shildi. Joriy 3 ta sample sifatida belgilangan — section hozircha hidden.
 - **FAQ section qo'shildi:** `src/data/faq.ts` (6 ta savol-javob, xavfsiz copy) + `src/components/faq-section.tsx` (native `<details>/<summary>` accordion, focus-visible, bot CTA pastida — `source: 'trust'`).
 - **Ceiling type hint'lari yangilandi:**
-  - `odnotonniy`: “Sodda, toza va hamyonbop bir rangli потолок”
+  - `odnotonniy`: “Sodda, toza va hamyonbop bir rangli potolok”
   - `gulli`: “Gul naqshli bezakli ko‘rinish” (differentsiya)
   - `naqsh`: “Geometrik yoki dekorativ naqshli yechim” (differentsiya)
   - `mramor`: saqlandi
   - `uv-pechat`: “Rasm yoki maxsus print bilan individual dizayn”
 - **Ceiling SVG pattern preview qayta dizayn qilindi** — ko'p distinctiv:
-  - Однотонный — silliq gradient + soft glow
+  - Odnotonniy — silliq gradient + soft glow
   - Gulli — 4 petalli gul + dekorativ nuqtalar
   - Naqsh — overlap rhombus geometric ornament + central diamond
   - Mramor — 5 qatlamli marble veins (gold accent)
@@ -315,7 +315,7 @@ Pro Calculator biznes yo'nalishiga mosroq qilib soddalashtirildi.
 ### O'zgarishlar
 
 - **Step soni 6 → 5:** “Qo‘shimcha ishlar” (addons) step **olib tashlandi**. Flow: Room → Size → Ceiling → District → Result.
-- **Yangi ceiling type'lar:** `odnotonniy / gulli / naqsh / mramor / uv-pechat` (eski `matoviy/glyans/satin/led/premium` o'rniga). Har biri uchun inline SVG pattern preview qo'shildi (Однотонный gradient, Gulli dot grid, Naqsh ornamental, Mramor wavy veins, UV pechat photo glyph).
+- **Yangi ceiling type'lar:** `odnotonniy / gulli / naqsh / mramor / uv-pechat` (eski `matoviy/glyans/satin/led/premium` o'rniga). Har biri uchun inline SVG pattern preview qo'shildi (Odnotonniy gradient, Gulli dot grid, Naqsh ornamental, Mramor wavy veins, UV pechat photo glyph).
 - **District policy:** travel fee `0` — barcha 16 Qashqadaryo tumanlari uchun narx bir xil. Tuman tanlovi faqat lead context uchun saqlanadi.
 - **Yangi district ro'yxati (16 ta):** Qarshi shahri, Qarshi tumani, Shahrisabz shahri, Shahrisabz tumani, Kitob, Yakkabog‘, Chiroqchi, Qamashi, G‘uzor, Kasbi, Koson, Nishon, Muborak, Mirishkor, Dehqonobod, Ko‘kdala.
 - **Formula soddalashdi:** `total = ceiling.pricePerM2 × area × room.baseMultiplier` (round to 1000). Addons va travel hisobdan chiqarildi.

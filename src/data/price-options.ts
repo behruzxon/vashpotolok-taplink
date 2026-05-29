@@ -72,8 +72,8 @@ export const roomTypes: RoomType[] = [
 export const ceilingTypes: CeilingType[] = [
   {
     id: 'odnotonniy',
-    label: 'Однотонный',
-    hint: 'Sodda, toza va hamyonbop bir rangli потолок',
+    label: 'Odnotonniy',
+    hint: 'Oddiy bir rangli potolok — sodda, toza, hamyonbop',
     pricePerM2Min: 80000,
     pricePerM2Max: 90000,
     premiumLevel: 'standard',

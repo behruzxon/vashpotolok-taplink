@@ -4,7 +4,7 @@ import { links } from '@/data/links'
 import './globals.css'
 
 const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
+  subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 })
@@ -17,35 +17,34 @@ const phoneRaw = links.phone.replace(/^tel:/, '')
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'PotolX — Qashqadaryoda натяжной потолок',
+  title: 'Potolok X — Qashqadaryoda natijnoy potolok',
   description:
-    'PotolX — Qashqadaryo va Qarshi bo‘ylab zamonaviy натяжной потолок, premium interior dizayn, toza montaj va kafolat shartlari. Telegram bot orqali 1 daqiqada narx hisoblang.',
-  applicationName: 'PotolX',
+    'Qashqadaryo bo‘ylab natijnoy potolok, o‘lchov, dizayn va montaj bo‘yicha qulay yechim. Taxminiy hisobni Telegram bot orqali oling.',
+  applicationName: 'Potolok X',
   keywords: [
-    'PotolX',
-    'натяжной потолок',
-    'натяжной потолок Қарши',
-    'натяжной потолок Қашқадарё',
-    'Qashqadaryo natyajnoy potolok',
-    'Karshi natyajnoy potolok',
+    'Potolok X',
+    'natijnoy potolok',
+    'natijnoy potolok Qarshi',
+    'natijnoy potolok Qashqadaryo',
+    'Qashqadaryo natijnoy potolok',
+    'Karshi natijnoy potolok',
     'LED yoritish potolok',
     'premium interior Qashqadaryo',
   ],
-  authors: [{ name: 'PotolX' }],
-  creator: 'PotolX',
+  authors: [{ name: 'Potolok X' }],
+  creator: 'Potolok X',
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'uz_UZ',
-    alternateLocale: ['ru_RU'],
     url: SITE_URL,
-    siteName: 'PotolX',
-    title: 'PotolX — натяжной потолок Qashqadaryo bo‘ylab',
+    siteName: 'Potolok X',
+    title: 'Potolok X — natijnoy potolok Qashqadaryo bo‘ylab',
     description: 'O‘lchov · Dizayn · Montaj. Premium interior studio Qashqadaryo bo‘ylab.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'PotolX — натяжной потолок Qashqadaryo',
+    title: 'Potolok X — natijnoy potolok Qashqadaryo',
     description: 'O‘lchov · Dizayn · Montaj. Telegram botda narx hisoblang.',
   },
   robots: {
@@ -67,7 +66,7 @@ export const viewport: Viewport = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  name: 'PotolX',
+  name: 'Potolok X',
   image: `${SITE_URL}/opengraph-image`,
   url: SITE_URL,
   telephone: `+${phoneRaw.replace(/^\+/, '')}`,
@@ -91,9 +90,9 @@ const jsonLd = {
   priceRange: '$$',
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Натяжной потолок xizmatlari',
+    name: 'Natijnoy potolok xizmatlari',
     itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'натяжной потолок montaji' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Natijnoy potolok montaji' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'LED yoritish' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Karniz' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Lyustra joyi' } },

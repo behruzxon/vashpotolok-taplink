@@ -31,7 +31,7 @@ export const testimonials: TestimonialItem[] = [
     quote:
       'Zalimiz ancha yorug‘ va chiroyli bo‘lib qoldi. Montaj toza qilindi.',
     location: 'Qarshi',
-    projectType: 'LED натяжной потолок',
+    projectType: 'LED natijnoy potolok',
     areaM2: 24,
     rating: 5,
     customerLabel: 'Qarshi · Zal',
@@ -42,7 +42,7 @@ export const testimonials: TestimonialItem[] = [
     quote:
       'O‘lchovdan keyin narx tushunarli aytildi. Ish tartibli bajarildi.',
     location: 'Qashqadaryo',
-    projectType: 'Matoviy потолок',
+    projectType: 'Matoviy potolok',
     areaM2: 18,
     rating: 5,
     customerLabel: 'Qashqadaryo · Yotoqxona',
@@ -53,7 +53,7 @@ export const testimonials: TestimonialItem[] = [
     quote:
       'Oshxona uchun yorug‘ va toza ko‘rinish bo‘ldi. Maslahat yaxshi berildi.',
     location: 'Qarshi',
-    projectType: 'Glyans потолок',
+    projectType: 'Glyans potolok',
     areaM2: 14,
     rating: 5,
     customerLabel: 'Qarshi · Oshxona',

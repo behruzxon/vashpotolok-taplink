@@ -1,6 +1,6 @@
 # VashPotolok — Premium Mini-Landing
 
-Qashqadaryo va Qarshi bo'ylab **натяжной потолок** xizmati uchun Instagram bio'da ishlatilishi mo'ljallangan premium mini-landing.
+Qashqadaryo va Qarshi bo'ylab **natijnoy potolok** xizmati uchun Instagram bio'da ishlatilishi mo'ljallangan premium mini-landing.
 
 Bu **taplink emas** — bu mini sales funnel + 6-step Pro Calculator.
 
@@ -147,7 +147,7 @@ To'liq checklist: [`docs/DEPLOY_CHECKLIST.md`](./docs/DEPLOY_CHECKLIST.md).
 
 ```
 VASH POTOLOK | Qashqadaryo
-Натяжной потолок · LED · Montaj
+Natijnoy potolok · LED · Montaj
 Narx hisoblash va buyurtma ↓
 ```
 

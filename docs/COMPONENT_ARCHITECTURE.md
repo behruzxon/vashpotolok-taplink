@@ -1,6 +1,6 @@
-# PotolX — Component Architecture
+# Potolok X — Component Architecture
 
-> Phase Brand-1: VashPotolok → PotolX. Dark navy → light premium. Token nomlari saqlandi (`bg-base`, `ink-primary`, ...), qiymatlar `tailwind.config.ts` ichida light theme'ga ko'chirildi.
+> Phase Brand-1: VashPotolok → Potolok X. Dark navy → light premium. Token nomlari saqlandi (`bg-base`, `ink-primary`, ...), qiymatlar `tailwind.config.ts` ichida light theme'ga ko'chirildi.
 
 ## 1. Tree
 
@@ -323,7 +323,7 @@ export type PortfolioItem = {
   title: string
   location: string         // "Qarshi", "Qashqadaryo"
   areaM2?: number          // 24 → ko'rsatiladi: "24 m²"
-  serviceType: string      // "LED yoritish + натяжной потолок"
+  serviceType: string      // "LED yoritish + natijnoy potolok"
   result: string           // 1 satrli natija matni
   image?: string           // /portfolio/zal-led-24.webp  (Phase 2.5)
   beforeImage?: string     // optional, before/after slayder uchun

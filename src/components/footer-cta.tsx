@@ -49,7 +49,7 @@ export function FooterCTA({ phone, phoneDisplay }: Props) {
           </a>
 
           <p className="mt-5 text-[11px] text-ink-muted">
-            © {new Date().getFullYear()} PotolX · Qarshi, Qashqadaryo
+            © {new Date().getFullYear()} Potolok X · Qarshi, Qashqadaryo
           </p>
         </div>
       </GlassCard>

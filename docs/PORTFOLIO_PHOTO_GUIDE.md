@@ -74,10 +74,10 @@ Har item uchun `image` field qo'shing. Boshqa fieldlar (`title`, `location`, `ar
 ```ts
 {
   id: 'zal-led-24',
-  title: 'Zal uchun LED натяжной потолок',
+  title: 'Zal uchun LED natijnoy potolok',
   location: 'Qarshi',
   areaM2: 24,
-  serviceType: 'LED yoritish + натяжной потолок',
+  serviceType: 'LED yoritish + natijnoy potolok',
   result: 'Xona yorug‘ligi va ko‘rinishi premium darajaga chiqdi.',
   gradient: 'radial-gradient(...)',
   tags: ['zal', 'led', 'premium'],
@@ -89,10 +89,10 @@ Har item uchun `image` field qo'shing. Boshqa fieldlar (`title`, `location`, `ar
 ```ts
 {
   id: 'zal-led-24',
-  title: 'Zal uchun LED натяжной потолок',
+  title: 'Zal uchun LED natijnoy potolok',
   location: 'Qarshi',
   areaM2: 24,
-  serviceType: 'LED yoritish + натяжной потолок',
+  serviceType: 'LED yoritish + natijnoy potolok',
   result: 'Xona yorug‘ligi va ko‘rinishi premium darajaga chiqdi.',
   gradient: 'radial-gradient(...)',  // fallback uchun saqlang
   image: '/portfolio/qarshi-zal-led.webp',  // ← yangi

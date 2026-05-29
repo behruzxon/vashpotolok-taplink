@@ -5,7 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Phase Brand-1 — Light premium theme (PotolX)
+        // Phase Brand-1 — Light premium theme (Potolok X)
         // Token nomlari saqlandi (bg-base, bg-elevated, ink-primary, ...),
         // qiymatlar light theme'ga moslashtirildi.
         bg: {

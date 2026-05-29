@@ -209,9 +209,9 @@ Production URL'da bularni manual tekshiring:
 | 29 | `/robots.txt` ochildi | `User-agent: *` + `Allow: /` + `Sitemap: ...` |
 | 30 | `/opengraph-image` ochildi | 1200×630 PNG (brand background + VASH POTOLOK matn) |
 | 31 | `/icon.svg` ochildi | Brand-blue VP monogram |
-| 32 | View Source (Ctrl+U) `<title>` | `VashPotolok — Qashqadaryoda натяжной потолок` |
+| 32 | View Source (Ctrl+U) `<title>` | `VashPotolok — Qashqadaryoda natijnoy potolok` |
 | 33 | View Source `<meta name="description">` | "Qashqadaryo va Qarshi bo'ylab..." |
-| 34 | View Source `<meta property="og:title">` | "VashPotolok — натяжной потолок Қашқадарё бўйлаб" |
+| 34 | View Source `<meta property="og:title">` | "VashPotolok — natijnoy potolok Qashqadaryo bo‘ylab" |
 | 35 | View Source `<script type="application/ld+json">` | LocalBusiness JSON-LD, telephone `+998908866666` |
 | 36 | OG preview test: https://www.opengraph.xyz/url/https%3A%2F%2Fvashpotolok.uz | Brand OG image ko'rinadi |
 | 37 | Google Rich Results test: https://search.google.com/test/rich-results | LocalBusiness markup tasdiqlanadi |
@@ -259,7 +259,7 @@ Deploy tasdiqlangach **va §5.7 hammasi yashil bo'lsa**:
 3. **Bio** matni (tavsiya):
    ```
    VASH POTOLOK | Qashqadaryo
-   Натяжной потолок · LED · Montaj
+   Natijnoy potolok · LED · Montaj
    Narx hisoblash va buyurtma ↓
    ```
 4. **Done**

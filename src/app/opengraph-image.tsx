@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'PotolX — Qashqadaryoda натяжной потолок'
+export const alt = 'Potolok X — Qashqadaryoda natijnoy potolok'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -74,7 +74,7 @@ export default function OpengraphImage() {
             </div>
             <div
               style={{
-                fontSize: 96,
+                fontSize: 88,
                 fontWeight: 800,
                 lineHeight: 1,
                 letterSpacing: -3,
@@ -84,7 +84,7 @@ export default function OpengraphImage() {
                 color: 'transparent',
               }}
             >
-              PotolX
+              Potolok X
             </div>
           </div>
           <div
@@ -95,7 +95,7 @@ export default function OpengraphImage() {
               color: '#1D4ED8',
             }}
           >
-            Qashqadaryo bo‘ylab натяжной потолок
+            Qashqadaryo bo‘ylab natijnoy potolok
           </div>
           <div
             style={{

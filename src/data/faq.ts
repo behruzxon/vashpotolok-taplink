@@ -22,7 +22,7 @@ export const faq: FAQItem[] = [
     id: 'narx-nimaga-qarab',
     question: 'Narx nimaga qarab o‘zgaradi?',
     answer:
-      'Maydon, tanlangan потолок turi, xona holati va montaj murakkabligiga qarab farq qiladi.',
+      'Maydon, tanlangan potolok turi, xona holati va montaj murakkabligiga qarab farq qiladi.',
   },
   {
     id: 'qashqadaryo-xizmat',

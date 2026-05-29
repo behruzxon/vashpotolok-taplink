@@ -141,7 +141,7 @@ Agar mijoz ruxsat bersa:
 
 ### Testimonial samples (`src/data/testimonials.ts`)
 
-1. `customerLabel: "Qarshi · Zal"` — LED натяжной потолок, 24 m², 5/5.
+1. `customerLabel: "Qarshi · Zal"` — LED natijnoy potolok, 24 m², 5/5.
 2. `customerLabel: "Qashqadaryo · Yotoqxona"` — Matoviy, 18 m², 5/5.
 3. `customerLabel: "Qarshi · Oshxona"` — Glyans, 14 m², 5/5.
 

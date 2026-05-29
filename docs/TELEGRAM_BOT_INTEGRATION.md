@@ -118,7 +118,7 @@ Quyidagi ID'lar — **rasmiy kontrakt qismi**. Ularning **har qanday o'zgarishi 
 
 | ID | UI label | Premium level |
 |---|---|---|
-| `odnotonniy` | Однотонный | standard |
+| `odnotonniy` | Odnotonniy | standard |
 | `gulli` | Gulli | comfort |
 | `naqsh` | Naqsh | comfort |
 | `mramor` | Mramor | premium |

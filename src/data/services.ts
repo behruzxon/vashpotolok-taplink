@@ -10,7 +10,7 @@ export type Service = {
 export const services: Service[] = [
   {
     id: 'ceiling',
-    title: 'натяжной потолок',
+    title: 'Natijnoy potolok',
     subtitle: 'Mat, glyans, satin',
     icon: 'ceiling',
   },

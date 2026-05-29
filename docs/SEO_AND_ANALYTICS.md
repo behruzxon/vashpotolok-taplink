@@ -9,14 +9,14 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vashpotolok.uz'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'VashPotolok — Qashqadaryoda натяжной потолок',
+  title: 'VashPotolok — Qashqadaryoda natijnoy potolok',
   description:
-    'Qashqadaryo va Qarshi bo‘ylab zamonaviy натяжной потолок, LED yoritish, toza montaj va kafolatli xizmat. Telegram bot orqali 1 daqiqada narx hisoblang.',
+    'Qashqadaryo va Qarshi bo‘ylab zamonaviy natijnoy potolok, LED yoritish, toza montaj va kafolatli xizmat. Telegram bot orqali 1 daqiqada narx hisoblang.',
   applicationName: 'VashPotolok',
   keywords: [
-    'натяжной потолок',
-    'натяжной потолок Қарши',
-    'натяжной потолок Қашқадарё',
+    'natijnoy potolok',
+    'natijnoy potolok Qarshi',
+    'natijnoy potolok Qashqadaryo',
     'Qashqadaryo natyajnoy potolok',
     'Karshi natyajnoy potolok',
     'LED yoritish potolok',
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     alternateLocale: ['ru_RU'],
     url: SITE_URL,
     siteName: 'VashPotolok',
-    title: 'VashPotolok — натяжной потолок Қашқадарё бўйлаб',
-    description: 'Ўлчовдан монтажгача тайёр ечим. Toza montaj, kafolat, viloyat bo‘ylab xizmat.',
+    title: 'VashPotolok — natijnoy potolok Qashqadaryo bo‘ylab',
+    description: 'O‘lchovdan montajgacha tayyor yechim. Toza montaj, kafolat, viloyat bo‘ylab xizmat.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VashPotolok — натяжной потолок Қашқадарё',
-    description: 'Ўлчовдан монтажгача тайёр ечим. Telegram botda narx hisoblang.',
+    title: 'VashPotolok — natijnoy potolok Qashqadaryo',
+    description: 'O‘lchovdan montajgacha tayyor yechim. Telegram botda narx hisoblang.',
   },
   robots: {
     index: true,
@@ -60,12 +60,12 @@ export const metadata: Metadata = {
 
 ```ts
 export const runtime = 'edge'
-export const alt = 'VashPotolok — Qashqadaryoda натяжной потолок'
+export const alt = 'VashPotolok — Qashqadaryoda natijnoy potolok'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 ```
 
-Brand-blue radial background, “VASH POTOLOK” heading (gradient text), “Қашқадарё бўйлаб натяжной потолок” subtitle, va “Toza montaj · Sifatli material · Kafolat · LED yoritish” badge qatori.
+Brand-blue radial background, “VASH POTOLOK” heading (gradient text), “Qashqadaryo bo‘ylab natijnoy potolok” subtitle, va “Toza montaj · Sifatli material · Kafolat · LED yoritish” badge qatori.
 
 ### Instagram va Telegram preview
 
@@ -114,9 +114,9 @@ const jsonLd = {
   priceRange: '$$',
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Натяжной потолок xizmatlari',
+    name: 'Natijnoy potolok xizmatlari',
     itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'натяжной потолок montaji' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'natijnoy potolok montaji' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'LED yoritish' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Karniz' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Lyustra joyi' } },

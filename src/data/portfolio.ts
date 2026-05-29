@@ -28,10 +28,10 @@ export function hasRealPortfolioImages(items: PortfolioItem[]): boolean {
 export const portfolio: PortfolioItem[] = [
   {
     id: 'zal-led-24',
-    title: 'Zal uchun LED натяжной потолок',
+    title: 'Zal uchun LED natijnoy potolok',
     location: 'Qarshi',
     areaM2: 24,
-    serviceType: 'LED yoritish + натяжной потолок',
+    serviceType: 'LED yoritish + natijnoy potolok',
     result: 'Xona yorug‘ligi va ko‘rinishi premium darajaga chiqdi.',
     gradient:
       'radial-gradient(120% 80% at 30% 0%, #8FB3FF 0%, #2E4A9A 35%, #0E1428 90%)',
@@ -43,7 +43,7 @@ export const portfolio: PortfolioItem[] = [
     title: 'Yotoqxona uchun sokin dizayn',
     location: 'Qashqadaryo',
     areaM2: 18,
-    serviceType: 'Matoviy натяжной потолок',
+    serviceType: 'Matoviy natijnoy potolok',
     result: 'Minimal, toza va sokin ko‘rinish.',
     gradient:
       'linear-gradient(140deg, #1A2244 0%, #0A0E1A 55%, #2A3464 100%)',
@@ -54,7 +54,7 @@ export const portfolio: PortfolioItem[] = [
     title: 'Oshxona uchun amaliy yechim',
     location: 'Qarshi',
     areaM2: 14,
-    serviceType: 'Oson tozalanadigan потолок',
+    serviceType: 'Oson tozalanadigan potolok',
     result: 'Oshxona uchun yorug‘ va toza muhit.',
     gradient:
       'radial-gradient(120% 80% at 80% 10%, #E9CE89 0%, #5C4422 35%, #0A0E1A 95%)',
@@ -65,7 +65,7 @@ export const portfolio: PortfolioItem[] = [
     title: 'Koridor uchun zamonaviy chiziqli LED',
     location: 'Qarshi',
     areaM2: 10,
-    serviceType: 'LED liniya + потолок',
+    serviceType: 'LED liniya + potolok',
     result: 'Kichik joy kengroq va zamonaviy ko‘rindi.',
     gradient:
       'radial-gradient(120% 80% at 50% 0%, #B7CCFF 0%, #3A5BA8 35%, #0E1428 100%)',

@@ -26,7 +26,7 @@ Sahifa **funnel** sifatida ishlaydi: yuqorida — eng issiq CTA (narx), pastida 
 | Bosqich | Sahifa bloki | Maqsad |
 |---|---|---|
 | 1. Diqqatni jalb qilish | Hero + ceiling glow | Brendni eslab qolish, vizual zarba |
-| 2. Tushunish | Subtitle: "Қашқадарё бўйлаб натяжной потолок" | Xizmatni 1 soniyada anglash |
+| 2. Tushunish | Subtitle: "Qashqadaryo bo‘ylab natijnoy potolok" | Xizmatni 1 soniyada anglash |
 | 3. Birinchi qaror | Primary CTA: Telegram bot | Eng past frictionli konversiya |
 | 4. Alternativ kanal | Call + Telegram chat | Boshqa kanalni afzal ko'rganlar uchun |
 | 5. Narx noaniqlik | PriceEstimateCard | "Qancha turadi?" savoliga javob |

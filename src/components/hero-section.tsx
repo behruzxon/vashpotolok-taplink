@@ -24,9 +24,9 @@ export function HeroSection() {
             PX
           </span>
         </span>
-        <h1 className="text-[36px] font-extrabold leading-[1.02] tracking-tight text-ink-primary sm:text-[44px]">
+        <h1 className="text-[32px] font-extrabold leading-[1.02] tracking-tight text-ink-primary sm:text-[40px]">
           <span className="block bg-gradient-to-br from-ink-primary via-brand-primary to-brand-accent bg-clip-text text-transparent">
-            PotolX
+            Potolok X
           </span>
         </h1>
       </div>
@@ -35,7 +35,7 @@ export function HeroSection() {
         Qashqadaryo bo‘ylab
         <br />
         <span className="bg-gradient-to-r from-brand-accent to-brand-primary bg-clip-text text-transparent">
-          натяжной потолок
+          natijnoy potolok
         </span>
       </p>
 

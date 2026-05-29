@@ -1,6 +1,6 @@
-# PotolX — Content Strategy
+# Potolok X — Content Strategy
 
-> **Phase Brand-1 (PotolX, light premium):** brand name `VashPotolok` → `PotolX`. Mood “premium tunda LED” → **`clean premium interior studio`**. `натяжной потолок` keyword saqlanadi (Cyrillic SEO).
+> **Phase Brand-1 (Potolok X, light premium):** brand name `VashPotolok` → `Potolok X`. Mood “premium tunda LED” → **`clean premium interior studio`**. `natijnoy potolok` keyword saqlanadi (Cyrillic SEO).
 
 ## 1. Til qoidasi (Multilingual mix)
 
@@ -10,15 +10,15 @@ VashPotolok mijozi — Qarshi + Qashqadaryo aholisi. Ular **o'zbek + rus + kiril
 
 | Kontekst | Til | Misol |
 |---|---|---|
-| Xizmat nomi (asosiy keyword) | **Kirilcha rus** | `натяжной потолок` |
-| Brend nomi | **Lotin (mixed-case wordmark)** | `PotolX` |
-| Sub-headerlar | **Kirilcha o'zbek** | `Қашқадарё бўйлаб` |
+| Xizmat nomi (asosiy keyword) | **Kirilcha rus** | `natijnoy potolok` |
+| Brend nomi | **Lotin (mixed-case wordmark)** | `Potolok X` |
+| Sub-headerlar | **Kirilcha o'zbek** | `Qashqadaryo bo‘ylab` |
 | CTA tugmalari | **Lotin o'zbek** | `Telegram bot orqali hisoblash` |
 | Ishonch matnlari | **Lotin o'zbek** | `Toza montaj`, `Kafolat` |
 | Footer | **Lotin o'zbek** | `Bugun bepul maslahat oling` |
 | Telefon raqami | **Lokal format** | `90 886 66 66` |
 
-**Sabab:** "натяжной потолок" — local search'da eng ko'p qidiriladi (kirilcha). Lekin CTA matnlari lotinda — chunki yosh segment lotinda yozadi.
+**Sabab:** "natijnoy potolok" — local search'da eng ko'p qidiriladi (kirilcha). Lekin CTA matnlari lotinda — chunki yosh segment lotinda yozadi.
 
 ## 2. Hierarchy va qisqalik
 
@@ -30,15 +30,15 @@ VashPotolok mijozi — Qarshi + Qashqadaryo aholisi. Ular **o'zbek + rus + kiril
 ### Matnlar
 - **Body matn: 1–2 qatorga** sig'sin.
 - Har bir blok bitta gapni aytsin.
-- "Биз энг яхши" gaplari yo'q — buni isbotlovchi faktlar bo'lsin.
+- "Biz eng yaxshi" gaplari yo'q — buni isbotlovchi faktlar bo'lsin.
 
 ## 3. Hero Bloki
 
 ```
 [Brand badge]   VASH POTOLOK
-[Title]         Қашқадарё бўйлаб
-                натяжной потолок
-[Subtitle]      Ўлчовдан монтажгача тайёр ечим
+[Title]         Qashqadaryo bo‘ylab
+                natijnoy potolok
+[Subtitle]      O‘lchovdan montajgacha tayyor yechim
 ```
 
 **Maqsad:** 1 soniyada brend + xizmat + geografiya.
@@ -99,7 +99,7 @@ Demo placeholder vibe oldini olish uchun quyidagi sectionlar **faqat real konten
 - Section title: `Video ishlarimiz`
 - Subtitle: `Montaj jarayoni va tayyor natijalarni qisqa videolarda ko‘ring.`
 - Har card uchun:
-  - **Title** — qisqa, 5–8 so'z (`"Zal uchun LED натяжной потолок"`)
+  - **Title** — qisqa, 5–8 so'z (`"Zal uchun LED natijnoy potolok"`)
   - **Tags** — max 3–4 ta (`LED`, `Zal`, `Qarshi`)
   - **Duration** — `M:SS` format (15–30 soniya Reels)
   - **CTA** — `"Videoni ko‘rish"`, Instagram Reels linkka olib boradi
@@ -144,7 +144,7 @@ Yangi FAQ qo'shilsa: `id` lotin kebab-case, `question` qisqa (max 60 belgi), `an
 ## 6. Xizmatlar (ServicesGrid)
 
 ```
-1. натяжной потолок    — Asosiy xizmat
+1. natijnoy potolok    — Asosiy xizmat
 2. LED yoritish        — Trend, premium
 3. Karniz              — Komplementar
 4. Lyustra joyi        — Texnik talab
@@ -169,7 +169,7 @@ Har bir xizmat:
 
 ```
 1. Buyurtma — Telegram yoki qo'ng'iroq
-2. Ўлчов — Mutaxassis kelib o'lchaydi (bepul)
+2. O‘lchov — Mutaxassis kelib o'lchaydi (bepul)
 3. Tanlash — Material va rang
 4. Montaj — Toza, 1 kunda
 5. Kafolat — Rasmiy hujjat
@@ -182,7 +182,7 @@ Har bir step: **1 so'zli sarlavha + 1 satrli izoh**.
 ```
 [Title]   Bugun bepul maslahat oling
 [CTA]     📞 90 886 66 66
-[Caption] Қашқадарё бўйлаб, ҳар куни 09:00–20:00
+[Caption] Qashqadaryo bo‘ylab, har kuni 09:00–20:00
 ```
 
 ## 10. Microcopy qoidalari
@@ -193,15 +193,15 @@ Har bir step: **1 so'zli sarlavha + 1 satrli izoh**.
 | `Kontakt` | `Qo'ng'iroq qilish` |
 | `Bizning ishlarimiz` | `Ishlarimizni ko'rish` |
 | `Onlayn kalkulyator` | `Narx hisoblash` |
-| `Профессионал команда` | `Toza montaj` |
+| `Professional jamoa` | `Toza montaj` |
 
 **Qoida:** har bir matn — **harakat fe'li bilan tugaydi** yoki **konkret natijani** beradi.
 
 ## 11. SEO uchun kalit so'zlar
 
-- `натяжной потолок Қарши`
-- `натяжной потолок Қашқадарё`
-- `Qashqadaryoda натяжной потолок`
+- `natijnoy potolok Qarshi`
+- `natijnoy potolok Qashqadaryo`
+- `Qashqadaryoda natijnoy potolok`
 - `Karshi natyajnoy potolok`
 - `LED yoritish potolok`
 
