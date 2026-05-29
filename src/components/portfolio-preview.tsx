@@ -3,7 +3,6 @@
 import type { PortfolioItem } from '@/data/portfolio'
 import { createTelegramBotLink } from '@/data/links'
 import { track } from '@/lib/analytics'
-import { cn } from '@/lib/cn'
 
 type Props = {
   items: PortfolioItem[]
@@ -47,16 +46,11 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
         ) : null}
       </div>
 
-      <div className="-mx-5 px-5">
-        <ul
-          className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-3 pr-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          role="list"
-        >
-          {items.map((item) => (
-            <PortfolioCard key={item.id} item={item} />
-          ))}
-        </ul>
-      </div>
+      <ul className="flex flex-col gap-4" role="list">
+        {items.map((item) => (
+          <PortfolioCard key={item.id} item={item} />
+        ))}
+      </ul>
 
       <a
         href={portfolioBotLink}
@@ -149,88 +143,54 @@ function RenderPlaceholder({ gradient }: { gradient: string }) {
 }
 
 function PortfolioCard({ item }: { item: PortfolioItem }) {
-  const isFeatured = item.featured === true
   const href = createTelegramBotLink('portfolio')
 
   return (
-    <li
-      className={cn(
-        'group relative shrink-0 snap-start overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-card',
-        isFeatured ? 'w-[82%]' : 'w-[70%]',
-      )}
-    >
+    <li className="group relative w-full overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-card">
       <article className="relative flex h-full flex-col">
-        <div
-          className={cn(
-            'relative overflow-hidden',
-            isFeatured ? 'aspect-[4/3]' : 'aspect-[4/3.2]',
-          )}
-        >
-          {item.image ? (
-            // Phase 2.5: next/image bilan almashtiriladi (real fotosurat kelganda).
-            // eslint-disable-next-line @next/next/no-img-element
+        {/* Image zone — pure photo, no overlay text/badges/gradient */}
+        {item.image ? (
+          <div className="relative aspect-[3/4] overflow-hidden bg-bg-base">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={item.image}
-              alt={`${item.title} — ${item.location}`}
+              alt={item.title}
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="h-full w-full object-contain object-center"
             />
-          ) : (
+          </div>
+        ) : (
+          // Fallback placeholder (no real image): keep abstract render
+          <div className="relative aspect-[4/3] overflow-hidden">
             <RenderPlaceholder gradient={item.gradient} />
-          )}
+          </div>
+        )}
 
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-60"
-            style={{
-              background:
-                'radial-gradient(60% 40% at 50% 0%, rgba(255,255,255,0.18), transparent 70%)',
-            }}
-          />
-
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -left-1/2 top-0 h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:animate-shine motion-reduce:hidden"
-          />
-
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/90 backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-accent-glow shadow-[0_0_8px_rgba(91,155,255,0.9)]" />
-            Ish namunasi
-          </span>
-
-          {item.areaM2 ? (
-            <span className="absolute right-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-bold tabular-nums text-white backdrop-blur-md">
-              {item.areaM2} m²
-            </span>
-          ) : null}
-
-          <div
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 h-2/3"
-            style={{
-              background:
-                'linear-gradient(to top, rgba(8,11,22,0.92) 0%, rgba(8,11,22,0.55) 45%, transparent 100%)',
-            }}
-          />
-
-          <div className="absolute inset-x-0 bottom-0 p-4">
-            <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/70">
-              <svg viewBox="0 0 24 24" className="h-3 w-3 text-brand-accent-glow" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        {/* Body — all text moved here, below image */}
+        <div className="flex flex-1 flex-col gap-3 bg-bg-surface p-4">
+          <div className="flex items-center justify-between gap-2">
+            <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink-secondary">
+              <svg viewBox="0 0 24 24" className="h-3 w-3 text-brand-accent" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M12 21s7-6 7-12a7 7 0 1 0-14 0c0 6 7 12 7 12z" />
                 <circle cx="12" cy="9" r="2.5" />
               </svg>
               {item.location}
             </p>
-            <h3 className="mt-1 text-[16px] font-bold leading-tight text-white drop-shadow-sm">
-              {item.title}
-            </h3>
+            {item.areaM2 ? (
+              <span className="rounded-full border border-line-soft bg-bg-base px-2.5 py-0.5 text-[11px] font-bold tabular-nums text-ink-primary">
+                {item.areaM2} m²
+              </span>
+            ) : null}
           </div>
-        </div>
 
-        <div className="flex flex-1 flex-col gap-3 bg-bg-surface p-4">
+          <h3 className="text-[17px] font-bold leading-tight text-ink-primary">
+            {item.title}
+          </h3>
+
           <p className="text-[12px] font-semibold uppercase tracking-wider text-brand-primary">
             {item.serviceType}
           </p>
+
           <p className="text-[13px] leading-snug text-ink-secondary">
             {item.result}
           </p>
