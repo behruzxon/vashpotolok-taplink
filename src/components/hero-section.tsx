@@ -29,11 +29,11 @@ export function HeroSection() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/brand/potolok-x-logo.jpg"
+            src="/brand/potolok-x-logo-cropped.webp"
             alt=""
             loading="eager"
             decoding="async"
-            className="h-full w-full scale-150 object-contain object-center"
+            className="h-full w-full object-contain object-center"
           />
         </span>
       </h1>
