@@ -108,50 +108,39 @@ export function ServicesGrid({ items }: Props) {
       <div className="flex flex-col gap-2.5">
         {featured ? <FeaturedCard service={featured} /> : null}
 
-        <ul className="grid grid-cols-2 gap-2.5">
-          {rest.map((s, i) => {
-            const isLastOdd = i === rest.length - 1 && rest.length % 2 === 1
-            return (
-              <li
-                key={s.id}
-                className={cn(
-                  'group relative overflow-hidden rounded-2xl border border-line-soft bg-bg-surface p-3 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-accent/30 hover:shadow-card motion-reduce:transition-none motion-reduce:hover:transform-none',
-                  isLastOdd && 'col-span-2',
-                )}
-              >
+        <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          {rest.map((s) => (
+            <li
+              key={s.id}
+              className="group relative overflow-hidden rounded-2xl border border-line-soft bg-bg-surface p-3.5 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-accent/30 hover:shadow-card motion-reduce:transition-none motion-reduce:hover:transform-none"
+            >
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand-accent-soft blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              />
+              <div className="flex items-center gap-3">
+                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-accent-soft text-brand-accent ring-1 ring-brand-accent/15 transition-all duration-300 group-hover:scale-[1.06] group-hover:shadow-[0_4px_12px_-4px_rgba(47,107,255,0.45)]">
+                  <ServiceIconSVG name={s.icon} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[14.5px] font-semibold leading-tight text-ink-primary">
+                    {s.title}
+                  </p>
+                  {s.subtitle ? (
+                    <p className="mt-0.5 text-[12px] leading-snug text-ink-secondary">
+                      {s.subtitle}
+                    </p>
+                  ) : null}
+                </div>
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand-accent-soft blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                />
-                {s.badge ? (
-                  <span className="absolute right-2 top-2 inline-flex items-center rounded-full border border-brand-accent/20 bg-brand-accent-soft px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.10em] text-brand-primary">
-                    {s.badge}
-                  </span>
-                ) : null}
-                <div className="flex items-center gap-3">
-                  <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-accent-soft text-brand-accent ring-1 ring-brand-accent/15 transition-all duration-300 group-hover:scale-[1.06] group-hover:shadow-[0_4px_12px_-4px_rgba(47,107,255,0.45)]">
-                    <ServiceIconSVG name={s.icon} />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-[14px] font-semibold leading-tight text-ink-primary">
-                      {s.title}
-                    </p>
-                    {s.subtitle ? (
-                      <p className="truncate text-[11.5px] leading-tight text-ink-secondary">
-                        {s.subtitle}
-                      </p>
-                    ) : null}
-                  </div>
-                  <span
-                    aria-hidden
-                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bg-base text-ink-muted transition-all duration-300 group-hover:bg-brand-accent-soft group-hover:text-brand-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  >
-                    <ArrowUpRight className="h-3 w-3" />
-                  </span>
-                </div>
-              </li>
-            )
-          })}
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-bg-base text-ink-muted transition-all duration-300 group-hover:bg-brand-accent-soft group-hover:text-brand-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                >
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </span>
+              </div>
+            </li>
+          ))}
         </ul>
 
         <a
@@ -182,24 +171,26 @@ function FeaturedCard({ service }: { service: Service }) {
         className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-brand-accent-soft blur-3xl opacity-70 transition-opacity duration-500 group-hover:opacity-100"
       />
 
+      {service.badge ? (
+        <div className="relative mb-2.5 flex">
+          <span className="inline-flex items-center gap-1 rounded-full border border-brand-accent/30 bg-brand-accent-soft px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.14em] text-brand-primary">
+            <span aria-hidden className="h-1 w-1 rounded-full bg-brand-accent" />
+            {service.badge}
+          </span>
+        </div>
+      ) : null}
+
       <div className="relative flex items-center gap-3.5">
         <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-bg-surface text-brand-primary ring-1 ring-brand-accent/30 shadow-[0_6px_18px_-6px_rgba(47,107,255,0.45)] transition-all duration-300 group-hover:scale-[1.06] group-hover:shadow-[0_10px_24px_-6px_rgba(47,107,255,0.55)]">
           <ServiceIconSVG name={service.icon} size={6} />
         </span>
 
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1.5">
-            <p className="truncate text-[16px] font-bold leading-tight text-ink-primary">
-              {service.title}
-            </p>
-            {service.badge ? (
-              <span className="shrink-0 rounded-full border border-brand-accent/30 bg-brand-accent-soft px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] text-brand-primary">
-                {service.badge}
-              </span>
-            ) : null}
-          </div>
+          <p className="text-[16px] font-bold leading-tight text-ink-primary">
+            {service.title}
+          </p>
           {service.subtitle ? (
-            <p className="mt-0.5 text-[12.5px] leading-snug text-ink-secondary">
+            <p className="mt-1 text-[12.5px] leading-snug text-ink-secondary">
               {service.subtitle}
             </p>
           ) : null}
