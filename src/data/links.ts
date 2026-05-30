@@ -30,7 +30,7 @@ export function createTelegramBotLink(source?: TelegramSource | string): string 
 
 export const links: Links = {
   telegramBot: createTelegramBotLink('hero'),
-  telegramProfile: 'https://t.me/vashpotolok',
+  telegramProfile: 'https://t.me/behruzxon6666',
   catalog: 'https://t.me/vashpotolokuz',
   instagram: 'https://www.instagram.com/potolok_x',
   youtube: 'https://www.youtube.com/@Behruzxonusta',

@@ -1,14 +1,12 @@
 'use client'
 
 import type { FAQItem } from '@/data/faq'
-import { createTelegramBotLink } from '@/data/links'
+import { links } from '@/data/links'
 import { track } from '@/lib/analytics'
 
 type Props = {
   items: FAQItem[]
 }
-
-const faqBotLink = createTelegramBotLink('trust')
 
 export function FAQSection({ items }: Props) {
   if (items.length === 0) return null
@@ -59,10 +57,10 @@ export function FAQSection({ items }: Props) {
       </ul>
 
       <a
-        href={faqBotLink}
+        href={links.telegramProfile}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => track('click_telegram_bot', { source: 'trust' })}
+        onClick={() => track('click_telegram_profile', { source: 'faq' })}
         aria-label="Savolingizni Telegramda yozish"
         className="mt-3 flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-line-soft bg-bg-surface px-4 py-3 text-[14px] font-semibold text-ink-primary shadow-soft transition-colors hover:bg-bg-base active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
       >
