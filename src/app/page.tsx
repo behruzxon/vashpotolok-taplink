@@ -31,7 +31,7 @@ export default function Page() {
     <>
       <PremiumBackground />
 
-      <main className="relative mx-auto flex w-full max-w-[480px] flex-col gap-7 px-5 pb-32 pt-2">
+      <main className="relative mx-auto flex w-full max-w-[480px] flex-col gap-7 px-5 pt-2 pb-[calc(9rem+env(safe-area-inset-bottom))]">
         <HeroSection />
 
         <RevealOnScroll>
