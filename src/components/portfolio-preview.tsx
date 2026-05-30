@@ -1,15 +1,13 @@
 'use client'
 
 import type { PortfolioItem } from '@/data/portfolio'
-import { createTelegramBotLink } from '@/data/links'
+import { links } from '@/data/links'
 import { track } from '@/lib/analytics'
 
 type Props = {
   items: PortfolioItem[]
   portfolioLink?: string
 }
-
-const portfolioBotLink = createTelegramBotLink('portfolio')
 
 export function PortfolioPreview({ items, portfolioLink }: Props) {
   return (
@@ -58,14 +56,16 @@ export function PortfolioPreview({ items, portfolioLink }: Props) {
       </div>
 
       <a
-        href={portfolioBotLink}
+        href={links.catalog}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => track('click_telegram_bot', { source: 'portfolio' })}
-        className="mt-2 flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-line-soft bg-bg-surface px-4 py-3 text-[14px] font-semibold text-ink-primary shadow-soft transition-colors hover:bg-bg-base active:scale-[0.98]"
+        onClick={() => track('click_catalog', { source: 'portfolio' })}
+        aria-label="Katalogni Telegramda ko‘rish"
+        className="mt-2 flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-line-soft bg-bg-surface px-4 py-3 text-[14px] font-semibold text-ink-primary shadow-soft transition-colors hover:bg-bg-base active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
       >
         <span className="text-brand-accent">★</span>
-        Shunday yechim sizga ham — botda hisoblating
+        Katalogni ko‘rish
+        <span aria-hidden className="text-brand-accent">→</span>
       </a>
     </section>
   )
@@ -148,8 +148,6 @@ function RenderPlaceholder({ gradient }: { gradient: string }) {
 }
 
 function PortfolioCard({ item }: { item: PortfolioItem }) {
-  const href = createTelegramBotLink('portfolio')
-
   return (
     <li className="group relative w-[86%] max-w-[360px] shrink-0 snap-start overflow-hidden rounded-3xl border border-line-soft bg-bg-surface shadow-card">
       <article className="relative flex h-full flex-col">
@@ -214,19 +212,23 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
           ) : null}
 
           <a
-            href={href}
+            href={links.catalog}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => {
               track('click_portfolio', { itemId: item.id })
-              track('click_telegram_bot', { source: 'portfolio' })
+              track('click_catalog', { source: 'portfolio' })
             }}
+            aria-label={`${item.title} — katalogni ko‘rish`}
             className="mt-auto flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-grad-button text-[13px] font-semibold text-white shadow-cta transition-transform active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
           >
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
-              <path d="M21.5 4.2 2.8 11.4c-1 .4-.9 1.8.1 2l4.8 1.4 1.8 5.5c.2.6 1 .8 1.4.3l2.7-3 5 3.7c.8.6 2 .2 2.2-.8l3.4-14.6c.3-1.1-.8-2-1.8-1.6Z"/>
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <rect x="3" y="3" width="7.5" height="7.5" rx="1.5" />
+              <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5" />
+              <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5" />
+              <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5" />
             </svg>
-            Shunga o‘xshash hisoblatish
+            Katalogni ko‘rish
           </a>
         </div>
       </article>

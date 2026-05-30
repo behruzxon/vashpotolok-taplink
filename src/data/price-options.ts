@@ -1,5 +1,5 @@
 /**
- * VashPotolok Pro Calculator — narx konfiguratsiyasi (Phase Calc-2).
+ * Potolok X — Pro Calculator narx konfiguratsiyasi.
  *
  * MIJOZ KO'RADI: faqat taxminiy min/max range. Aniq narx — usta o'lchov
  * olganidan keyin belgilanadi. Buni `Result step` disclaimer'i va
