@@ -62,7 +62,7 @@ export function MainCTAButtons({ links }: Props) {
       <div className="grid grid-cols-2 gap-2.5">
         <CtaButton
           href={links.instagram}
-          variant="ghost"
+          variant="instagram"
           compact
           label="Instagram"
           ariaLabel="Instagram profil"
@@ -78,7 +78,7 @@ export function MainCTAButtons({ links }: Props) {
 
         <CtaButton
           href={links.youtube}
-          variant="ghost"
+          variant="youtube"
           compact
           label="YouTube"
           ariaLabel="YouTube kanalini ochish"

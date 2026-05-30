@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
-type Variant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
+type Variant = 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'instagram' | 'youtube'
 
 type Props = {
   href: string
@@ -28,6 +28,10 @@ const variantClasses: Record<Variant, string> = {
     'bg-grad-button-tg text-white shadow-cta-tg border-transparent',
   ghost:
     'bg-bg-surface text-ink-primary border-line-soft shadow-soft hover:border-line-strong hover:shadow-card',
+  instagram:
+    'bg-gradient-to-br from-pink-50 via-orange-50 to-indigo-50 text-ink-primary border-fuchsia-200/70 shadow-soft hover:border-fuchsia-300/80 hover:shadow-[0_10px_24px_-10px_rgba(217,70,239,0.32)]',
+  youtube:
+    'bg-gradient-to-br from-red-50 to-rose-50 text-ink-primary border-red-200/80 shadow-soft hover:border-red-300/80 hover:shadow-[0_10px_24px_-10px_rgba(239,68,68,0.32)]',
 }
 
 const iconWrapClasses: Record<Variant, string> = {
@@ -35,6 +39,8 @@ const iconWrapClasses: Record<Variant, string> = {
   secondary: 'bg-white/20 ring-1 ring-white/30',
   tertiary: 'bg-white/20 ring-1 ring-white/30',
   ghost: 'bg-brand-accent-soft ring-1 ring-brand-accent/15 text-brand-accent',
+  instagram: 'bg-pink-100/80 ring-1 ring-fuchsia-300/40 text-fuchsia-600',
+  youtube: 'bg-red-100/80 ring-1 ring-red-300/40 text-red-600',
 }
 
 export function CtaButton({
